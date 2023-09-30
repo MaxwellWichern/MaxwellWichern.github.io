@@ -1,13 +1,6 @@
 import React from 'react'
 import MyDropzone from './MyDropzone'
 
-const fileTypes = ["JPG", "PNG"]
-
-const imagesArea = {
-  border: '1px dashed',
-  background: 'red'
-}
-
 const formArea = {
   background: 'grey',
   display: 'center'
@@ -23,7 +16,7 @@ export default function EncodingPage(props) {
   return(
     <>
       <h2>Encode your image!</h2>
-      <div style={{display: 'flex'}}>
+      <div style={{ alignItems: 'center'}}>
         <form name="inputForm" style={formArea}>
 
 
