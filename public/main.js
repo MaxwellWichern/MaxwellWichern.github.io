@@ -25963,8 +25963,10 @@
     padding: "3px"
   };
   var imageStyle = {
-    width: "60%",
-    heigh: "auto"
+    width: "20%",
+    heigh: "auto",
+    margin: "10px",
+    padding: "3px"
   };
   function MyDropzone(props) {
     const { purpose } = props;
@@ -25995,21 +25997,21 @@
       }
     }, []);
     const { getRootProps, getInputProps } = useDropzone({ onDrop });
-    return /* @__PURE__ */ import_react3.default.createElement("div", null, !usingImageChosen && /* @__PURE__ */ import_react3.default.createElement("div", __spreadValues({ style: dropzoneStyle }, getRootProps()), /* @__PURE__ */ import_react3.default.createElement("input", __spreadValues({ type: "file", accept: "image/*" }, getInputProps())), /* @__PURE__ */ import_react3.default.createElement("p", null, "Drag 'n' drop some files here, or click to select files"), /* @__PURE__ */ import_react3.default.createElement("p", null, purpose)), usingImageChosen && /* @__PURE__ */ import_react3.default.createElement("img", { style: imageStyle, id: "stegOriginal", src: "#" }));
+    return /* @__PURE__ */ import_react3.default.createElement("div", null, !usingImageChosen && /* @__PURE__ */ import_react3.default.createElement("div", __spreadValues({ style: dropzoneStyle }, getRootProps()), /* @__PURE__ */ import_react3.default.createElement("input", __spreadValues({ name: "inputForm", type: "file", accept: "image/*" }, getInputProps())), /* @__PURE__ */ import_react3.default.createElement("p", null, "Drag 'n' drop some files here, or click to select files"), /* @__PURE__ */ import_react3.default.createElement("p", null, purpose)), usingImageChosen && /* @__PURE__ */ import_react3.default.createElement("img", { style: imageStyle, id: "stegOriginal", src: "#" }));
   }
 
   // client/components/EncodingPage.jsx
-  var formArea = {
-    background: "grey",
-    display: "center"
-  };
   function EncodingPage(props) {
     const [imageSelect, setImageSelect] = import_react4.default.useState(true);
-    return /* @__PURE__ */ import_react4.default.createElement(import_react4.default.Fragment, null, /* @__PURE__ */ import_react4.default.createElement("h2", null, "Encode your image!"), /* @__PURE__ */ import_react4.default.createElement("div", { style: { alignItems: "center" } }, /* @__PURE__ */ import_react4.default.createElement("form", { name: "inputForm", style: formArea }, /* @__PURE__ */ import_react4.default.createElement(MyDropzone, { purpose: "Use This Image To Hide" }), imageSelect && /* @__PURE__ */ import_react4.default.createElement(MyDropzone, { purpose: "Hide This Image" }), !imageSelect && /* @__PURE__ */ import_react4.default.createElement("label", { htmlFor: "hiddenTextField", id: "hiddenTextContainer" }, /* @__PURE__ */ import_react4.default.createElement("input", { type: "text", id: "hiddenTextField" })), /* @__PURE__ */ import_react4.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "64", height: "64", fill: "currentColor", className: "bi bi-arrow-right-circle", viewBox: "0 0 16 16" }, /* @__PURE__ */ import_react4.default.createElement("path", { fillRule: "evenodd", d: "M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" }))), /* @__PURE__ */ import_react4.default.createElement("div", null, /* @__PURE__ */ import_react4.default.createElement("input", { type: "radio", name: "messageType", value: "image", onClick: () => {
+    const onSubmission = (e) => {
+      console.log(e);
+      e.preventDefault();
+    };
+    return /* @__PURE__ */ import_react4.default.createElement(import_react4.default.Fragment, null, /* @__PURE__ */ import_react4.default.createElement("h2", null, "Encode your image!"), /* @__PURE__ */ import_react4.default.createElement("div", { style: { alignItems: "center" } }, /* @__PURE__ */ import_react4.default.createElement("form", { name: "inputForm", onSubmit: onSubmission }, /* @__PURE__ */ import_react4.default.createElement(MyDropzone, { purpose: "Use This Image To Hide" }), imageSelect && /* @__PURE__ */ import_react4.default.createElement(MyDropzone, { purpose: "Hide This Image" }), !imageSelect && /* @__PURE__ */ import_react4.default.createElement("label", { htmlFor: "hiddenTextField", id: "hiddenTextContainer" }, /* @__PURE__ */ import_react4.default.createElement("input", { type: "text", name: "inputForm", id: "hiddenTextField" })), /* @__PURE__ */ import_react4.default.createElement("div", null, /* @__PURE__ */ import_react4.default.createElement("input", { type: "radio", name: "messageType", value: "image", onClick: () => {
       setImageSelect(true);
     } }), /* @__PURE__ */ import_react4.default.createElement("input", { type: "radio", name: "messageType", value: "text", onClick: () => {
       setImageSelect(false);
-    } })), /* @__PURE__ */ import_react4.default.createElement("div", null)));
+    } })), /* @__PURE__ */ import_react4.default.createElement("label", null, /* @__PURE__ */ import_react4.default.createElement("input", { style: { display: "none" }, type: "submit", value: "Submit" }), /* @__PURE__ */ import_react4.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "64", height: "64", fill: "currentColor", className: "bi bi-arrow-right-circle", viewBox: "0 0 16 16" }, /* @__PURE__ */ import_react4.default.createElement("path", { fillRule: "evenodd", d: "M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" })))), /* @__PURE__ */ import_react4.default.createElement("div", null)));
   }
 
   // client/components/InstructionPage.jsx

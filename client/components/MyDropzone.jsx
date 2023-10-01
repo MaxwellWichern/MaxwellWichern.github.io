@@ -13,8 +13,10 @@ const dropzoneStyle = {
 }
 
 const imageStyle = {
-  width: '60%',
-  heigh: 'auto'
+  width: '20%',
+  heigh: 'auto',
+  margin: '10px',
+  padding: '3px'
 }
 
 
@@ -60,7 +62,7 @@ export default function MyDropzone(props) {
   return (
     <div>
       {!usingImageChosen && <div style={dropzoneStyle} {...getRootProps()}>
-        <input type='file' accept='image/*' {...getInputProps()} />
+        <input name='inputForm' type='file' accept='image/*' {...getInputProps()} />
         <p>Drag 'n' drop some files here, or click to select files</p>
         <p>{purpose}</p>
       </div>}
