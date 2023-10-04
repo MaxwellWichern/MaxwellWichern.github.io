@@ -6,6 +6,7 @@ import CollectionPage from './CollectionPage.jsx'
 import DecodingPage from './DecodingPage.jsx'
 import AboutPage from './AboutPage.jsx'
 import AccountPage from './AccountPage.jsx'
+import LoginPage from './LoginPage.jsx'
 
 import { PagesContext } from './App.jsx'
 
