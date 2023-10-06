@@ -2,6 +2,7 @@ import React from 'react'
 
 import PageHeader from './PageHeader.jsx'
 import Page from './Page.jsx'
+import LoginPage from './LoginPage.jsx'
 
 export const PagesContext = React.createContext(null)
 
@@ -26,6 +27,7 @@ export default function App (props) {
         value6: [accountPage, setAccountPage]
         }}>
         <PageHeader title='Steganography'/>
+        <LoginPage/>
         <Page/>
       </PagesContext.Provider>
     </div>

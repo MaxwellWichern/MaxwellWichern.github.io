@@ -2416,9 +2416,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React13 = require_react();
+          var React14 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React13.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React14.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -4023,7 +4023,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React13.Children.forEach(props.children, function(child) {
+                  React14.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -12470,7 +12470,7 @@
             }
           }
           var fakeInternalInstance = {};
-          var emptyRefsObject = new React13.Component().refs;
+          var emptyRefsObject = new React14.Component().refs;
           var didWarnAboutStateAssignmentForComponent;
           var didWarnAboutUninitializedState;
           var didWarnAboutGetSnapshotBeforeUpdateWithoutDidUpdate;
@@ -24345,11 +24345,11 @@
   });
 
   // client/main.jsx
-  var import_react12 = __toESM(require_react(), 1);
+  var import_react13 = __toESM(require_react(), 1);
   var import_client = __toESM(require_client(), 1);
 
   // client/components/App.jsx
-  var import_react11 = __toESM(require_react(), 1);
+  var import_react12 = __toESM(require_react(), 1);
 
   // client/components/PageHeader.jsx
   var import_react = __toESM(require_react(), 1);
@@ -24498,7 +24498,7 @@
   };
 
   // client/components/Page.jsx
-  var import_react10 = __toESM(require_react(), 1);
+  var import_react11 = __toESM(require_react(), 1);
 
   // client/components/EncodingPage.jsx
   var import_react4 = __toESM(require_react(), 1);
@@ -26044,45 +26044,76 @@
     return /* @__PURE__ */ import_react9.default.createElement("div", null, "Account to be added in post");
   }
 
+  // client/components/LoginPage.jsx
+  var import_react10 = __toESM(require_react(), 1);
+  function LoginPage(props) {
+    const [userNameText, setUserNameText] = import_react10.default.useState("");
+    const [passwordText, setPasswordText] = import_react10.default.useState("");
+    const submitCredentials = (e) => {
+      const usernameErrorMessage = document.getElementById("usernameErrorMessage");
+      const passwordErrorMessage = document.getElementById("passwordErrorMessage");
+      if (userNameText == "") {
+        if (passwordText == "") {
+          passwordErrorMessage.style.visibility = "visible";
+        }
+        usernameErrorMessage.style.visibility = "visible";
+        return;
+      }
+      if (passwordText == "") {
+        passwordErrorMessage.style.visibility = "visible";
+        return;
+      }
+      usernameErrorMessage.style.visibility = "hidden";
+      passwordErrorMessage.style.visibility = "hidden";
+      console.log("Username is: " + userNameText);
+      console.log("Password is: " + passwordText);
+    };
+    return /* @__PURE__ */ import_react10.default.createElement("div", null, /* @__PURE__ */ import_react10.default.createElement("h1", null, "Login Page"), /* @__PURE__ */ import_react10.default.createElement("input", { type: "text", id: "usernameInput", onChange: (e) => {
+      setUserNameText(e.target.value);
+    } }), /* @__PURE__ */ import_react10.default.createElement("div", { style: { visibility: "hidden" }, id: "usernameErrorMessage" }, "Username is empty."), /* @__PURE__ */ import_react10.default.createElement("input", { type: "text", id: "passwordInput", onChange: (e) => {
+      setPasswordText(e.target.value);
+    } }), /* @__PURE__ */ import_react10.default.createElement("div", { style: { visibility: "hidden" }, id: "passwordErrorMessage" }, "Password is empty."), /* @__PURE__ */ import_react10.default.createElement("input", { type: "submit", id: "credentialSubmit", onClick: submitCredentials, value: "Submit" }));
+  }
+
   // client/components/Page.jsx
   var pageStyle = {
     textAlign: "center",
     height: "100vh"
   };
   function Page(props) {
-    const { value1, value2, value3, value4, value5, value6 } = import_react10.default.useContext(PagesContext);
+    const { value1, value2, value3, value4, value5, value6 } = import_react11.default.useContext(PagesContext);
     const [instructionsPage, setInstructionsPage] = value1;
     const [encoderPage, setEncoderPage] = value2;
     const [decoderPage, setDecoderPage] = value3;
     const [dataCollectionPage, setDataCollectionPage] = value4;
     const [aboutPage, setAboutPage] = value5;
     const [accountPage, setAccountPage] = value6;
-    return /* @__PURE__ */ import_react10.default.createElement(import_react10.default.Fragment, null, /* @__PURE__ */ import_react10.default.createElement("div", { style: pageStyle }, encoderPage && /* @__PURE__ */ import_react10.default.createElement(EncodingPage, null), decoderPage && /* @__PURE__ */ import_react10.default.createElement(DecodingPage, null), instructionsPage && /* @__PURE__ */ import_react10.default.createElement(InstructionPage, null), dataCollectionPage && /* @__PURE__ */ import_react10.default.createElement(CollectionPage, null), aboutPage && /* @__PURE__ */ import_react10.default.createElement(AboutPage, null), accountPage && /* @__PURE__ */ import_react10.default.createElement(AccountPage, null)));
+    return /* @__PURE__ */ import_react11.default.createElement(import_react11.default.Fragment, null, /* @__PURE__ */ import_react11.default.createElement("div", { style: pageStyle }, encoderPage && /* @__PURE__ */ import_react11.default.createElement(EncodingPage, null), decoderPage && /* @__PURE__ */ import_react11.default.createElement(DecodingPage, null), instructionsPage && /* @__PURE__ */ import_react11.default.createElement(InstructionPage, null), dataCollectionPage && /* @__PURE__ */ import_react11.default.createElement(CollectionPage, null), aboutPage && /* @__PURE__ */ import_react11.default.createElement(AboutPage, null), accountPage && /* @__PURE__ */ import_react11.default.createElement(AccountPage, null)));
   }
 
   // client/components/App.jsx
-  var PagesContext = import_react11.default.createContext(null);
+  var PagesContext = import_react12.default.createContext(null);
   function App(props) {
-    const [instructionsPage, setInstructionsPage] = import_react11.default.useState(false);
-    const [encoderPage, setEncoderPage] = import_react11.default.useState(false);
-    const [decoderPage, setDecoderPage] = import_react11.default.useState(false);
-    const [dataCollectionPage, setDataCollectionPage] = import_react11.default.useState(false);
-    const [aboutPage, setAboutPage] = import_react11.default.useState(true);
-    const [accountPage, setAccountPage] = import_react11.default.useState(false);
-    return /* @__PURE__ */ import_react11.default.createElement("div", null, /* @__PURE__ */ import_react11.default.createElement(PagesContext.Provider, { value: {
+    const [instructionsPage, setInstructionsPage] = import_react12.default.useState(false);
+    const [encoderPage, setEncoderPage] = import_react12.default.useState(false);
+    const [decoderPage, setDecoderPage] = import_react12.default.useState(false);
+    const [dataCollectionPage, setDataCollectionPage] = import_react12.default.useState(false);
+    const [aboutPage, setAboutPage] = import_react12.default.useState(true);
+    const [accountPage, setAccountPage] = import_react12.default.useState(false);
+    return /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement(PagesContext.Provider, { value: {
       value1: [instructionsPage, setInstructionsPage],
       value2: [encoderPage, setEncoderPage],
       value3: [decoderPage, setDecoderPage],
       value4: [dataCollectionPage, setDataCollectionPage],
       value5: [aboutPage, setAboutPage],
       value6: [accountPage, setAccountPage]
-    } }, /* @__PURE__ */ import_react11.default.createElement(PageHeader, { title: "Steganography" }), /* @__PURE__ */ import_react11.default.createElement(Page, null)));
+    } }, /* @__PURE__ */ import_react12.default.createElement(PageHeader, { title: "Steganography" }), /* @__PURE__ */ import_react12.default.createElement(LoginPage, null), /* @__PURE__ */ import_react12.default.createElement(Page, null)));
   }
 
   // client/main.jsx
   var root = (0, import_client.createRoot)(document.getElementById("root"));
   root.render(
-    /* @__PURE__ */ import_react12.default.createElement(App, null)
+    /* @__PURE__ */ import_react13.default.createElement(App, null)
   );
 })();
 /*! Bundled license information:
