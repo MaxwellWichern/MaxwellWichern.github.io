@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react'
+import React from 'react'
 import {useDropzone} from 'react-dropzone'
 
 
@@ -13,60 +13,75 @@ const dropzoneStyle = {
 }
 
 const imageStyle = {
-  width: '20%',
-  heigh: 'auto',
-  margin: '10px',
-  padding: '3px'
+  maxWidth: '500px',
+  maxHeight: '500px'
 }
 
 
 export default function MyDropzone(props) {
-  const {purpose} = props
-  const [usingImageChosen, setUsingImageChosen] = React.useState(false)
-  const [srcFile, setSrcFile] = React.useState(null)
+  const {imageFile, setImageFile, purpose} = props
 
-  useEffect(() => {
-    async function changeSrc() {
-      const element = await document.getElementById('stegOriginal')
-      element.src=srcFile
-      //console.log(element)
+  React.useEffect(
+    () => {
+        if(!imageFile.content){
+            setImageFile({
+                ...imageFile,
+                preview: undefined
+            })
+            return
+        }
+        const objectUrl = URL.createObjectURL(imageFile.content)
+        setImageFile({
+            ...imageFile,
+            preview: objectUrl
+        })
+    },
+    [imageFile.content]
+  )
+
+  const canvasRef = React.useRef(null)
+  const onLoadImage = () => {
+    const canvas = canvasRef
+    if (canvas.current !== null) {
+      const imageToShow = document.getElementById('showToCanvas')
+      const canvasShown = document.getElementById('canvasShown')
+      canvasShown.width=imageToShow.naturalWidth
+      canvasShown.height=imageToShow.naturalHeight
+      const canvasContext = canvas.current.getContext('2d')
+      canvasContext.drawImage(imageToShow, 0,0, imageToShow.naturalWidth, imageToShow.naturalHeight)
+      setImageFile({
+        ...imageFile,
+        imgData: canvas.current.getContext('2d').getImageData(0,0, imageToShow.naturalWidth, imageToShow.naturalHeight)
+      })
+      canvasShown.style.display='none'
     }
-    changeSrc()
-  }, [srcFile])
+  }
 
 
+  const onDrop = (acceptedFiles) => {
+    setImageFile({
+        ...imageFile,
+        content: acceptedFiles[0]
+    })
+  }
 
-  const onDrop = useCallback((acceptedFile) => {
-      const reader = new FileReader()
-
-      reader.onabort = () => console.log('file reading was aborted')
-      reader.onerror = () => console.log('file reading has failed')
-      reader.onload = function (e) {
-
-        const binaryStr = reader.result
-        //console.log(binaryStr)
-        //console.log(e.target)
-        setUsingImageChosen(true)
-        setSrcFile(e.target.result)
-      }
-      try{
-        reader.readAsDataURL(acceptedFile[0])
-      } catch (e) {
-        console.error(e)
-      }
-
-
-  }, [])
   const {getRootProps, getInputProps} = useDropzone({onDrop})
-
   return (
     <div>
-      {!usingImageChosen && <div style={dropzoneStyle} {...getRootProps()}>
-        <input name='inputForm' type='file' accept='image/*' {...getInputProps()} />
+      { (imageFile.preview)
+      ?
+      <div style={{background: 'grey'}}>
+        <canvas id="canvasShown" ref={canvasRef}/>
+        <img style={imageStyle} id="showToCanvas" onLoad={onLoadImage} src={imageFile.preview}/>
+      </div>
+      :
+      <div style={dropzoneStyle} {...getRootProps()}>
+        <input type='file' accept='image/*' {...getInputProps()} />
         <p>Drag 'n' drop some files here, or click to select files</p>
         <p>{purpose}</p>
       </div>}
-      {usingImageChosen && <img style={imageStyle} id='stegOriginal' src='#'/>}
+
+
     </div>
   )
 }
