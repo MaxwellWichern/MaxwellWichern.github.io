@@ -13,8 +13,9 @@ export default function App (props) {
   const [encoderPage, setEncoderPage] = React.useState(false)
   const [decoderPage, setDecoderPage] = React.useState(false)
   const [dataCollectionPage, setDataCollectionPage] = React.useState(false)
-  const [aboutPage, setAboutPage] = React.useState(true)
+  const [aboutPage, setAboutPage] = React.useState(false)
   const [accountPage, setAccountPage] = React.useState(false)
+  const [loginPage, setLoginPage] = React.useState(true)
 
   return (
     <div>
@@ -24,10 +25,10 @@ export default function App (props) {
         value3: [decoderPage, setDecoderPage],
         value4: [dataCollectionPage, setDataCollectionPage],
         value5: [aboutPage, setAboutPage],
-        value6: [accountPage, setAccountPage]
+        value6: [accountPage, setAccountPage],
+        value7: [loginPage, setLoginPage]
         }}>
         <PageHeader title='Steganography'/>
-        <LoginPage/>
         <Page/>
       </PagesContext.Provider>
     </div>

@@ -24,7 +24,7 @@ const accountTabStyle = {
 
 export default function PageHeader(props) {
   const { title } = props
-  const {value1, value2, value3, value4, value5, value6} = React.useContext(PagesContext)
+  const {value1, value2, value3, value4, value5, value6, value7} = React.useContext(PagesContext)
 
   const [instructionsPage, setInstructionsPage] = value1
   const [encoderPage, setEncoderPage] = value2
@@ -32,6 +32,7 @@ export default function PageHeader(props) {
   const [dataCollectionPage, setDataCollectionPage] = value4
   const [aboutPage, setAboutPage] = value5
   const [accountPage, setAccountPage] = value6
+  const [loginPage, setLoginPage] = value7
 
   function falsifyPages() {
     setInstructionsPage(false)
@@ -40,6 +41,7 @@ export default function PageHeader(props) {
     setDataCollectionPage(false)
     setAboutPage(false)
     setAccountPage(false)
+    setLoginPage(false)
   }
 
   function mouseEntered(e) {
@@ -61,6 +63,14 @@ export default function PageHeader(props) {
         }}>{title}</div>
 
       <div style={{display: 'flex'}}>
+        <div style={tabStyle}
+        onMouseEnter={(e)=>{mouseEntered(e)}}
+        onMouseLeave={(e)=>{mouseLeft(e)}}
+        onClick={() => {
+          falsifyPages()
+          setLoginPage(true)
+        }}>Login
+        </div>
         <div style={tabStyle}
         onMouseEnter={(e)=>{mouseEntered(e)}}
         onMouseLeave={(e)=>{mouseLeft(e)}}

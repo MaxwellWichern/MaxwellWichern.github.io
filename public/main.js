@@ -24373,13 +24373,14 @@
   };
   function PageHeader(props) {
     const { title } = props;
-    const { value1, value2, value3, value4, value5, value6 } = import_react.default.useContext(PagesContext);
+    const { value1, value2, value3, value4, value5, value6, value7 } = import_react.default.useContext(PagesContext);
     const [instructionsPage, setInstructionsPage] = value1;
     const [encoderPage, setEncoderPage] = value2;
     const [decoderPage, setDecoderPage] = value3;
     const [dataCollectionPage, setDataCollectionPage] = value4;
     const [aboutPage, setAboutPage] = value5;
     const [accountPage, setAccountPage] = value6;
+    const [loginPage, setLoginPage] = value7;
     function falsifyPages() {
       setInstructionsPage(false);
       setEncoderPage(false);
@@ -24387,6 +24388,7 @@
       setDataCollectionPage(false);
       setAboutPage(false);
       setAccountPage(false);
+      setLoginPage(false);
     }
     function mouseEntered(e) {
       e.target.style.background = "#8D1B03";
@@ -24407,6 +24409,22 @@
       },
       title
     ), /* @__PURE__ */ import_react.default.createElement("div", { style: { display: "flex" } }, /* @__PURE__ */ import_react.default.createElement(
+      "div",
+      {
+        style: tabStyle,
+        onMouseEnter: (e) => {
+          mouseEntered(e);
+        },
+        onMouseLeave: (e) => {
+          mouseLeft(e);
+        },
+        onClick: () => {
+          falsifyPages();
+          setLoginPage(true);
+        }
+      },
+      "Login"
+    ), /* @__PURE__ */ import_react.default.createElement(
       "div",
       {
         style: tabStyle,
@@ -26081,14 +26099,15 @@
     height: "100vh"
   };
   function Page(props) {
-    const { value1, value2, value3, value4, value5, value6 } = import_react11.default.useContext(PagesContext);
+    const { value1, value2, value3, value4, value5, value6, value7 } = import_react11.default.useContext(PagesContext);
     const [instructionsPage, setInstructionsPage] = value1;
     const [encoderPage, setEncoderPage] = value2;
     const [decoderPage, setDecoderPage] = value3;
     const [dataCollectionPage, setDataCollectionPage] = value4;
     const [aboutPage, setAboutPage] = value5;
     const [accountPage, setAccountPage] = value6;
-    return /* @__PURE__ */ import_react11.default.createElement(import_react11.default.Fragment, null, /* @__PURE__ */ import_react11.default.createElement("div", { style: pageStyle }, encoderPage && /* @__PURE__ */ import_react11.default.createElement(EncodingPage, null), decoderPage && /* @__PURE__ */ import_react11.default.createElement(DecodingPage, null), instructionsPage && /* @__PURE__ */ import_react11.default.createElement(InstructionPage, null), dataCollectionPage && /* @__PURE__ */ import_react11.default.createElement(CollectionPage, null), aboutPage && /* @__PURE__ */ import_react11.default.createElement(AboutPage, null), accountPage && /* @__PURE__ */ import_react11.default.createElement(AccountPage, null)));
+    const [loginPage, setLoginPage] = value7;
+    return /* @__PURE__ */ import_react11.default.createElement(import_react11.default.Fragment, null, /* @__PURE__ */ import_react11.default.createElement("div", { style: pageStyle }, encoderPage && /* @__PURE__ */ import_react11.default.createElement(EncodingPage, null), decoderPage && /* @__PURE__ */ import_react11.default.createElement(DecodingPage, null), instructionsPage && /* @__PURE__ */ import_react11.default.createElement(InstructionPage, null), dataCollectionPage && /* @__PURE__ */ import_react11.default.createElement(CollectionPage, null), aboutPage && /* @__PURE__ */ import_react11.default.createElement(AboutPage, null), accountPage && /* @__PURE__ */ import_react11.default.createElement(AccountPage, null), loginPage && /* @__PURE__ */ import_react11.default.createElement(LoginPage, null)));
   }
 
   // client/components/App.jsx
@@ -26098,16 +26117,18 @@
     const [encoderPage, setEncoderPage] = import_react12.default.useState(false);
     const [decoderPage, setDecoderPage] = import_react12.default.useState(false);
     const [dataCollectionPage, setDataCollectionPage] = import_react12.default.useState(false);
-    const [aboutPage, setAboutPage] = import_react12.default.useState(true);
+    const [aboutPage, setAboutPage] = import_react12.default.useState(false);
     const [accountPage, setAccountPage] = import_react12.default.useState(false);
+    const [loginPage, setLoginPage] = import_react12.default.useState(true);
     return /* @__PURE__ */ import_react12.default.createElement("div", null, /* @__PURE__ */ import_react12.default.createElement(PagesContext.Provider, { value: {
       value1: [instructionsPage, setInstructionsPage],
       value2: [encoderPage, setEncoderPage],
       value3: [decoderPage, setDecoderPage],
       value4: [dataCollectionPage, setDataCollectionPage],
       value5: [aboutPage, setAboutPage],
-      value6: [accountPage, setAccountPage]
-    } }, /* @__PURE__ */ import_react12.default.createElement(PageHeader, { title: "Steganography" }), /* @__PURE__ */ import_react12.default.createElement(LoginPage, null), /* @__PURE__ */ import_react12.default.createElement(Page, null)));
+      value6: [accountPage, setAccountPage],
+      value7: [loginPage, setLoginPage]
+    } }, /* @__PURE__ */ import_react12.default.createElement(PageHeader, { title: "Steganography" }), /* @__PURE__ */ import_react12.default.createElement(Page, null)));
   }
 
   // client/main.jsx
