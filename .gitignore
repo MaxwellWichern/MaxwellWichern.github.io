@@ -1,6 +1,4 @@
 env
 node_modules
-main.js
-main.css
-main.js.map
-main.css.map
+public/main.js*
+public/main.css*
