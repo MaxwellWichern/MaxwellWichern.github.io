@@ -13,29 +13,43 @@ export default function LoginPage(props) {
         if(userNameText == ""){
             if(passwordText == ""){
                 passwordErrorMessage.style.visibility = "visible";
+            }else{
+                passwordErrorMessage.style.visibility = "hidden";
             }
             usernameErrorMessage.style.visibility = "visible";
             return;
         }
+        usernameErrorMessage.style.visibility = "hidden";
         if(passwordText == ""){
             passwordErrorMessage.style.visibility = "visible";
             return;
         }
-        usernameErrorMessage.style.visibility = "hidden";
         passwordErrorMessage.style.visibility = "hidden";
 
         console.log("Username is: " + userNameText);
         console.log("Password is: " + passwordText);
     }
 
+    const forgotPassword = (e) => {
+        console.log("This will be added next sprint.");
+    }
+
+    const createAccount = (e) => {
+        console.log("This will be added next sprint.");
+    }
+
   return(
     <div>
         <h1>Login Page</h1>
-        <input type="text" id = "usernameInput" onChange={(e) => {setUserNameText(e.target.value)}}/>
+        <div>Username: <input type="text" id = "usernameInput" onChange={(e) => {setUserNameText(e.target.value)}}/></div>
         <div style={{visibility: "hidden"}} id = "usernameErrorMessage">Username is empty.</div>
-        <input type="text" id = "passwordInput" onChange={(e) => {setPasswordText(e.target.value)}}/>
+        <div>Password: <input type="text" id = "passwordInput" onChange={(e) => {setPasswordText(e.target.value)}}/></div>
         <div style={{visibility: "hidden"}} id="passwordErrorMessage">Password is empty.</div>
-        <input type="submit" id="credentialSubmit" onClick={submitCredentials} value="Submit"/>
+        <div>
+            <input type="submit" id="forgotPassword" onClick={forgotPassword} value="Forgot Password"/>
+            <input type="submit" id="credentialSubmit" onClick={submitCredentials} value="Submit"/>
+            <input type="submit" id="createAccount" onClick={createAccount} value="Create An Account"/>
+        </div>
     </div>
   )
 }
