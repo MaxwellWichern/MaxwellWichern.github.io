@@ -6,6 +6,7 @@ import CollectionPage from './CollectionPage.jsx'
 import DecodingPage from './DecodingPage.jsx'
 import AboutPage from './AboutPage.jsx'
 import AccountPage from './AccountPage.jsx'
+import LoginPage from './LoginPage.jsx'
 
 import { PagesContext } from './App.jsx'
 
@@ -15,7 +16,7 @@ const pageStyle = {
 }
 
 export default function Page(props) {
-  const {value1, value2, value3, value4, value5, value6} = React.useContext(PagesContext)
+  const {value1, value2, value3, value4, value5, value6, value7} = React.useContext(PagesContext)
 
   const [instructionsPage, setInstructionsPage] = value1
   const [encoderPage, setEncoderPage] = value2
@@ -23,6 +24,7 @@ export default function Page(props) {
   const [dataCollectionPage, setDataCollectionPage] = value4
   const [aboutPage, setAboutPage] = value5
   const [accountPage, setAccountPage] = value6
+  const [loginPage, setLoginPage] = value7
 
   return (
     <>
@@ -34,6 +36,7 @@ export default function Page(props) {
         {dataCollectionPage && <CollectionPage/>}
         {aboutPage && <AboutPage/>}
         {accountPage && <AccountPage/>}
+        {loginPage && <LoginPage/>}
       </div>
     </>
   )
