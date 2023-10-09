@@ -30,6 +30,11 @@ export default function EncodingPage(props) {
 
   const [hiddenText, setHiddenText] = React.useState(null)
 
+  const [outputImage, setOutPutImage] = React.useState({
+    content: null,
+    preview: null
+  })
+
   const onSubmission = (e) => {
     e.preventDefault()
     let result = {"OriginalImage": originalImage.imgData}
@@ -39,8 +44,9 @@ export default function EncodingPage(props) {
       result = {...result, "Text": hiddenText}
 
     console.log(result)
+    //temporary insertion of image
   }
-  // {imageSelect && <MyDropzone imageFile={hiddenImage} setImageFile={setHiddenImage} purpose='Hide This Image'/>}
+
   return(
     <>
       <h2>Encode your image!</h2>
@@ -52,9 +58,10 @@ export default function EncodingPage(props) {
           </svg>
         </label>
         <form name="inputForm"  onSubmit={onSubmission}>
-          <label htmlFor="hiddenTextField" id="hiddenTextContainer">
+          {/*!imageSelect && */<label htmlFor="hiddenTextField" id="hiddenTextContainer">
             <input style={textStyles} onChange={(e) => {setHiddenText(e.target.value)}} type="text" name='inputForm' id="hiddenTextField"/>
-          </label>
+          </label>}
+          {/*imageSelect && <MyDropzone imageFile={hiddenImage} setImageFile={setHiddenImage} purpose='Hide This Image'/>*/}
           <label>
             <input style={{ display: "none" }} type='submit' value="Submit"/>
             <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" className="bi bi-arrow-right-circle" viewBox="0 0 16 16">
@@ -67,12 +74,15 @@ export default function EncodingPage(props) {
           </label>
         </form>
 
+
+        <img id='outputEncoded' style={{width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src={outputImage.preview}/>
         <label>
-        <img id='outputEncoded' style={{width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src="#"/>
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
-          <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-          <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-        </svg>
+        <a download="#" href="#" title='downloadEncoded'>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
+            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+          </svg>
+        </a>
         </label>
 
       </div>
