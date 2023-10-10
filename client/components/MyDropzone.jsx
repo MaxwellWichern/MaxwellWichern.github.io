@@ -49,9 +49,16 @@ export default function MyDropzone(props) {
       canvasShown.height=imageToShow.naturalHeight
       const canvasContext = canvas.current.getContext('2d')
       canvasContext.drawImage(imageToShow, 0,0, imageToShow.naturalWidth, imageToShow.naturalHeight)
+      const imgData = canvas.current.getContext('2d').getImageData(0,0, imageToShow.naturalWidth, imageToShow.naturalHeight)
+      let copy = []
+      for (let i = 0; i < imgData.data.length; i++) {
+        if ( i % 4 !== 3 ) {
+          copy.push(imgData.data[i])
+        }
+      }
       setImageFile({
         ...imageFile,
-        imgData: canvas.current.getContext('2d').getImageData(0,0, imageToShow.naturalWidth, imageToShow.naturalHeight)
+        imgData: copy
       })
       canvasShown.style.display='none'
     }
