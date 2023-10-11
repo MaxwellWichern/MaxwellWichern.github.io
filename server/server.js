@@ -1,4 +1,5 @@
 import Express from 'express'
+import gameRouter from '../serverAPI/Routing.js'
 
 const app = new Express()
 
@@ -10,6 +11,7 @@ app.use((req, res, next) => {
 
 // final static route
 app.use(Express.static('./public'))
+app.use('/data',gameRouter )
 
 // start listen
 app.listen(3000, () => {
