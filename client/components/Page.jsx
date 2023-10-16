@@ -6,7 +6,7 @@ import CollectionPage from './CollectionPage.jsx'
 import DecodingPage from './DecodingPage.jsx'
 import AboutPage from './AboutPage.jsx'
 import AccountPage from './AccountPage.jsx'
-import LoginPage from './LoginPage.jsx'
+import LoginPageCenter from './LoginPageCenter.jsx'
 
 import { PagesContext } from './App.jsx'
 
@@ -36,7 +36,7 @@ export default function Page(props) {
         {dataCollectionPage && <CollectionPage/>}
         {aboutPage && <AboutPage/>}
         {accountPage && <AccountPage/>}
-        {loginPage && <LoginPage/>}
+        {loginPage && <LoginPageCenter/>}
       </div>
     </>
   )

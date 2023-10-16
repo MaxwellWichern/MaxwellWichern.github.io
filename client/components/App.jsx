@@ -13,8 +13,8 @@ export default function App (props) {
   const [decoderPage, setDecoderPage] = React.useState(false)
   const [dataCollectionPage, setDataCollectionPage] = React.useState(false)
   const [aboutPage, setAboutPage] = React.useState(false)
-  const [accountPage, setAccountPage] = React.useState(false)
-  const [loginPage, setLoginPage] = React.useState(true)
+  const [accountPage, setAccountPage] = React.useState(true)
+  const [loginPage, setLoginPage] = React.useState(false)
 
   return (
     <div>
