@@ -35,7 +35,7 @@ export default function EncodingPage(props) {
     preview: null
   })
 
-  const onSubmission = (e) => {
+  const onSubmission = async (e) => {
     e.preventDefault()
     let result = {"OriginalImage": originalImage.imgData}
     if (imageSelect)
@@ -43,6 +43,14 @@ export default function EncodingPage(props) {
     else
       result = {...result, "Text": hiddenText}
 
+    //Send image data to python here
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'multipart/form-data' },
+      body: JSON.stringify(result)
+    };
+    const post_result = await fetch('http://localhost:8000/post', requestOptions)
+    .then(response => response.json())
     console.log(result)
     //temporary insertion of image
   }
