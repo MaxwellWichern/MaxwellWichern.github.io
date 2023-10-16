@@ -1,9 +1,9 @@
 import React from 'react'
 
 export default function LoginPage(props) {
+    const {setter1, setter2} = props
 
     const[userNameText,setUserNameText] = React.useState("");
-
     const[passwordText,setPasswordText] = React.useState("");
 
     const submitCredentials = (e) => {
@@ -35,7 +35,8 @@ export default function LoginPage(props) {
     }
 
     const createAccount = (e) => {
-        console.log("This will be added next sprint.");
+        setter1(false)
+        setter2(true)
     }
 
   return(
