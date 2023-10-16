@@ -1,15 +1,7 @@
 import React from 'react'
 
-import {LoginContext} from './LoginPageCenter.jsx'
-
 export default function LoginPage(props) {
     const {setter1, setter2} = props
-
-    //const {val1, val2, val3} = React.useContext(LoginContext);
-
-    //const [showLoginPage, setShowLoginPage] = val1;
-    //const [showCreateAccountPage, setShowCreateAccountPage] = val2;
-    //const [showForgotPasswordPage, setShowForgotPasswordPage] = val3;
 
     const[userNameText,setUserNameText] = React.useState("");
     const[passwordText,setPasswordText] = React.useState("");
