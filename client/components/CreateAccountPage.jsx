@@ -26,9 +26,7 @@ export default function CreateAccountPage(props){
             passwordErrorMessage.style.visibility = "hidden";
             emailErrorMessage.style.visibility = "hidden";
 
-            //We're creating a post request to the database using fetchAPI
-            //which will use the express route which will be created in Routing.js.
-            const result = await fetch('localhost/dat/test')
+            //We need to insert the new user into Mongo from here.
         }
         
     }
