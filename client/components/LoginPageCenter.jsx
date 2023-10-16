@@ -3,6 +3,8 @@ import React from "react";
 import LoginPage from './LoginPage.jsx'
 import CreateAccountPage from './CreateAccountPage.jsx';
 
+export const LoginContext = React.createContext(null);
+
 export default function LoginPageCenter(){
 
     const [showLoginPage,setShowLoginPage] = React.useState(true);
@@ -11,7 +13,7 @@ export default function LoginPageCenter(){
 
     return(
         <div>
-            {showLoginPage && <LoginPage/>}
+            {showLoginPage && <LoginPage setter1 = {setShowLoginPage} setter2 = {setShowCreateAccountPage}/>}
             {showCreateAccountPage && <CreateAccountPage/>}
         </div>
     )
