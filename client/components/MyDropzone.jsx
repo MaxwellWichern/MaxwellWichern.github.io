@@ -23,20 +23,20 @@ export default function MyDropzone(props) {
 
   React.useEffect(
     () => {
-        if(!imageFile.content){
+        if(!imageFile.picAsFile){
             setImageFile({
                 ...imageFile,
                 preview: undefined
             })
             return
         }
-        const objectUrl = URL.createObjectURL(imageFile.content)
+        const objectUrl = URL.createObjectURL(imageFile.picAsFile)
         setImageFile({
             ...imageFile,
             preview: objectUrl
         })
     },
-    [imageFile.content]
+    [imageFile.picAsFile]
   )
 
   const canvasRef = React.useRef(null)
@@ -68,7 +68,7 @@ export default function MyDropzone(props) {
   const onDrop = (acceptedFiles) => {
     setImageFile({
         ...imageFile,
-        content: acceptedFiles[0]
+        picAsFile: acceptedFiles[0]
     })
   }
 

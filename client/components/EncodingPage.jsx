@@ -17,13 +17,13 @@ export default function EncodingPage(props) {
   const [imageSelect, setImageSelect] = React.useState(false)
 
   const [originalImage, setOriginalImage] = React.useState({
-    content: null,
+    picAsFile: null,
     preview: null,
     imgData: null
   })
 
   const [hiddenImage, setHiddenImage] = React.useState({
-    content: null,
+    picAsFile: null,
     preview: null,
     imgData: null
   })
@@ -37,11 +37,16 @@ export default function EncodingPage(props) {
 
   const onSubmission = async (e) => {
     e.preventDefault()
-    let result = {"OriginalImage": originalImage.imgData}
+    let result = new FormData();
+    result.append(
+      "file",
+      originalImage.picAsFile
+    )
+    // let res = {"OriginalImage": originalImage.imgData}
     if (imageSelect)
-      result = {...result, "HiddenImage": hiddenImage.imgData}
+      result.append("Hidden", hiddenImage.picAsFile)
     else
-      result = {...result, "Text": hiddenText}
+      result.append("Hidden", hiddenText)
 
     //Send image data to python here
     const requestOptions = {
@@ -52,7 +57,9 @@ export default function EncodingPage(props) {
     const post_result = await fetch('http://localhost:8000/post', requestOptions)
     .then(response => response.json())
     console.log(result)
-    //temporary insertion of image
+    for (const data of result) {
+      console.log(data)
+    }
   }
 
   return(
