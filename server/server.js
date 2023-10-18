@@ -12,8 +12,9 @@ app.use((req, res, next) => {
 // final static route
 app.use(Express.static('./public'))
 app.use('/data',gameRouter )
-
+ 
 // start listen
 app.listen(3000, () => {
   console.log('Server started at http://localhost:3000')
 })
+ 

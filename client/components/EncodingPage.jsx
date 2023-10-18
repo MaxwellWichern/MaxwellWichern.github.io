@@ -1,5 +1,8 @@
 import React from 'react'
 import MyDropzone from './MyDropzone'
+import { deleteSomething } from '../routeToServer'
+import { getSomething } from '../routeToServer'
+
 
 export default function EncodingPage(props) {
 
@@ -9,6 +12,7 @@ export default function EncodingPage(props) {
   const onSubmission = (e) => {
     console.log(e)
     e.preventDefault()
+    deleteSomething(123456789) 
   }
 
   return(

@@ -26000,12 +26000,31 @@
     return /* @__PURE__ */ import_react3.default.createElement("div", null, !usingImageChosen && /* @__PURE__ */ import_react3.default.createElement("div", __spreadValues({ style: dropzoneStyle }, getRootProps()), /* @__PURE__ */ import_react3.default.createElement("input", __spreadValues({ name: "inputForm", type: "file", accept: "image/*" }, getInputProps())), /* @__PURE__ */ import_react3.default.createElement("p", null, "Drag 'n' drop some files here, or click to select files"), /* @__PURE__ */ import_react3.default.createElement("p", null, purpose)), usingImageChosen && /* @__PURE__ */ import_react3.default.createElement("img", { style: imageStyle, id: "stegOriginal", src: "#" }));
   }
 
+  // client/routeToServer.js
+  function deleteSomething(id) {
+    return __async(this, null, function* () {
+      try {
+        const response = yield fetch(`data/testDell/${id}`, {
+          method: "DELETE"
+        });
+        if (response.status >= 400) {
+          throw new Error(`${response.status}`);
+        }
+        return yield response.json();
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
+    });
+  }
+
   // client/components/EncodingPage.jsx
   function EncodingPage(props) {
     const [imageSelect, setImageSelect] = import_react4.default.useState(true);
     const onSubmission = (e) => {
       console.log(e);
       e.preventDefault();
+      deleteSomething(123456789);
     };
     return /* @__PURE__ */ import_react4.default.createElement(import_react4.default.Fragment, null, /* @__PURE__ */ import_react4.default.createElement("h2", null, "Encode your image!"), /* @__PURE__ */ import_react4.default.createElement("div", { style: { alignItems: "center" } }, /* @__PURE__ */ import_react4.default.createElement("form", { name: "inputForm", onSubmit: onSubmission }, /* @__PURE__ */ import_react4.default.createElement(MyDropzone, { purpose: "Use This Image To Hide" }), imageSelect && /* @__PURE__ */ import_react4.default.createElement(MyDropzone, { purpose: "Hide This Image" }), !imageSelect && /* @__PURE__ */ import_react4.default.createElement("label", { htmlFor: "hiddenTextField", id: "hiddenTextContainer" }, /* @__PURE__ */ import_react4.default.createElement("input", { type: "text", name: "inputForm", id: "hiddenTextField" })), /* @__PURE__ */ import_react4.default.createElement("div", null, /* @__PURE__ */ import_react4.default.createElement("input", { type: "radio", name: "messageType", value: "image", onClick: () => {
       setImageSelect(true);
