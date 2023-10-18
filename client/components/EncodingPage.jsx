@@ -43,6 +43,7 @@ export default function EncodingPage(props) {
       originalImage.picAsFile
     )
     // let res = {"OriginalImage": originalImage.imgData}
+    // let hidden = new FormData();
     if (imageSelect)
       result.append("Hidden", hiddenImage.picAsFile)
     else
@@ -51,11 +52,14 @@ export default function EncodingPage(props) {
     //Send image data to python here
     const requestOptions = {
       method: 'POST',
-      headers: { 'Content-Type': 'multipart/form-data' },
-      body: JSON.stringify(result)
+      // headers: { 'Content-Type': 'multipart/form-data' },
+      body: result
     };
     const post_result = await fetch('http://localhost:8000/post', requestOptions)
     .then(response => response.json())
+
+    const uploadedImage = await post_result.json();
+
     console.log(result)
     for (const data of result) {
       console.log(data)
