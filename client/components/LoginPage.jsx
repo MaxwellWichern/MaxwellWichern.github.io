@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default function LoginPage(props) {
-    const {setter1, setter2} = props
+    const {setter1, setter2, setter3} = props
 
     const[userNameText,setUserNameText] = React.useState("");
     const[passwordText,setPasswordText] = React.useState("");
@@ -37,6 +37,7 @@ export default function LoginPage(props) {
     const createAccount = (e) => {
         setter1(false)
         setter2(true)
+        setter3(false)
     }
 
   return(

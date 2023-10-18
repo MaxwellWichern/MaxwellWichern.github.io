@@ -1,6 +1,7 @@
 import React from 'react'
 
 export default function CreateAccountPage(props){
+    const {setter1, setter2, setter3} = props
     
     const [createAccountUsernameText, setCreateAccountUsernameText] = React.useState("");
     const [createAccountPasswordText, setCreateAccountPasswordText] = React.useState("");
@@ -12,35 +13,49 @@ export default function CreateAccountPage(props){
         const emailErrorMessage = document.getElementById("emailErrorMessage");
         if(createAccountUsernameText == ""){
             usernameErrorMessage.style.visibility = "visible";
-        }
-        if(createAccountPasswordText == ""){
-            passwordErrorMessage.style.visibility = "visible";
+            console.log("Username is empty.");
+        }else{
+            usernameErrorMessage.style.visibility = "hidden";
         }
         if(createAccountEmailText == ""){
             emailErrorMessage.style.visibility = "visible";
+            console.log("Email is empty.");
+        }else{
+            emailErrorMessage.style.visibility = "hidden";
+        }
+        if(createAccountPasswordText == ""){
+            passwordErrorMessage.style.visibility = "visible";
+            console.log("Password is empty.");
+        }else{
+            passwordErrorMessage.style.visibility = "hidden";
         }
         if(createAccountUsernameText != "" &&
             createAccountPasswordText != "" &&
             createAccountEmailText != ""){
-            usernameErrorMessage.style.visibility = "hidden";
-            passwordErrorMessage.style.visibility = "hidden";
-            emailErrorMessage.style.visibility = "hidden";
+            console.log("Nothing is empty.");
 
             //We need to insert the new user into Mongo from here.
         }
         
     }
 
+    const returnToLogin = (e) => {
+        setter1(true)
+        setter2(false)
+        setter3(false)
+    }
+
     return(
         <div>
             <h1>Create Your Account</h1>
             <div>Enter Your Username: <input type="text" id="enterUsername" onChange={setCreateAccountUsernameText}/></div>
-            <div style={{visibility: "hidden"}} id = "usernameErrorMessage">Username cannot empty.</div>
-            <div>Enter Your Email: <input type="text" id="enterEmail" onChange={setCreateAccountPasswordText}/></div>
-            <div style={{visibility: "hidden"}} id = "passwordErrorMessage">Password cannot be empty.</div>
-            <div>Enter Your Password: <input type="text" id="enterPassword" onChange={setCreateAccountEmailText}/></div>
+            <div style={{visibility: "hidden"}} id = "usernameErrorMessage">Username cannot be empty.</div>
+            <div>Enter Your Email: <input type="text" id="enterEmail" onChange={setCreateAccountEmailText}/></div>
             <div style={{visibility: "hidden"}} id = "emailErrorMessage">Email cannot be empty.</div>
-            <div>Submit: <input type="submit" id="submitInformation" onClick={createAccount}/></div>
+            <div>Enter Your Password: <input type="text" id="enterPassword" onChange={setCreateAccountPasswordText}/></div>
+            <div style={{visibility: "hidden"}} id = "passwordErrorMessage">Password cannot be empty.</div>
+            <div><input type="submit" id="submitInformation" onClick={createAccount}/></div>
+            <div><input type="submit" id="returnToLogin" onClick={returnToLogin} value="Return To Login"/></div>
         </div>
     );
 }

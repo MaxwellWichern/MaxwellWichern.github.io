@@ -13,8 +13,8 @@ export default function LoginPageCenter(){
 
     return(
         <div>
-            {showLoginPage && <LoginPage setter1 = {setShowLoginPage} setter2 = {setShowCreateAccountPage}/>}
-            {showCreateAccountPage && <CreateAccountPage/>}
+            {showLoginPage && <LoginPage setter1 = {setShowLoginPage} setter2 = {setShowCreateAccountPage} setter3={setShowForgotPasswordPage}/>}
+            {showCreateAccountPage && <CreateAccountPage setter1 = {setShowLoginPage} setter2 = {setShowCreateAccountPage} setter3={setShowForgotPasswordPage}/>}
         </div>
     )
 }
