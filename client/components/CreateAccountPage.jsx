@@ -48,11 +48,11 @@ export default function CreateAccountPage(props){
     return(
         <div>
             <h1>Create Your Account</h1>
-            <div>Enter Your Username: <input type="text" id="enterUsername" onChange={setCreateAccountUsernameText}/></div>
+            <div>Enter Your Username: <input type="text" id="enterUsername" onChange={(e) => {setCreateAccountUsernameText(e.target.value)}}/></div>
             <div style={{visibility: "hidden"}} id = "usernameErrorMessage">Username cannot be empty.</div>
-            <div>Enter Your Email: <input type="text" id="enterEmail" onChange={setCreateAccountEmailText}/></div>
+            <div>Enter Your Email: <input type="text" id="enterEmail" onChange={(e) => {setCreateAccountEmailText(e.target.value)}}/></div>
             <div style={{visibility: "hidden"}} id = "emailErrorMessage">Email cannot be empty.</div>
-            <div>Enter Your Password: <input type="text" id="enterPassword" onChange={setCreateAccountPasswordText}/></div>
+            <div>Enter Your Password: <input type="text" id="enterPassword" onChange={(e) => {setCreateAccountPasswordText(e.target.value)}}/></div>
             <div style={{visibility: "hidden"}} id = "passwordErrorMessage">Password cannot be empty.</div>
             <div><input type="submit" id="submitInformation" onClick={createAccount}/></div>
             <div><input type="submit" id="returnToLogin" onClick={returnToLogin} value="Return To Login"/></div>
