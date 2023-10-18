@@ -26001,11 +26001,18 @@
   }
 
   // client/routeToServer.js
-  function deleteSomething(id) {
+  function addSomething(obj) {
     return __async(this, null, function* () {
       try {
-        const response = yield fetch(`data/testDell/${id}`, {
-          method: "DELETE"
+        const response = yield fetch(`data/add`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            accept: "application/json"
+          },
+          body: JSON.stringify(obj)
+        }).then((response2) => {
+          return response2.json();
         });
         if (response.status >= 400) {
           throw new Error(`${response.status}`);
@@ -26024,7 +26031,13 @@
     const onSubmission = (e) => {
       console.log(e);
       e.preventDefault();
-      deleteSomething(123456789);
+      addSomething({
+        "userId": 123456789,
+        "userPw": "2pas2word",
+        "email": "GenericEmail2@gmail.com",
+        "isAdmin": false,
+        "userName": "DeleteME"
+      });
     };
     return /* @__PURE__ */ import_react4.default.createElement(import_react4.default.Fragment, null, /* @__PURE__ */ import_react4.default.createElement("h2", null, "Encode your image!"), /* @__PURE__ */ import_react4.default.createElement("div", { style: { alignItems: "center" } }, /* @__PURE__ */ import_react4.default.createElement("form", { name: "inputForm", onSubmit: onSubmission }, /* @__PURE__ */ import_react4.default.createElement(MyDropzone, { purpose: "Use This Image To Hide" }), imageSelect && /* @__PURE__ */ import_react4.default.createElement(MyDropzone, { purpose: "Hide This Image" }), !imageSelect && /* @__PURE__ */ import_react4.default.createElement("label", { htmlFor: "hiddenTextField", id: "hiddenTextContainer" }, /* @__PURE__ */ import_react4.default.createElement("input", { type: "text", name: "inputForm", id: "hiddenTextField" })), /* @__PURE__ */ import_react4.default.createElement("div", null, /* @__PURE__ */ import_react4.default.createElement("input", { type: "radio", name: "messageType", value: "image", onClick: () => {
       setImageSelect(true);

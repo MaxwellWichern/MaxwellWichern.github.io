@@ -46,7 +46,7 @@ gameRouter.get('/test', (req, res) => {
 
 
 
-gameRouter.delete('/testDell/:userId', (req, res) => {
+gameRouter.delete('/testDell/:userId', (req, res) => {  /*  &userPw  */ 
   const iUserId = req.params.userId;
   //iUserId = 123456789;
   console.log('userID to delete: ',iUserId);
@@ -63,6 +63,41 @@ gameRouter.delete('/testDell/:userId', (req, res) => {
     console.log(res);
   }, "SteganographyDatabase") 
 })
+
+gameRouter.put('/add', (req, res) => {
+  const reqbody = req.body
+  let valid = false
+
+  if (/* typeof (reqbody.id) === 'number' && typeof (reqbody.name) === 'string' &&
+    typeof (reqbody.year) === 'number' && typeof (reqbody.desc) === 'string' &&
+    typeof (reqbody.minplayers) === 'number' && typeof (reqbody.maxplayers) === 'number' &&
+    typeof (reqbody.minPlayTime) === 'number' && typeof (reqbody.maxPlayTime) === 'number' &&
+    typeof (reqbody.minage) === 'number' &&
+    typeof (reqbody.weight) === 'number' && typeof (reqbody.rating) === 'number' &&
+    typeof (reqbody.designer) === 'object' && typeof (reqbody.artist) === 'object' &&
+    typeof (reqbody.publisher) === 'object' && typeof (reqbody.thumb) === 'string' &&
+    typeof (reqbody.poster) === 'string' */true) {
+    valid = true
+  }
+
+    queryDatabase(async db => {
+      const data = await db.collection('Member').find({UserId: reqbody.userId}).toArray()
+      if (data.length == 0 && valid) {
+        const result = await db.collection('Member').insertOne({
+
+          userId: reqbody.userId,
+          userName: reqbody.userName,
+          userPw: reqbody.userPw,
+          email: reqbody.email,
+          isAdmin: reqbody.isAdmin
+        })
+
+        res.status(200).json({ success: true, id: `${reqbody.iUserId}`, message: `${reqbody.iUserId} inserted into array` })
+      }
+      else {res.status(400).json({error: true, message: 'type mismatch error, check types are correct'})}
+    }, "SteganographyDatabase")
+  }
+)
 
 /* gameRouter.insert('/testinsert/:MemberRecord', (req, res) => {
   const oMember = req.params.MemberRecord;
