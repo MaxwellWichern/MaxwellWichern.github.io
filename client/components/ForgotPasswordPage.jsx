@@ -20,8 +20,9 @@ export default function ForgotPasswordPage(props){
         <div>
             <h1>Whoops, I forgot my password.</h1>
             <div>Enter your Email Address<input type="text" onChange={(e) => {setEmailInput(e.target.value)}}/></div>
-            <div><input type="submit" value="Send Password Request" onClick={sendRequestEmail}/></div>
-            <div><input type="submit" value="Return To Login" onClick={returnToLogin}/></div>
+            <div style={{visibility:"hidden"}} id="accountNotFoundError">We do not have an account associated with that email address.</div>
+            <div><input type="submit" value="Send Password Request" onClick={sendRequestEmail} id="sendRequestEmailButton"/></div>
+            <div><input type="submit" value="Return To Login" onClick={returnToLogin} id="returnToLoginButton"/></div>
         </div>
     );
 }
