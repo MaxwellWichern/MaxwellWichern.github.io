@@ -31,7 +31,9 @@ export default function LoginPage(props) {
     }
 
     const forgotPassword = (e) => {
-        console.log("This will be added next sprint.");
+        setter1(false)
+        setter2(false)
+        setter3(true)
     }
 
     const createAccount = (e) => {
