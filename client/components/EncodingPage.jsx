@@ -14,13 +14,6 @@ export default function EncodingPage(props) {
   const onSubmission = (e) => {
     console.log(e)
     e.preventDefault()
-    addSomething({
-                  "userId":123456789,
-                  "userPw":"2pas2word",
-                  "email":"GenericEmail2@gmail.com",
-                  "isAdmin":false,
-                  "userName":"DeleteME"
-                }) 
   }
 
   return(

@@ -1,5 +1,5 @@
 import Express from 'express'
-import gameRouter from '../serverAPI/Routing.js'
+import gameRouter from './serverAPI/Routing.js'
 
 const app = new Express()
 
