@@ -1,5 +1,10 @@
 import React from 'react'
 import MyDropzone from './MyDropzone'
+import { deleteSomething } from '../routeToServer'
+import { getSomething } from '../routeToServer'
+import { addSomething } from '../routeToServer'
+
+
 
 const styling = {
   display: 'flex',
