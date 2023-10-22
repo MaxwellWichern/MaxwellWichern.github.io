@@ -87,8 +87,6 @@ export default function MyDropzone(props) {
         <p>Drag 'n' drop some files here, or click to select files</p>
         <p>{purpose}</p>
       </div>}
-
-
     </div>
   )
 }

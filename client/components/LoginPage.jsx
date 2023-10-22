@@ -1,10 +1,13 @@
 import React from 'react'
+import EmailModal from './emailModal';
 
 export default function LoginPage(props) {
 
     const[userNameText,setUserNameText] = React.useState("");
 
     const[passwordText,setPasswordText] = React.useState("");
+
+    const [noPasswordModal, setNoPasswordModal] = React.useState(null)
 
     const submitCredentials = (e) => {
         const usernameErrorMessage = document.getElementById("usernameErrorMessage");
@@ -31,7 +34,7 @@ export default function LoginPage(props) {
     }
 
     const forgotPassword = (e) => {
-        console.log("This will be added next sprint.");
+        setNoPasswordModal(true)
     }
 
     const createAccount = (e) => {
@@ -40,6 +43,7 @@ export default function LoginPage(props) {
 
   return(
     <div>
+        <EmailModal open={noPasswordModal} onClose={setNoPasswordModal}/>
         <h1>Login Page</h1>
         <div>Username: <input type="text" id = "usernameInput" onChange={(e) => {setUserNameText(e.target.value)}}/></div>
         <div style={{visibility: "hidden"}} id = "usernameErrorMessage">Username is empty.</div>

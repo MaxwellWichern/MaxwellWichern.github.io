@@ -18,6 +18,7 @@ export default function StockImgModal(props) {
   const [stockImgs, setStockImgs] = React.useState([])
   const modalRef = React.useRef()
   const [modalObj, setModalObj] = React.useState(null)
+  const [stockImgReload, setStockImgReload] = React.useState(false)
 
   React.useEffect( () => {
     if (modalRef.current && !modalObj) {
@@ -79,7 +80,7 @@ export default function StockImgModal(props) {
         modalObj.hide()
       }
     }
-  }, [open, modalObj])
+  }, [open, modalObj, stockImgReload])
 
   React.useEffect(() => {
     console.log(stockImgs)
@@ -98,7 +99,11 @@ export default function StockImgModal(props) {
 
   const mouseClicked = (e) => {
     passSetImage({...passImage, preview: e.target.src})
+  }
 
+  const onReloadImg = (e) => {
+    console.log("Reloading image Selection")
+    setStockImgReload(!stockImgReload)
   }
 
   return(
@@ -109,6 +114,10 @@ export default function StockImgModal(props) {
             <h2>
               Select a Cat!
             </h2>
+            <svg style={{float: "right", padding: "7px", cursor: "pointer"}} onClick={onReloadImg} xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+              <path fillRule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+              <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+            </svg>
           </div>
           <div id="grid" className="modal-body">
             {stockImgs && stockImgs.length > 0 ? (
@@ -132,8 +141,7 @@ export default function StockImgModal(props) {
             )}
           </div>
           <div className="modal-footer">
-            <p>Close & reopen the Modal to select new images</p>
-            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
