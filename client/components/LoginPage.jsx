@@ -1,4 +1,5 @@
 import React from 'react'
+import { getUserByCredentials } from '../routeToServer';
 
 export default function LoginPage(props) {
     const {setter1, setter2, setter3} = props
@@ -7,27 +8,20 @@ export default function LoginPage(props) {
     const[passwordText,setPasswordText] = React.useState("");
 
     const submitCredentials = (e) => {
+        //Get the html elements for the error messages
         const usernameErrorMessage = document.getElementById("usernameErrorMessage");
         const passwordErrorMessage = document.getElementById("passwordErrorMessage");
 
         if(userNameText == ""){
-            if(passwordText == ""){
-                passwordErrorMessage.style.visibility = "visible";
-            }else{
-                passwordErrorMessage.style.visibility = "hidden";
-            }
             usernameErrorMessage.style.visibility = "visible";
-            return;
         }
-        usernameErrorMessage.style.visibility = "hidden";
         if(passwordText == ""){
             passwordErrorMessage.style.visibility = "visible";
-            return;
         }
-        passwordErrorMessage.style.visibility = "hidden";
-
-        console.log("Username is: " + userNameText);
-        console.log("Password is: " + passwordText);
+        if(passwordText != "" && userNameText != ""){
+            const usersJson = getUserByCredentials({userName:userNameText, userPw:passwordText})
+            console.log(usersJson)
+        }
     }
 
     const forgotPassword = (e) => {
