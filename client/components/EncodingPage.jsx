@@ -44,7 +44,8 @@ export default function EncodingPage(props) {
       "file",
       originalImage.picAsFile
     )
-    // let res = {"OriginalImage": originalImage.imgData}
+
+    result.append("preview", originalImage.preview)
     if (imageSelect)
       result.append("Hidden", hiddenImage.picAsFile)
     else
@@ -62,19 +63,21 @@ export default function EncodingPage(props) {
       <div style={styling}>
         <div style={{display:'flex'}}>
           <MyDropzone imageFile={originalImage} setImageFile={setOriginalImage} purpose='Use This Image To Hide'/>
-          <svg onClick={()=>{setShowModal(true)}}xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+          <svg onClick={()=>{setShowModal(true)}} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
             <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
           </svg>
           <StockImgModal
             open={showModal}
             onClose={()=>{setShowModal(false)}}
+            passImage={originalImage}
+            passSetImage={setOriginalImage}
           />
         </div>
         <form name="inputForm"  onSubmit={onSubmission}>
-          {/*!imageSelect && */<label htmlFor="hiddenTextField" id="hiddenTextContainer">
+          {!imageSelect && <label htmlFor="hiddenTextField" id="hiddenTextContainer">
             <input style={textStyles} onChange={(e) => {setHiddenText(e.target.value)}} type="text" name='inputForm' id="hiddenTextField"/>
           </label>}
-          {/*imageSelect && <MyDropzone imageFile={hiddenImage} setImageFile={setHiddenImage} purpose='Hide This Image'/>*/}
+          {imageSelect && <MyDropzone imageFile={hiddenImage} setImageFile={setHiddenImage} purpose='Hide This Image'/>}
           <label>
             <input style={{ display: "none" }} type='submit' value="Submit"/>
             <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" className="bi bi-arrow-right-circle" viewBox="0 0 16 16">
