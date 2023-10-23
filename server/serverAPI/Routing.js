@@ -25,7 +25,7 @@ gameRouter.get('/test', (req, res) => {
       const data = await db.collection('Member').find({}).project(
         {_id:0, userId:1, userPw:1, email:1}
       ).toArray()
-      console.log('mems retrieved2:', data.length)
+      console.log('mems retrieved:', data.length)
       res.json(data)
     }, 'SteganographyDatabase')
   })
@@ -39,10 +39,10 @@ gameRouter.get('/test', (req, res) => {
 //string userPw
 //string email
 //bool isAdmin
-gameRouter.get('/getUserByCredentials', (req, res) => {
-  const reqbody = req.body;
-  queryDatabase.apply(async db => {
-    const data = await db.collection('Member').find({userName: reqbody.userName, userPw: reqbody.userPw}).toArray()
+gameRouter.get('/getUserByCredentials/:userName', (req, res) => {
+  const uName = req.params.userName
+  queryDatabase(async db => {
+    const data = await db.collection('Member').find({userName: uName}).toArray()
     console.log(data)
     res.json(data)
   }, 'SteganographyDatabase')

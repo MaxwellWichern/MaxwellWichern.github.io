@@ -35,7 +35,7 @@ export async function getSomething(id) {
 //creds is a json object of the form {userName:"userName", email:"email"}
 export async function getUserByUserNameAndEmail(creds){
     try{
-        const response = await fetch('data/getUserByUserNameAndEmail', {
+        const response = await fetch(`data/getUserByUserNameAndEmail`, {
             method: 'GET',
             body: {
                 userName: creds.userName,
@@ -56,18 +56,20 @@ export async function getUserByUserNameAndEmail(creds){
 //creds is a json object of the form {userName:"userName",userPw:"userPw"}
 export async function getUserByCredentials(creds){
     try{
-        const response = await fetch('data/getUserByCredentials', {
-            method: 'GET',
-            body: {
-                userName: creds.userName,
-                userPw: creds.userPw
-            }
+        const response = await fetch(`data/getUserByCredentials/${creds.userName}`, {
+            method: 'GET'
         })
         .then((response)=>{return response.json()})
+        //.then((responseJson)=>{return responseJson[0]})
         if(response.status >= 400){
             throw new Error(`${response.status}`)
         }
-        return await response.json();
+        /*
+        console.log(response)
+        console.log(response.length)
+        console.log(typeof(response))
+        */
+        return response;
     }catch(e){
         console.error(e);
         return null;

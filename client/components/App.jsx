@@ -5,6 +5,7 @@ import Page from './Page.jsx'
 
 export const PagesContext = React.createContext(null)
 
+export const CredentialsContext = React.createContext(null)
 
 export default function App (props) {
 
@@ -16,8 +17,19 @@ export default function App (props) {
   const [accountPage, setAccountPage] = React.useState(false)
   const [loginPage, setLoginPage] = React.useState(true)
 
+  const [userName, setUserName] = React.useState("")
+  const [userPassword, setUserPassword] = React.useState("")
+  const [userEmail, setUserEmail] = React.useState("")
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false)
+
   return (
     <div>
+      <CredentialsContext.Provider value={{
+        uName: [userName, setUserName],
+        uPassword: [userPassword, setUserPassword],
+        uEmail: [userEmail, setUserEmail],
+        isLoggedIn: [isLoggedIn, setIsLoggedIn]
+      }}>
       <PagesContext.Provider value={{
         value1: [instructionsPage, setInstructionsPage],
         value2: [encoderPage, setEncoderPage],
@@ -30,6 +42,7 @@ export default function App (props) {
         <PageHeader title='Steganography'/>
         <Page/>
       </PagesContext.Provider>
+      </CredentialsContext.Provider>
     </div>
   )
 }
