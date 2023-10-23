@@ -17,6 +17,23 @@ export async function deleteSomething(id) {
     }
 }
 
+export async function deleteByName(uName) {
+    try {
+        const response = await fetch(`data/dellByUserName/${uName}`, {
+            method: 'DELETE' 
+        })
+        if (response.status >= 400) {
+            throw new Error(`${response.status}`)
+        }
+
+        return await response.json()
+    }
+    catch (e) {
+        console.error(e) 
+        return null
+    }
+}
+
 export async function getSomething() {
     try {
         const response = await fetch(`data/test`, {
