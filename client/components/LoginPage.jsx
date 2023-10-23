@@ -2,9 +2,9 @@ import React from 'react'
 import EmailModal from './emailModal';
 
 export default function LoginPage(props) {
+    const {setter1, setter2, setter3} = props
 
     const[userNameText,setUserNameText] = React.useState("");
-
     const[passwordText,setPasswordText] = React.useState("");
 
     const [noPasswordModal, setNoPasswordModal] = React.useState(null)
@@ -35,10 +35,15 @@ export default function LoginPage(props) {
 
     const forgotPassword = (e) => {
         setNoPasswordModal(true)
+        setter1(false)
+        setter2(false)
+        setter3(true)
     }
 
     const createAccount = (e) => {
-        console.log("This will be added next sprint.");
+        setter1(false)
+        setter2(true)
+        setter3(false)
     }
 
   return(

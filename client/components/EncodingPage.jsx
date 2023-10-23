@@ -1,6 +1,9 @@
 import React from 'react'
 import MyDropzone from './MyDropzone'
 import StockImgModal from './StockImgModal'
+import { deleteSomething } from '../routeToServer'
+import { getSomething } from '../routeToServer'
+import { addSomething } from '../routeToServer'
 
 const styling = {
   display: 'flex',
@@ -37,19 +40,30 @@ export default function EncodingPage(props) {
     preview: null
   })
 
-  const onSubmission = (e) => {
+  const onSubmission = async (e) => {
     e.preventDefault()
     let result = new FormData();
     result.append(
       "file",
       originalImage.picAsFile
     )
-
     result.append("preview", originalImage.preview)
+
     if (imageSelect)
       result.append("Hidden", hiddenImage.picAsFile)
     else
       result.append("Hidden", hiddenText)
+
+    //Send image data to python here
+    const requestOptions = {
+      method: 'POST',
+      // headers: { 'Content-Type': 'multipart/form-data' },
+      body: result
+    };
+    const post_result = await fetch('http://localhost:8000/post', requestOptions)
+    .then(response => response.json())
+
+    const uploadedImage = await post_result.json();
 
     console.log(result)
     for (const data of result) {
