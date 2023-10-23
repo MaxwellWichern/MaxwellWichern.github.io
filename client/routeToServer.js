@@ -56,7 +56,8 @@ export async function getUserByUserNameAndEmail(creds){
 //creds is a json object of the form {userName:"userName",userPw:"userPw"}
 export async function getUserByCredentials(creds){
     try{
-        const response = await fetch(`data/getUserByCredentials/${creds.userName}`, {
+        console.log(creds)
+        const response = await fetch(`data/getUserByCredentials/:${creds.userName}&${creds.userPw}`, {
             method: 'GET'
         })
         .then((response)=>{return response.json()})

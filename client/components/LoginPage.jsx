@@ -32,21 +32,27 @@ export default function LoginPage(props) {
             const usersResult = getUserByCredentials({userName:userNameText, userPw:passwordText})
             usersResult.then(
                 function(value) {
-                    if(value.length>0){ //We have a user with the same credentials
+                    console.log(value)
+                    if(value.length > 0){ //We have a user with the same credentials
                         setUserName(value[0].userName)
                         setUserPassword(value[0].userPw)
                         setUserEmail(value[0].email)
-                        setIsLoggedIn(true)
+                        //setIsLoggedIn(true)
 
                         //Change site to logged in version
 
                     }else{  //We do not have a user with the same credentials
+                        setUserName("")
+                        setUserPassword("")
+                        setUserEmail("")
+                        //setIsLoggedIn(false)
                         passwordErrorMessage.innerHTML="Login Attempt Failed.";
                         passwordErrorMessage.style.visibility = "visible";
                     }
                 },
                 function(error) {console.error(error)}
             )
+
         }
     }
 

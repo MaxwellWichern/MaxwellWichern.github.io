@@ -39,11 +39,13 @@ gameRouter.get('/test', (req, res) => {
 //string userPw
 //string email
 //bool isAdmin
-gameRouter.get('/getUserByCredentials/:userName', (req, res) => {
-  const uName = req.params.userName
+gameRouter.get('/getUserByCredentials/:userName&userPw', (req, res) => {
+  const uName = req.params
+  console.log(uName)
+  const uPass = req.params.userPw
+  console.log(uPass)
   queryDatabase(async db => {
-    const data = await db.collection('Member').find({userName: uName}).toArray()
-    console.log(data)
+    const data = await db.collection('Member').find({userName: uName, userPw:uPass}).toArray()
     res.json(data)
   }, 'SteganographyDatabase')
 })
