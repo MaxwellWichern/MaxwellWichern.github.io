@@ -9,7 +9,7 @@ export default function LoginPage(props) {
     const [userName, setUserName] = uName;
     const [userPassword, setUserPassword] = uPassword;
     const [userEmail, setUserEmail] = uEmail;
-    //const [isLoggedIn, setIsLoggedIn] = loggedIn;
+    const [isLoggedIn, setIsLoggedIn] = loggedIn;
 
     const[userNameText,setUserNameText] = React.useState("");
     const[passwordText,setPasswordText] = React.useState("");
@@ -37,7 +37,7 @@ export default function LoginPage(props) {
                         setUserName(value[0].userName)
                         setUserPassword(value[0].userPw)
                         setUserEmail(value[0].email)
-                        //setIsLoggedIn(true)
+                        setIsLoggedIn(true)
 
                         //Change site to logged in version
 
@@ -45,7 +45,7 @@ export default function LoginPage(props) {
                         setUserName("")
                         setUserPassword("")
                         setUserEmail("")
-                        //setIsLoggedIn(false)
+                        setIsLoggedIn(false)
                         passwordErrorMessage.innerHTML="Login Attempt Failed.";
                         passwordErrorMessage.style.visibility = "visible";
                     }

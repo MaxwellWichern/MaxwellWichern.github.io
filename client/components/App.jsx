@@ -20,7 +20,7 @@ export default function App (props) {
   const [userName, setUserName] = React.useState("")
   const [userPassword, setUserPassword] = React.useState("")
   const [userEmail, setUserEmail] = React.useState("")
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false)
+  const [loggedIn, setLoggedIn] = React.useState(false)
 
   return (
     <div>
@@ -28,7 +28,7 @@ export default function App (props) {
         uName: [userName, setUserName],
         uPassword: [userPassword, setUserPassword],
         uEmail: [userEmail, setUserEmail],
-        isLoggedIn: [isLoggedIn, setIsLoggedIn]
+        loggedIn: [loggedIn, setLoggedIn]
       }}>
       <PagesContext.Provider value={{
         value1: [instructionsPage, setInstructionsPage],
