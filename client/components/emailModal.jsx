@@ -51,7 +51,7 @@ export default function EmailModal(props) {
     <div ref={modalRef} className="modal fade" tabIndex="-1" aria-hidden="true">
       <div className="modal-dialog modal-xs">
         <div className="modal-content">
-          <div className="modal-header">
+          <div style={{display: "block"}} className="modal-header">
             <h1>
               Reset Your Password
             </h1>
@@ -60,11 +60,11 @@ export default function EmailModal(props) {
             </h3>
           </div>
           <div className="modal-body">
-          <form ref={form} onSubmit={sendEmail}>
+          <form style={{display: "block"}} ref={form} onSubmit={sendEmail}>
             <label>Name</label>
-            <input type="text" name="to_name" />
+            <input style={{margin: "5px", padding: "5px"}} type="text" name="to_name" />
             <label>Email</label>
-            <input type="email" name="to_email" />
+            <input style={{margin: "5px", padding: "5px"}} type="email" name="to_email" />
             <input type="submit" value="Send" />
           </form>
           </div>
