@@ -1,7 +1,9 @@
+
+//use mongoId
 export async function deleteSomething(id) {
     try {
         const response = await fetch(`data/testDell/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE' 
         })
         if (response.status >= 400) {
             throw new Error(`${response.status}`)
@@ -15,7 +17,7 @@ export async function deleteSomething(id) {
     }
 }
 
-export async function getSomething(id) {
+export async function getSomething() {
     try {
         const response = await fetch(`data/test`, {
             method: 'GET'
@@ -43,6 +45,25 @@ export async function addSomething(obj) {
             body:(JSON.stringify(obj))
         })
         .then((response)=>{return response.json()})
+        if (response.status >= 400) {
+            throw new Error(`${response.status}`)
+        }
+
+        return await response.json()
+    }
+    catch (e) {
+        console.error(e)
+        return null
+    }
+}
+
+export async function getById(id) {
+    const obj = { userId: id }
+    console.log(obj)
+    try {
+        const response = await fetch(`data/getById/${id}`, {
+            method: 'GET'
+        })
         if (response.status >= 400) {
             throw new Error(`${response.status}`)
         }

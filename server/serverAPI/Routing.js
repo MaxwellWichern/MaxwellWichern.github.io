@@ -18,19 +18,28 @@ const gameRouter = new Express.Router()
 
 gameRouter.use(Express.json())
 
-// get endpoint for All Games // what is '/bggGames for' ?
+// get endpoint for All Games 
 gameRouter.get('/test', (req, res) => {
 
     queryDatabase(async db => {
       const data = await db.collection('Member').find({}).project(
-        {_id:0, userId:1, userPw:1, email:1}
+        {_id:0, userId:1, userPw:1, email:1 , isAdmin:1 , userName:1}
       ).toArray()
       console.log('mems retrieved2:', data.length)
       res.json(data)
     }, 'SteganographyDatabase')
   })
 
-// delete endpoint
+  gameRouter.get('/getById/:userId', (req, res) => {
+    const iUserId = req.params.userId;
+    queryDatabase(async db => {
+      const data = await db.collection('Member').find({userId:parseInt(iUserId)}).project(
+        {_id:0, userId:1, userPw:1, email:1 , userName:1}
+      ).toArray()
+      console.log('mems retrieved2:', data.length)
+      res.json(data)
+    }, 'SteganographyDatabase')
+  })
 
 
 
@@ -46,7 +55,7 @@ gameRouter.delete('/testDell/:userId', (req, res) => {  /*  &userPw  */
     if (result.deletedCount > 0) {
       res.json({ success: true, id: `${iUserId}`, message: `${iUserId} found and deleted >:) ` })
     } else {
-      res.status(404).json({error: true, message: 'not foundx :('})
+      res.status(404).json({error: true, message: ` ${iUserId} not foundx :(`})
     }
     console.log(res);
   }, "SteganographyDatabase") 
@@ -69,7 +78,7 @@ gameRouter.put('/add', (req, res) => {
   }
 
     queryDatabase(async db => {
-      const data = await db.collection('Member').find({UserId: reqbody.userId}).toArray()
+      const data = await db.collection('Member').find({userId: reqbody.userId}).toArray()
       if (data.length == 0 && valid) {
         const result = await db.collection('Member').insertOne({
 
