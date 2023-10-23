@@ -57,7 +57,7 @@ export async function getUserByUserNameAndEmail(creds){
 export async function getUserByCredentials(creds){
     try{
         console.log(creds)
-        const response = await fetch(`data/getUserByCredentials/:${creds.userName}&${creds.userPw}`, {
+        const response = await fetch(`data/getUserByCredentials/${creds.userName}/${creds.userPw}`, {
             method: 'GET'
         })
         .then((response)=>{return response.json()})

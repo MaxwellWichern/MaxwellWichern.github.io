@@ -39,8 +39,8 @@ gameRouter.get('/test', (req, res) => {
 //string userPw
 //string email
 //bool isAdmin
-gameRouter.get('/getUserByCredentials/:userName&userPw', (req, res) => {
-  const uName = req.params
+gameRouter.get('/getUserByCredentials/:userName/:userPw', (req, res) => {
+  const uName = req.params.userName
   console.log(uName)
   const uPass = req.params.userPw
   console.log(uPass)
