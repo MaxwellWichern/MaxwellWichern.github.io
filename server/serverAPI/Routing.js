@@ -130,6 +130,7 @@ gameRouter.put('/addUser', (req, res) => {
   //const reqbody = JSON.parse(req.body);
   const reqbody = req.body;
   let valid = false;
+  //These logs just show what the types are to confirm that there should be no type error.
   console.log(typeof(reqbody.userName))
   console.log(typeof(reqbody.userPw))
   console.log(typeof(reqbody.email))
@@ -140,6 +141,8 @@ gameRouter.put('/addUser', (req, res) => {
   }else{
     res.status(400).json({error: true, message: 'type mismatch. Check types'})
   }
+  //One Mongo Error is looking like the connection to the db times out. 
+  //I'm not sure why this would be the case since async is added where it should be.
   queryDatabase(async db => {
     const usersWithName = await db.collection('Member').find({userName: reqbody.userName}).toArray()
     const usersWithEmail = await db.collection('Member').find({email: reqbody.email}).toArray()
