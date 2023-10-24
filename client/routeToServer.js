@@ -35,18 +35,14 @@ export async function getSomething(id) {
 //creds is a json object of the form {userName:"userName", email:"email"}
 export async function getUserByUserNameAndEmail(creds){
     try{
-        const response = await fetch(`data/getUserByUserNameAndEmail`, {
-            method: 'GET',
-            body: {
-                userName: creds.userName,
-                email: creds.email
-            }
+        const response = await fetch(`data/getUserByUserNameAndEmail/${creds.userName}/${creds.email}`, {
+            method: 'GET'
         })
         .then((response)=>{return response.json()})
         if(response.status >= 400){
             throw new Error(`${response.status}`)
         }
-        return await response.json();
+        return await response;
     }catch(e){
         console.error(e);
         return null;
@@ -56,21 +52,46 @@ export async function getUserByUserNameAndEmail(creds){
 //creds is a json object of the form {userName:"userName",userPw:"userPw"}
 export async function getUserByCredentials(creds){
     try{
-        console.log(creds)
         const response = await fetch(`data/getUserByCredentials/${creds.userName}/${creds.userPw}`, {
             method: 'GET'
         })
         .then((response)=>{return response.json()})
-        //.then((responseJson)=>{return responseJson[0]})
         if(response.status >= 400){
             throw new Error(`${response.status}`)
         }
-        /*
-        console.log(response)
-        console.log(response.length)
-        console.log(typeof(response))
-        */
-        return response;
+        return await response;
+    }catch(e){
+        console.error(e);
+        return null;
+    }
+}
+
+export async function getUserByUsername(username){
+    try{
+        const response = await fetch(`data/getUserByUsername/${username}`, {
+            method: 'GET'
+        })
+        .then((response)=>{return response.json()})
+        if(response.status >= 400){
+            throw new Error(`${response.status}`)
+        }
+        return await response;
+    }catch(e){
+        console.error(e);
+        return null;
+    }
+}
+
+export async function getUserByEmail(email){
+    try{
+        const response = await fetch(`data/getUserByEmail/${email}`, {
+            method: 'GET'
+        })
+        .then((response)=>{return response.json()})
+        if(response.status >= 400){
+            throw new Error(`${response.status}`)
+        }
+        return await response;
     }catch(e){
         console.error(e);
         return null;
@@ -93,6 +114,30 @@ export async function addSomething(obj) {
         }
 
         return await response.json()
+    }
+    catch (e) {
+        console.error(e)
+        return null
+    }
+}
+
+//user will be a json object with the following parameters: {userName: string, userPw: string, email: string}
+export async function addUser(user) {
+    try {
+        const response = await fetch(`data/addUser`, {
+            method: 'PUT',
+            headers:{
+                'Content-Type':'application/json',
+                accept: 'application/json'
+                },
+            body:(JSON.stringify(user))
+        })
+        .then((response)=>{return response.json()})
+        if (response.status >= 400) {
+            throw new Error(`${response.status}`)
+        }
+
+        return await response
     }
     catch (e) {
         console.error(e)

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { addUser } from '../routeToServer';
+
 export default function CreateAccountPage(props){
     const {setter1, setter2, setter3} = props
     
@@ -13,28 +15,57 @@ export default function CreateAccountPage(props){
         const emailErrorMessage = document.getElementById("emailErrorMessage");
         if(createAccountUsernameText == ""){
             usernameErrorMessage.style.visibility = "visible";
-            console.log("Username is empty.");
         }else{
             usernameErrorMessage.style.visibility = "hidden";
         }
         if(createAccountEmailText == ""){
             emailErrorMessage.style.visibility = "visible";
-            console.log("Email is empty.");
         }else{
             emailErrorMessage.style.visibility = "hidden";
         }
         if(createAccountPasswordText == ""){
+            passwordErrorMessage.innerHTML = "Password cannot be empty.";
             passwordErrorMessage.style.visibility = "visible";
-            console.log("Password is empty.");
         }else{
             passwordErrorMessage.style.visibility = "hidden";
         }
         if(createAccountUsernameText != "" &&
             createAccountPasswordText != "" &&
             createAccountEmailText != ""){
-            console.log("Nothing is empty.");
 
-            //We need to insert the new user into Mongo from here.
+                const user = {
+                    userName: createAccountUsernameText,
+                    userPw: createAccountPasswordText,
+                    email: createAccountEmailText
+                }
+                const result = addUser(user)
+                console.log(result)
+
+            /*
+            const qResult = getUserByUsername(createAccountUsernameText)
+            qResult.then(
+                function(value) {
+                    if(value.length==0){
+                        const qResult2 = getUserByEmail(createAccountEmailText)
+                        qResult2.then(
+                            function(value2) {
+                                if(value2.length==0){
+                                    //Add new user to Mongo
+                                }else{
+                                    passwordErrorMessage.innerHTML = "A user with that email already exists.";
+                                    passwordErrorMessage.style.visibility = "visible";
+                                }
+                            },
+                            function(error) {console.error(error)}
+                        )
+                    }else{
+                        passwordErrorMessage.innerHTML = "A user with that username already exists";
+                        passwordErrorMessage.style.visibility = "visible";
+                    }
+                },
+                function(error) {console.error(error)}
+            )
+            */
         }
         
     }

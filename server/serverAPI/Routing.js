@@ -1,6 +1,5 @@
 import Express, { query } from 'express'
 
-
 import queryDatabase from './MongoControll.js'
 
 try {
@@ -41,20 +40,34 @@ gameRouter.get('/test', (req, res) => {
 //bool isAdmin
 gameRouter.get('/getUserByCredentials/:userName/:userPw', (req, res) => {
   const uName = req.params.userName
-  console.log(uName)
   const uPass = req.params.userPw
-  console.log(uPass)
   queryDatabase(async db => {
     const data = await db.collection('Member').find({userName: uName, userPw:uPass}).toArray()
     res.json(data)
   }, 'SteganographyDatabase')
 })
 
-gameRouter.get('/getUserByUserNameAndEmail', (req, res) => {
-  const reqbody = req.body;
-  queryDatabase.apply(async db => {
-    const data = await db.collection('Member').find({userName: reqbody.userName, email: reqbody.email}).toArray()
-    console.log(data)
+gameRouter.get('/getUserByUserNameAndEmail/:userName/:email', (req, res) => {
+  const uName = req.params.userName
+  const uEmail = req.params.email
+  queryDatabase(async db => {
+    const data = await db.collection('Member').find({userName: uName, email: uEmail}).toArray()
+    res.json(data)
+  }, 'SteganographyDatabase')
+})
+
+gameRouter.get('/getUserByUsername/:userName', (req, res) => {
+  const uName = req.params.userName
+  queryDatabase(async db => {
+    const data = await db.collection('Member').find({userName: uName}).toArray()
+    res.json(data)
+  }, 'SteganographyDatabase')
+})
+
+gameRouter.get('/getUserByEmail/:email', (req, res) => {
+  const uEmail = req.params.email
+  queryDatabase(async db => {
+    const data = await db.collection('Member').find({email: uEmail}).toArray()
     res.json(data)
   }, 'SteganographyDatabase')
 })
@@ -112,6 +125,37 @@ gameRouter.put('/add', (req, res) => {
     }, "SteganographyDatabase")
   }
 )
+
+gameRouter.put('/addUser', (req, res) => {
+  //const reqbody = JSON.parse(req.body);
+  const reqbody = req.body;
+  let valid = false;
+  console.log(typeof(reqbody.userName))
+  console.log(typeof(reqbody.userPw))
+  console.log(typeof(reqbody.email))
+  if(typeof(reqbody.userName) == 'string' &&
+  typeof(reqbody.userPw) == 'string' && 
+  typeof(reqbody.email) == 'string'){
+    valid = true;
+  }else{
+    res.status(400).json({error: true, message: 'type mismatch. Check types'})
+  }
+  queryDatabase(async db => {
+    const usersWithName = await db.collection('Member').find({userName: reqbody.userName}).toArray()
+    const usersWithEmail = await db.collection('Member').find({email: reqbody.email}).toArray()
+    if(usersWithName.length == 0 && usersWithEmail.length == 0 && valid){
+      const data = await db.collection('Member').insertOne({
+        userName: reqbody.userName,
+        userPw: reqbody.userPw,
+        email: reqbody.email,
+        isAdmin: false
+      })
+      res.status(200).json({success:true,message: `A new user was added to the database.`})
+    }else{
+      res.status(400).json({error:true, message: 'User already exists.'})
+    }
+  })
+})
 
 /* gameRouter.insert('/testinsert/:MemberRecord', (req, res) => {
   const oMember = req.params.MemberRecord;

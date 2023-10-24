@@ -32,7 +32,6 @@ export default function LoginPage(props) {
             const usersResult = getUserByCredentials({userName:userNameText, userPw:passwordText})
             usersResult.then(
                 function(value) {
-                    console.log(value)
                     if(value.length > 0){ //We have a user with the same credentials
                         setUserName(value[0].userName)
                         setUserPassword(value[0].userPw)
