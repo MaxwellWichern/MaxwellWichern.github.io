@@ -60,7 +60,8 @@ export default function PageHeader(props) {
       onClick={() => {
         falsifyPages()
         setAboutPage(true)
-        }}>{title}</div>
+        }}>{title}
+      </div>
 
       <div style={{display: 'flex'}}>
         <div style={tabStyle}

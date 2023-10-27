@@ -43,23 +43,23 @@ export default function MyDropzone(props) {
   const onLoadImage = () => {
     const canvas = canvasRef
     if (canvas.current !== null) {
-      const imageToShow = document.getElementById('showToCanvas')
-      const canvasShown = document.getElementById('canvasShown')
-      canvasShown.width=imageToShow.naturalWidth
-      canvasShown.height=imageToShow.naturalHeight
-      const canvasContext = canvas.current.getContext('2d')
-      canvasContext.drawImage(imageToShow, 0,0, imageToShow.naturalWidth, imageToShow.naturalHeight)
-      const imgData = canvas.current.getContext('2d').getImageData(0,0, imageToShow.naturalWidth, imageToShow.naturalHeight)
-      let copy = []
-      for (let i = 0; i < imgData.data.length; i++) {
-        if ( i % 4 !== 3 ) {
-          copy.push(imgData.data[i])
-        }
-      }
-      setImageFile({
-        ...imageFile,
-        imgData: copy
-      })
+      // const imageToShow = document.getElementById('showToCanvas')
+      // const canvasShown = document.getElementById('canvasShown')
+      // canvasShown.width=imageToShow.naturalWidth
+      // canvasShown.height=imageToShow.naturalHeight
+      // const canvasContext = canvas.current.getContext('2d')
+      // canvasContext.drawImage(imageToShow, 0,0, imageToShow.naturalWidth, imageToShow.naturalHeight)
+      // const imgData = canvas.current.getContext('2d').getImageData(0,0, imageToShow.naturalWidth, imageToShow.naturalHeight)
+      // // let copy = []
+      // // for (let i = 0; i < imgData.data.length; i++) {
+      // //   if ( i % 4 !== 3 ) {
+      // //     copy.push(imgData.data[i])
+      // //   }
+      // // }
+      // // setImageFile({
+      // //   ...imageFile,
+      // //   imgData: copy
+      // // })
       canvasShown.style.display='none'
     }
   }
@@ -87,8 +87,6 @@ export default function MyDropzone(props) {
         <p>Drag 'n' drop some files here, or click to select files</p>
         <p>{purpose}</p>
       </div>}
-
-
     </div>
   )
 }

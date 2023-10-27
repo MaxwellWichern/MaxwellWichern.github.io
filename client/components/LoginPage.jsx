@@ -1,6 +1,7 @@
 import React from 'react'
 import { CredentialsContext } from './App';
 import { getUserByCredentials } from '../routeToServer';
+import EmailModal from './emailModal';
 
 export default function LoginPage(props) {
     const {setter1, setter2, setter3} = props
@@ -13,6 +14,8 @@ export default function LoginPage(props) {
 
     const[userNameText,setUserNameText] = React.useState("");
     const[passwordText,setPasswordText] = React.useState("");
+
+    const [noPasswordModal, setNoPasswordModal] = React.useState(null)
 
     const submitCredentials = (e) => {
         //Get the html elements for the error messages
@@ -56,6 +59,7 @@ export default function LoginPage(props) {
     }
 
     const forgotPassword = (e) => {
+        setNoPasswordModal(true)
         setter1(false)
         setter2(false)
         setter3(true)
@@ -69,6 +73,7 @@ export default function LoginPage(props) {
 
   return(
     <div>
+        <EmailModal open={noPasswordModal} onClose={setNoPasswordModal}/>
         <h1>Login Page</h1>
         <div>Username: <input type="text" id = "usernameInput" onChange={(e) => {setUserNameText(e.target.value)}}/></div>
         <div style={{visibility: "hidden"}} id = "usernameErrorMessage">Username is empty.</div>

@@ -1,10 +1,9 @@
 import React from 'react'
 import MyDropzone from './MyDropzone'
+import StockImgModal from './StockImgModal'
 import { deleteSomething } from '../routeToServer'
 import { getSomething } from '../routeToServer'
 import { addSomething } from '../routeToServer'
-
-
 
 const styling = {
   display: 'flex',
@@ -20,6 +19,7 @@ const textStyles = {
 export default function EncodingPage(props) {
 
   const [imageSelect, setImageSelect] = React.useState(false)
+  const [showModal, setShowModal] = React.useState(false)
 
   const [originalImage, setOriginalImage] = React.useState({
     picAsFile: null,
@@ -47,8 +47,8 @@ export default function EncodingPage(props) {
       "file",
       originalImage.picAsFile
     )
-    // let res = {"OriginalImage": originalImage.imgData}
-    // let hidden = new FormData();
+    result.append("preview", originalImage.preview)
+
     if (imageSelect)
       result.append("Hidden", hiddenImage.picAsFile)
     else
@@ -75,17 +75,23 @@ export default function EncodingPage(props) {
     <>
       <h2>Encode your image!</h2>
       <div style={styling}>
-        <label style={{display:'flex'}}>
+        <div style={{display:'flex'}}>
           <MyDropzone imageFile={originalImage} setImageFile={setOriginalImage} purpose='Use This Image To Hide'/>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+          <svg onClick={()=>{setShowModal(true)}} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
             <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
           </svg>
-        </label>
+          <StockImgModal
+            open={showModal}
+            onClose={()=>{setShowModal(false)}}
+            passImage={originalImage}
+            passSetImage={setOriginalImage}
+          />
+        </div>
         <form name="inputForm"  onSubmit={onSubmission}>
-          {/*!imageSelect && */<label htmlFor="hiddenTextField" id="hiddenTextContainer">
+          {!imageSelect && <label htmlFor="hiddenTextField" id="hiddenTextContainer">
             <input style={textStyles} onChange={(e) => {setHiddenText(e.target.value)}} type="text" name='inputForm' id="hiddenTextField"/>
           </label>}
-          {/*imageSelect && <MyDropzone imageFile={hiddenImage} setImageFile={setHiddenImage} purpose='Hide This Image'/>*/}
+          {imageSelect && <MyDropzone imageFile={hiddenImage} setImageFile={setHiddenImage} purpose='Hide This Image'/>}
           <label>
             <input style={{ display: "none" }} type='submit' value="Submit"/>
             <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" className="bi bi-arrow-right-circle" viewBox="0 0 16 16">
