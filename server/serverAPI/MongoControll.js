@@ -15,7 +15,7 @@ const client = new Mongo.MongoClient(uri, {useNewUrlParser: true,useUnifiedTopol
 export default function queryDatabase(queryCallBack, databaseName) {
   queryCallBack(client.db(databaseName))
     .catch(err => {
-      console.error('Failed to query database')
+      console.error('---------NEW MONGO ERROR---------')
       console.error(err)
     })
 }
