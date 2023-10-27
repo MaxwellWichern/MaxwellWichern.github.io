@@ -61,6 +61,23 @@ gameRouter.delete('/testDell/:userId', (req, res) => {  /*  &userPw  */
   }, "SteganographyDatabase") 
 })
 
+gameRouter.delete('/dellByUserName/:userName', (req, res) => { 
+  const UserNm = req.params.userName;
+  console.log('user to delete: ',UserNm);
+
+
+  queryDatabase(async db => {
+
+    const result = await db.collection('Member').deleteOne({userName:String(UserNm)})
+    if (result.deletedCount > 0) {
+      res.json({ success: true, userName: `${UserNm}`, message: `${UserNm} found and deleted >:) ` })
+    } else {
+      res.status(404).json({error: true, message: ` ${UserNm} not foundx :(`})
+    }
+    console.log(res);
+  }, "SteganographyDatabase") 
+})
+
 gameRouter.put('/add', (req, res) => {
   const reqbody = req.body
   let valid = false

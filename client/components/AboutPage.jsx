@@ -1,12 +1,16 @@
 import React from 'react'
-import {getSomething,deleteSomething,getById} from '../routeToServer.js'
+import {getSomething,deleteSomething,getById,deleteByName} from '../routeToServer.js'
 
 export default function AboutPage(props) { 
 
   const derekTestFunction = (e) => { 
 
-//deleteSomething(123456789);
-getById(123456888);
+ 
+    getSomething();
+
+    //deleteSomething(123456789);
+    deleteByName('user1');
+    //getById(123456888);
  
 getSomething();
 
