@@ -153,7 +153,7 @@ gameRouter.put('/addUser', (req, res) => {
     }else{
       res.status(400).json({error:true, message: 'User already exists.'})
     }
-  })
+  }, "SteganographyDatabase")
 })
 
 /* gameRouter.insert('/testinsert/:MemberRecord', (req, res) => {
