@@ -154,7 +154,7 @@ memberRouter.put('/add', (req, res) => {
   }
 )
 
-memberRouterRouter.put('/addUser', (req, res) => {
+memberRouter.put('/addUser', (req, res) => {
   //const reqbody = JSON.parse(req.body);
   const reqbody = req.body;
   let valid = false;
@@ -167,6 +167,21 @@ memberRouterRouter.put('/addUser', (req, res) => {
   }
   //One Mongo Error is looking like the connection to the db times out.
   //I'm not sure why this would be the case since async is added where it should be.
+  queryDatabase(async db => {
+    const usersWithName = await db.collection('Member').find({userName: reqbody.userName}).toArray()
+    const usersWithEmail = await db.collection('Member').find({email: reqbody.email}).toArray()
+    if(usersWithName.length == 0 && usersWithEmail.length == 0 && valid){
+      const data = await db.collection('Member').insertOne({
+        userName: reqbody.userName,
+        userPw: reqbody.userPw,
+        email: reqbody.email,
+        isAdmin: false
+      })
+      res.status(200).json({success:true,message: `A new user was added to the database. ${data}`})
+    }else{
+      res.status(400).json({error:true, message: 'User already exists.'})
+    }
+  }, "SteganographyDatabase")
 })
 
 memberRouter.put('/update/:id', (req, res) => {

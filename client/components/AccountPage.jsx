@@ -1,6 +1,6 @@
 import React from 'react'
 import { updateById } from '../routeToServer'
-
+import { CredentialsContext } from './App.jsx'
 
 const inputStyle = {
   border: 'none'
@@ -14,19 +14,18 @@ const pageStyle= {
 }
 
 export default function AccountPage(props) {
+  const {uName, uPassword, uEmail, loggedIn} = React.useContext(CredentialsContext)
 
-  const [username, setUsername] = React.useState('No UserName')
-  const [email, setEmail] = React.useState('No Email')
   const [showSubmit, setShowSubmit] = React.useState(false)
   const [noPasswordModal, setNoPasswordModal] = React.useState(null)
 
   const onUserChange = (e) => {
-    setUsername(e.target.value)
+    uName[1](e.target.value)
     setShowSubmit(true)
   }
 
   const onEmailChange = (e) => {
-    setEmail(e.target.value)
+    uEmail[1](e.target.value)
     setShowSubmit(true)
   }
 
@@ -40,12 +39,11 @@ export default function AccountPage(props) {
 
   return(
     <>
-      <EmailModal open={noPasswordModal} onClose={setNoPasswordModal}/>
       <div style={pageStyle}>
 
         <form onSubmit={onSubmission}>
-          <h2><input type='text' style={inputStyle} onChange={onUserChange} value={username}/></h2>
-          <input type='text' style={inputStyle} onChange={onEmailChange} value={email}/>
+          <h2><input type='text' style={inputStyle} onChange={onUserChange} value={uName[0]}/></h2>
+          <input type='text' style={inputStyle} onChange={onEmailChange} value={uEmail[0]}/>
           {showSubmit && <input type='submit' value='Submit'/>}
         </form>
 
