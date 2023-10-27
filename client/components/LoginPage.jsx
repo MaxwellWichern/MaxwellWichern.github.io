@@ -3,6 +3,7 @@ import { CredentialsContext } from './App';
 import { getUserByCredentials } from '../routeToServer';
 
 
+
 export default function LoginPage(props) {
     const {setter1, setter2, setter3} = props
     const {uName, uPassword, uEmail, loggedIn} = React.useContext(CredentialsContext)
