@@ -14,12 +14,12 @@ try {
   }
 
 
-const gameRouter = new Express.Router()
+const memberRouter = new Express.Router()
 
-gameRouter.use(Express.json())
+memberRouter.use(Express.json())
 
-// get endpoint for All Games 
-gameRouter.get('/test', (req, res) => {
+// get endpoint for All Games
+memberRouter.get('/test', (req, res) => {
 
     queryDatabase(async db => {
       const data = await db.collection('Member').find({}).project(
@@ -30,7 +30,7 @@ gameRouter.get('/test', (req, res) => {
     }, 'SteganographyDatabase')
   })
 
-  gameRouter.get('/getById/:userId', (req, res) => {
+  memberRouter.get('/getById/:userId', (req, res) => {
     const iUserId = req.params.userId;
     queryDatabase(async db => {
       const data = await db.collection('Member').find({userId:parseInt(iUserId)}).project(
@@ -43,7 +43,7 @@ gameRouter.get('/test', (req, res) => {
 
 
 
-gameRouter.delete('/testDell/:userId', (req, res) => {  /*  &userPw  */ 
+memberRouter.delete('/testDell/:userId', (req, res) => {  /*  &userPw  */
   const iUserId = req.params.userId;
   //iUserId = 123456789;
   console.log('userID to delete: ',iUserId);
@@ -58,10 +58,10 @@ gameRouter.delete('/testDell/:userId', (req, res) => {  /*  &userPw  */
       res.status(404).json({error: true, message: ` ${iUserId} not foundx :(`})
     }
     console.log(res);
-  }, "SteganographyDatabase") 
+  }, "SteganographyDatabase")
 })
 
-gameRouter.put('/add', (req, res) => {
+memberRouter.put('/add', (req, res) => {
   const reqbody = req.body
   let valid = false
 
@@ -96,17 +96,14 @@ gameRouter.put('/add', (req, res) => {
   }
 )
 
-/* gameRouter.insert('/testinsert/:MemberRecord', (req, res) => {
-  const oMember = req.params.MemberRecord;
+memberRouter.put('/update/:id', (req, res) => {
+  const id = req.params.id
+  const body = req.body;
 
   queryDatabase(async db => {
-
-    const result = await db.collection('Member').insertMany({id:parseInt(oMember)})
-
-      res.json({ success: true, id: `${oMember}`, message: `${oMember} found and deleted` })
-  
-    console.log(res);
+    const data = await db.collection('Member').findOneAndUpdate({userId: reqbody.id}, body)
+    res.status(200).json({success: true, id: `${id}`, newUserName: `${body.newUserName}`, newEmail: `${body.newEmail}`})
   }, "SteganographyDatabase")
-}) */
+})
 
-  export default gameRouter
+  export default memberRouter
