@@ -130,10 +130,6 @@ gameRouter.put('/addUser', (req, res) => {
   //const reqbody = JSON.parse(req.body);
   const reqbody = req.body;
   let valid = false;
-  //These logs just show what the types are to confirm that there should be no type error.
-  console.log(typeof(reqbody.userName))
-  console.log(typeof(reqbody.userPw))
-  console.log(typeof(reqbody.email))
   if(typeof(reqbody.userName) == 'string' &&
   typeof(reqbody.userPw) == 'string' && 
   typeof(reqbody.email) == 'string'){
@@ -153,7 +149,7 @@ gameRouter.put('/addUser', (req, res) => {
         email: reqbody.email,
         isAdmin: false
       })
-      res.status(200).json({success:true,message: `A new user was added to the database.`})
+      res.status(200).json({success:true,message: `A new user was added to the database. ${data}`})
     }else{
       res.status(400).json({error:true, message: 'User already exists.'})
     }
