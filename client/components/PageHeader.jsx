@@ -109,7 +109,7 @@ export default function PageHeader(props) {
       }}>Account
       </div>}
 
-      {!loggedIn[0] && <div style={tabStyle}
+      {!loggedIn[0] && <div style={accountTabStyle}
         onMouseEnter={(e)=>{mouseEntered(e)}}
         onMouseLeave={(e)=>{mouseLeft(e)}}
         onClick={() => {
