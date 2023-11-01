@@ -3,7 +3,8 @@ import { updateById } from '../routeToServer'
 import { CredentialsContext } from './App.jsx'
 
 const inputStyle = {
-  border: 'none'
+  border: 'solid 1px',
+  width: '100%'
 }
 
 const pageStyle= {
@@ -43,7 +44,7 @@ export default function AccountPage(props) {
 
         <form onSubmit={onSubmission}>
           <h2><input type='text' style={inputStyle} onChange={onUserChange} value={uName[0]}/></h2>
-          <input type='text' style={inputStyle} onChange={onEmailChange} value={uEmail[0]}/>
+          <h3><input type='text' style={inputStyle} onChange={onEmailChange} value={uEmail[0]}/></h3>
           {showSubmit && <input type='submit' value='Submit'/>}
         </form>
 
