@@ -1,7 +1,10 @@
 import React from 'react'
+import { updateById } from '../routeToServer'
+import { CredentialsContext } from './App.jsx'
 
 const inputStyle = {
-  border: 'none'
+  border: 'solid 1px',
+  width: '100%'
 }
 
 const pageStyle= {
@@ -12,38 +15,42 @@ const pageStyle= {
 }
 
 export default function AccountPage(props) {
-  const [username, setUsername] = React.useState('No UserName')
-  const [email, setEmail] = React.useState('No Email')
+  const {uName, uPassword, uEmail, loggedIn} = React.useContext(CredentialsContext)
+
   const [showSubmit, setShowSubmit] = React.useState(false)
+  const [noPasswordModal, setNoPasswordModal] = React.useState(null)
 
   const onUserChange = (e) => {
-    setUsername(e.target.value)
+    uName[1](e.target.value)
     setShowSubmit(true)
   }
 
   const onEmailChange = (e) => {
-    setEmail(e.target.value)
+    uEmail[1](e.target.value)
     setShowSubmit(true)
   }
 
   const onSubmission = () => {
-    //send data to database
+    //updateById( , {newUserName: username, newEmail: email})
   }
 
   function requestPassWordChange() {
-    // send an email
+    //
   }
+
   return(
-    <div style={pageStyle}>
+    <>
+      <div style={pageStyle}>
 
-      <form onSubmit={onSubmission}>
-        <h2><input type='text' style={inputStyle} onChange={onUserChange} value={username}/></h2>
-        <input type='text' style={inputStyle} onChange={onEmailChange} value={email}/>
-        {showSubmit && <input type='submit' value='Submit'/>}
-      </form>
+        <form onSubmit={onSubmission}>
+          <h2><input type='text' style={inputStyle} onChange={onUserChange} value={uName[0]}/></h2>
+          <h3><input type='text' style={inputStyle} onChange={onEmailChange} value={uEmail[0]}/></h3>
+          {showSubmit && <input type='submit' value='Submit'/>}
+        </form>
 
-      <input type='button' value='Change Password Request' onClick={requestPassWordChange} />
+        <input type='button' value='Change Password Request' onClick={requestPassWordChange} />
 
-    </div>
+      </div>
+    </>
   )
 }

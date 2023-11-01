@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { PagesContext } from './App.jsx'
+import { CredentialsContext, PagesContext } from './App.jsx'
 
 const headerStyle = {
   background: '#A82104',
@@ -25,6 +25,8 @@ const accountTabStyle = {
 export default function PageHeader(props) {
   const { title } = props
   const {value1, value2, value3, value4, value5, value6, value7} = React.useContext(PagesContext)
+  const {uName, uPassword, uEmail, loggedIn} = React.useContext(CredentialsContext)
+
 
   const [instructionsPage, setInstructionsPage] = value1
   const [encoderPage, setEncoderPage] = value2
@@ -69,14 +71,6 @@ export default function PageHeader(props) {
         onMouseLeave={(e)=>{mouseLeft(e)}}
         onClick={() => {
           falsifyPages()
-          setLoginPage(true)
-        }}>Login
-        </div>
-        <div style={tabStyle}
-        onMouseEnter={(e)=>{mouseEntered(e)}}
-        onMouseLeave={(e)=>{mouseLeft(e)}}
-        onClick={() => {
-          falsifyPages()
           setInstructionsPage(true)
         }}>Instructions
         </div>
@@ -105,6 +99,7 @@ export default function PageHeader(props) {
         }}>Collections
         </div>
       </div>
+      {loggedIn[0] &&
       <div style={accountTabStyle}
       onMouseEnter={(e)=>{mouseEntered(e)}}
       onMouseLeave={(e)=>{mouseLeft(e)}}
@@ -112,7 +107,16 @@ export default function PageHeader(props) {
         falsifyPages()
         setAccountPage(true)
       }}>Account
-      </div>
+      </div>}
+
+      {!loggedIn[0] && <div style={accountTabStyle}
+        onMouseEnter={(e)=>{mouseEntered(e)}}
+        onMouseLeave={(e)=>{mouseLeft(e)}}
+        onClick={() => {
+          falsifyPages()
+          setLoginPage(true)
+        }}>Login
+        </div>}
 
     </div>
   )
