@@ -80,11 +80,11 @@ export default function LoginPage(props) {
             <input type="submit" id="forgotPassword" onClick={forgotPassword} value="Forgot Password"/>
             <input type="submit" id="credentialSubmit" onClick={submitCredentials} value="Log In"/>
             <input type="submit" id="createAccount" onClick={createAccount} value="Create An Account"/>
-            <input type="submit" id="showCreds" onClick={(e)=>{
+            {/*<input type="submit" id="showCreds" onClick={(e)=>{
                 console.log(userName)
                 console.log(userPassword)
                 console.log(userEmail)
-            }} value="Show Creds"/>
+            }} value="Show Creds"/>*/}
         </div>
     </div>
   )

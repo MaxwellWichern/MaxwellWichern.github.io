@@ -10,13 +10,25 @@ export default function ForgotPasswordPage(props){
     const sendEmail = (e) => {
       e.preventDefault();
       console.log(form)
-
-      emailjs.sendForm('service_k5mmp7a', 'template_c9a9xhk', form.current, 'QN5phbtNir0brALN5')
+      const randValueSelection = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"~\\$._<>=;*^,-#+{}()[]/@`|%?&:\'!'
+      const keyLength = 30
+      const randSelectionLength = randValueSelection.length
+      let key = ""
+      for (let i = 0; i < keyLength; ++i) {
+        let randSelect = Math.floor(Math.random()*randSelectionLength)
+        key+=randValueSelection[randSelect]
+      }
+      //1) submit this key to the mongodb, replacing a previously used key or empty if it times out
+      //2) on the email, link to a page on our site
+      //3) once clicked, retrieve the key of whomever clicked the link, i.e. use their username and email to find the user and get the connected key
+      //4) if the key is not expired, show the page to reset your password
+      //5) if the key is expired or does not exist, link them to send another email, max three attempts within a timeframe to prevent spam
+      /*emailjs.sendForm('service_k5mmp7a', 'template_c9a9xhk', form.current, 'QN5phbtNir0brALN5')
         .then((result) => {
             console.log(result.text);
         }, (error) => {
             console.log(error.text);
-        });
+        });*/
     };
 
     const returnToLogin = (e) => {
@@ -36,7 +48,7 @@ export default function ForgotPasswordPage(props){
               <input type="submit" value="Send" />
             </form>
             <div style={{visibility:"hidden"}} id="accountNotFoundError">We do not have an account associated with that email address.</div>
-            <div><input type="submit" value="Return To Login" onClick={returnToLogin} id="returnToLoginButton"/></div>
+            <div><input type="submit" value="Return To Last Page" onClick={returnToLogin} id="returnToLoginButton"/></div>
         </div>
     );
 }
