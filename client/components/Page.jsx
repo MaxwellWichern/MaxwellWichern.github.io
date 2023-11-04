@@ -9,6 +9,8 @@ import AccountPage from './AccountPage.jsx'
 import LoginPageCenter from './LoginPageCenter.jsx'
 
 import { PagesContext } from './App.jsx'
+import { PassThrough } from 'stream'
+import PasswordResetPage from './PasswordResetPage.jsx'
 
 const pageStyle = {
   textAlign: 'center',
@@ -16,7 +18,7 @@ const pageStyle = {
 }
 
 export default function Page(props) {
-  const {value1, value2, value3, value4, value5, value6, value7} = React.useContext(PagesContext)
+  const {value1, value2, value3, value4, value5, value6, value7, value8} = React.useContext(PagesContext)
 
   const [instructionsPage, setInstructionsPage] = value1
   const [encoderPage, setEncoderPage] = value2
@@ -37,6 +39,7 @@ export default function Page(props) {
         {aboutPage && <AboutPage/>}
         {accountPage && <AccountPage/>}
         {loginPage && <LoginPageCenter/>}
+
       </div>
     </>
   )

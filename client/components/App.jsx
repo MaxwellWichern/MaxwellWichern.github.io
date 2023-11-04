@@ -37,7 +37,7 @@ export default function App (props) {
         value4: [dataCollectionPage, setDataCollectionPage],
         value5: [aboutPage, setAboutPage],
         value6: [accountPage, setAccountPage],
-        value7: [loginPage, setLoginPage]
+        value7: [loginPage, setLoginPage],
         }}>
         <PageHeader title='Steganography'/>
         <Page/>
