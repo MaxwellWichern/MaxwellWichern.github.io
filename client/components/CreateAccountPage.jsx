@@ -4,7 +4,7 @@ import { addUser } from '../routeToServer';
 
 export default function CreateAccountPage(props){
     const {setter1, setter2, setter3} = props
-    
+
     const [createAccountUsernameText, setCreateAccountUsernameText] = React.useState("");
     const [createAccountPasswordText, setCreateAccountPasswordText] = React.useState("");
     const [createAccountEmailText, setCreateAccountEmailText] = React.useState("");
@@ -67,7 +67,7 @@ export default function CreateAccountPage(props){
             )
             */
         }
-        
+
     }
 
     const returnToLogin = (e) => {

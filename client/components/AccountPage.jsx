@@ -20,8 +20,8 @@ export default function AccountPage(props) {
 
   const [showSubmit, setShowSubmit] = React.useState(false)
 
-  const [showLoginPage,setShowLoginPage] = React.useState(true);
-  const [showCreateAccountPage, setShowCreateAccountPage] = React.useState(false);
+  //const [showLoginPage,setShowLoginPage] = React.useState(true);
+  //const [showCreateAccountPage, setShowCreateAccountPage] = React.useState(false);
   const [showForgotPasswordPage, setShowForgotPasswordPage] = React.useState(false);
 
   const onUserChange = (e) => {
