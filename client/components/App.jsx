@@ -44,7 +44,6 @@ export default function App (props) {
             <Route path='Account' element={<AccountPage/>}/>
             <Route path='Login' element={<LoginPageCenter/>}/>
             <Route path='PasswordReset' element={<PasswordResetPage/>}/>
-            <Route path={'localhost:3000' + '/:path'} element={<DeepLinkHandler/>}/>
 
           </Routes>
         </BrowserRouter>
