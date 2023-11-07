@@ -46,13 +46,15 @@ export default function AccountPage(props) {
     <>
       <div style={pageStyle}>
 
-        {!showForgotPasswordPage && <><form onSubmit={onSubmission}>
-          <h2><input type='text' style={inputStyle} onChange={onUserChange} value={uName[0]}/></h2>
-          <h3><input type='text' style={inputStyle} onChange={onEmailChange} value={uEmail[0]}/></h3>
-          {showSubmit && <input type='submit' value='Submit'/>}
-        </form>
+        {!showForgotPasswordPage &&
+        <>
+          <form onSubmit={onSubmission}>
+            <h2><input type='text' style={inputStyle} onChange={onUserChange} value={uName[0]}/></h2>
+            <h3><input type='text' style={inputStyle} onChange={onEmailChange} value={uEmail[0]}/></h3>
+            {showSubmit && <input type='submit' value='Submit'/>}
+          </form>
 
-        <input type='button' value='Change Password Request' onClick={requestPassWordChange} />
+          <input type='button' value='Change Password Request' onClick={requestPassWordChange} />
         </>}
 
         {showForgotPasswordPage && <ForgotPasswordPage setter1 = {setShowLoginPage} setter2={setShowCreateAccountPage} setter3={setShowForgotPasswordPage}/>}

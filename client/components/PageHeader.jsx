@@ -41,7 +41,7 @@ export default function PageHeader(props) {
     <>
     <nav style={headerStyle}>
 
-      <Link to='/'>
+      <Link to='/' style={{ textDecoration: 'none' }}>
         <div style={{ margin: '5px', color: 'white', cursor: 'pointer', fontSize: '50px' }}
 
           >{title}
@@ -51,7 +51,7 @@ export default function PageHeader(props) {
 
       <div style={{display: 'flex'}}>
 
-        <Link to='/Instructions'>
+        <Link to='/Instructions' style={{ textDecoration: 'none' }}>
           <div style={tabStyle}
             onMouseEnter={(e)=>{mouseEntered(e)}}
             onMouseLeave={(e)=>{mouseLeft(e)}}
@@ -60,7 +60,7 @@ export default function PageHeader(props) {
           </div>
         </Link>
 
-        <Link to='/Encoding'>
+        <Link to='/Encoding' style={{ textDecoration: 'none' }}>
           <div style={tabStyle}
             onMouseEnter={(e)=>{mouseEntered(e)}}
             onMouseLeave={(e)=>{mouseLeft(e)}}
@@ -69,7 +69,7 @@ export default function PageHeader(props) {
           </div>
         </Link>
 
-        <Link to='/Decoding'>
+        <Link to='/Decoding' style={{ textDecoration: 'none' }}>
           <div style={tabStyle}
             onMouseEnter={(e)=>{mouseEntered(e)}}
             onMouseLeave={(e)=>{mouseLeft(e)}}
@@ -78,7 +78,7 @@ export default function PageHeader(props) {
           </div>
         </Link>
 
-        <Link to='/Collection'>
+        <Link to='/Collection' style={{ textDecoration: 'none' }}>
           <div style={tabStyle}
             onMouseEnter={(e)=>{mouseEntered(e)}}
             onMouseLeave={(e)=>{mouseLeft(e)}}
@@ -92,7 +92,7 @@ export default function PageHeader(props) {
 
 
       {loggedIn[0] &&
-        <Link to='/Account'>
+        <Link to='/Account' style={{ textDecoration: 'none' }}>
           <div style={accountTabStyle}
             onMouseEnter={(e)=>{mouseEntered(e)}}
             onMouseLeave={(e)=>{mouseLeft(e)}}
@@ -103,7 +103,7 @@ export default function PageHeader(props) {
       }
 
       {!loggedIn[0] &&
-      <Link to='/Login'>
+      <Link to='/Login' style={{ textDecoration: 'none' }}>
         <div style={accountTabStyle}
           onMouseEnter={(e)=>{mouseEntered(e)}}
           onMouseLeave={(e)=>{mouseLeft(e)}}

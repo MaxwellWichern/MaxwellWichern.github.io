@@ -76,7 +76,7 @@ export default function LoginPage(props) {
         <h1>Login Page</h1>
         <div>Username: <input type="text" id = "usernameInput" onChange={(e) => {setUserNameText(e.target.value)}}/></div>
         <div style={{visibility: "hidden"}} id = "usernameErrorMessage">Username is empty.</div>
-        <div>Password: <input type="text" id = "passwordInput" onChange={(e) => {setPasswordText(e.target.value)}}/></div>
+        <div>Password: <input type="password" id = "passwordInput" onChange={(e) => {setPasswordText(e.target.value)}}/></div>
         <div style={{visibility: "hidden"}} id="passwordErrorMessage">Password is empty.</div>
         <div>
             <input type="submit" id="forgotPassword" onClick={forgotPassword} value="Forgot Password"/>

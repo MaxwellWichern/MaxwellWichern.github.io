@@ -30,7 +30,7 @@ export default function PasswordResetPage(props) {
         <input type="submit" value="Send" />
       </form>
       <div style={{visibility:"hidden"}} id="accountNotFoundError">Passwords do not match, please try again</div>
-      <Link to='/Login'><input type="submit" value="Return To Login Page" id="returnToLoginButton"/></Link>
+      <Link to='/Login' style={{ textDecoration: 'none' }}><input type="submit" value="Return To Login Page" id="returnToLoginButton"/></Link>
     </div>
   )
 }
