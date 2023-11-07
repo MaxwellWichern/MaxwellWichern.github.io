@@ -5,12 +5,14 @@ export default function DeepLinkHandler() {
 
   let targetRoute = '/'; // Set a default route
 
-  if (path === 'PasswordReset') {
-    console.log(path)
-    targetRoute = `/${path}/${token}`
-  }
+  React.useEffect(()=> {
+    if (path === 'PasswordReset') {
+      console.log(path)
+      targetRoute = `/${path}/${token}`
+    }
 
-  history.push(targetRoute);
+    history.push(targetRoute);
+  }, [])
 
   return (
     <>

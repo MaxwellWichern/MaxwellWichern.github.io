@@ -18,10 +18,14 @@ app.use((req, res, next) => {
 // final static route
 app.use(Express.static(path.join(__dirname, 'public')))
 
-app.use('/data',gameRouter )
-//app.use('/components', Express.static(path.join(__dirname, 'client', 'components')));
+//add the gameRouter to express
+app.use('/data',gameRouter)
 
+//everything else should get res.sendFile
+//I should take in the path and send/resend as /, thereby loading the page, then passing 'PasswordReset/:token' or others
+// as a internal variable to the client-side routing
 app.get('*', (req, res) => {
+
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
