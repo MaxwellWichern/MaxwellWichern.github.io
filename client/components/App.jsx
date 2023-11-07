@@ -19,16 +19,17 @@ export const CredentialsContext = React.createContext(null)
 
 export default function App (props) {
 
+  const [userId, setUserId] = React.useState("")
   const [userName, setUserName] = React.useState("")
-  const [userPassword, setUserPassword] = React.useState("")
+  //const [userPassword, setUserPassword] = React.useState("")
   const [userEmail, setUserEmail] = React.useState("")
   const [loggedIn, setLoggedIn] = React.useState(false)
 
   return (
     <div>
       <CredentialsContext.Provider value={{
+        uId: [userId, setUserId],
         uName: [userName, setUserName],
-        uPassword: [userPassword, setUserPassword],
         uEmail: [userEmail, setUserEmail],
         loggedIn: [loggedIn, setLoggedIn]
       }}>
@@ -42,8 +43,8 @@ export default function App (props) {
             <Route path='Collections' element={<CollectionPage/>}/>
             <Route path='Account' element={<AccountPage/>}/>
             <Route path='Login' element={<LoginPageCenter/>}/>
-            <Route path='PasswordReset/:token' element={<PasswordResetPage/>}/>
-            <Route path={'localhost:3000' + '/:path/:token?'} element={<DeepLinkHandler/>}/>
+            <Route path='PasswordReset' element={<PasswordResetPage/>}/>
+            <Route path={'localhost:3000' + '/:path'} element={<DeepLinkHandler/>}/>
 
           </Routes>
         </BrowserRouter>

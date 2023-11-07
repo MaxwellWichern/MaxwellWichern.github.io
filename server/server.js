@@ -22,7 +22,7 @@ app.use(Express.static(path.join(__dirname, 'public')))
 app.use('/data',gameRouter)
 
 //everything else should get res.sendFile
-//I should take in the path and send/resend as /, thereby loading the page, then passing 'PasswordReset/:token' or others
+//I should take in the path and send/resend as /, thereby loading the page, then passing 'PasswordReset?key=###' or others
 // as a internal variable to the client-side routing
 app.get('*', (req, res) => {
 

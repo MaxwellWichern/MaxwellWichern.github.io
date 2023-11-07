@@ -6,12 +6,13 @@ import { getUserByCredentials } from '../routeToServer';
 
 export default function LoginPage(props) {
     const {setter1, setter2, setter3} = props
-    const {uName, uPassword, uEmail, loggedIn} = React.useContext(CredentialsContext)
+    const {uId, uName, uEmail, loggedIn} = React.useContext(CredentialsContext)
 
-    const [userName, setUserName] = uName;
-    const [userPassword, setUserPassword] = uPassword;
-    const [userEmail, setUserEmail] = uEmail;
-    const [isLoggedIn, setIsLoggedIn] = loggedIn;
+    const [userId, setUserId] = uId
+    const [userName, setUserName] = uName
+    //const [userPassword, setUserPassword] = uPassword
+    const [userEmail, setUserEmail] = uEmail
+    const [isLoggedIn, setIsLoggedIn] = loggedIn
 
     const[userNameText,setUserNameText] = React.useState("");
     const[passwordText,setPasswordText] = React.useState("");
@@ -35,8 +36,9 @@ export default function LoginPage(props) {
             usersResult.then(
                 function(value) {
                     if(value.length > 0){ //We have a user with the same credentials
+                        setUserId(value[0].id)
                         setUserName(value[0].userName)
-                        setUserPassword(value[0].userPw)
+                        //setUserPassword(value[0].userPw)
                         setUserEmail(value[0].email)
                         setIsLoggedIn(true)
 
@@ -44,7 +46,7 @@ export default function LoginPage(props) {
 
                     }else{  //We do not have a user with the same credentials
                         setUserName("")
-                        setUserPassword("")
+                        //setUserPassword("")
                         setUserEmail("")
                         setIsLoggedIn(false)
                         passwordErrorMessage.innerHTML="Login Attempt Failed.";
