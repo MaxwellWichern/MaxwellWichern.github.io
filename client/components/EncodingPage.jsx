@@ -24,14 +24,12 @@ export default function EncodingPage(props) {
 
   const [originalImage, setOriginalImage] = React.useState({
     picAsFile: null,
-    preview: null,
-    imgData: null
+    preview: null
   })
 
   const [hiddenImage, setHiddenImage] = React.useState({
     picAsFile: null,
-    preview: null,
-    imgData: null
+    preview: null
   })
 
   const [hiddenText, setHiddenText] = React.useState(null)
