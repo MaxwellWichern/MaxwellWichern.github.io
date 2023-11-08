@@ -1,4 +1,5 @@
 import Express, { query } from 'express'
+import { ObjectId } from 'mongodb'
 
 import queryDatabase from './MongoControll.js'
 
@@ -52,6 +53,7 @@ memberRouter.get('/getUserByCredentials/:userName/:userPw', (req, res) => {
   const uPass = req.params.userPw
   queryDatabase(async db => {
     const data = await db.collection('Member').find({userName: uName, userPw:uPass}).toArray()
+    console.log(data)
     res.json(data)
   }, 'SteganographyDatabase')
 })
@@ -61,6 +63,7 @@ memberRouter.get('/getUserByUserNameAndEmail/:userName/:email', (req, res) => {
   const uEmail = req.params.email
   queryDatabase(async db => {
     const data = await db.collection('Member').find({userName: uName, email: uEmail}).toArray()
+
     res.json(data)
   }, 'SteganographyDatabase')
 })
@@ -194,14 +197,13 @@ memberRouter.put('/updatePass/:email', (req, res) => {
   }, "SteganographyDatabase")
 })
 
-memberRouter.put('/update/:id', (req, res) => {
+memberRouter.put('/update/:id', async (req, res) => {
   const id = req.params.id
   const body = req.body;
-
-  queryDatabase(async db => {
-    const data = await db.collection('Member').findOneAndUpdate({id: id}, {$set: body})
-    res.status(200).json({success: true, newEmail: `${body.newEmail}`, message: `Updated information ${data}`})
-  }, "SteganographyDatabase")
+    queryDatabase(async db => {
+      const data = await db.collection('Member').findOneAndUpdate({_id: new ObjectId(id)}, {$set: body})
+      res.status(200).json({success: true, newEmail: `${body.newEmail}`, message: `Updated information ${data}`})
+    }, "SteganographyDatabase")
 })
 
   export default memberRouter
