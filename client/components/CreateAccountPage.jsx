@@ -4,7 +4,7 @@ import { addUser } from '../routeToServer';
 
 export default function CreateAccountPage(props){
     const {setter1, setter2, setter3} = props
-    
+
     const [createAccountUsernameText, setCreateAccountUsernameText] = React.useState("");
     const [createAccountPasswordText, setCreateAccountPasswordText] = React.useState("");
     const [createAccountEmailText, setCreateAccountEmailText] = React.useState("");
@@ -67,7 +67,7 @@ export default function CreateAccountPage(props){
             )
             */
         }
-        
+
     }
 
     const returnToLogin = (e) => {
@@ -83,7 +83,7 @@ export default function CreateAccountPage(props){
             <div style={{visibility: "hidden"}} id = "usernameErrorMessage">Username cannot be empty.</div>
             <div>Enter Your Email: <input type="text" id="enterEmail" onChange={(e) => {setCreateAccountEmailText(e.target.value)}}/></div>
             <div style={{visibility: "hidden"}} id = "emailErrorMessage">Email cannot be empty.</div>
-            <div>Enter Your Password: <input type="text" id="enterPassword" onChange={(e) => {setCreateAccountPasswordText(e.target.value)}}/></div>
+            <div>Enter Your Password: <input type="password" id="enterPassword" onChange={(e) => {setCreateAccountPasswordText(e.target.value)}}/></div>
             <div style={{visibility: "hidden"}} id = "passwordErrorMessage">Password cannot be empty.</div>
             <div><input type="submit" id="submitInformation" onClick={createAccount}/></div>
             <div><input type="submit" id="returnToLogin" onClick={returnToLogin} value="Return To Login"/></div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { CredentialsContext, PagesContext } from './App.jsx'
+import { Outlet, Link } from "react-router-dom";
 
 const headerStyle = {
   background: '#A82104',
@@ -24,27 +25,7 @@ const accountTabStyle = {
 
 export default function PageHeader(props) {
   const { title } = props
-  const {value1, value2, value3, value4, value5, value6, value7} = React.useContext(PagesContext)
   const {uName, uPassword, uEmail, loggedIn} = React.useContext(CredentialsContext)
-
-
-  const [instructionsPage, setInstructionsPage] = value1
-  const [encoderPage, setEncoderPage] = value2
-  const [decoderPage, setDecoderPage] = value3
-  const [dataCollectionPage, setDataCollectionPage] = value4
-  const [aboutPage, setAboutPage] = value5
-  const [accountPage, setAccountPage] = value6
-  const [loginPage, setLoginPage] = value7
-
-  function falsifyPages() {
-    setInstructionsPage(false)
-    setEncoderPage(false)
-    setDecoderPage(false)
-    setDataCollectionPage(false)
-    setAboutPage(false)
-    setAccountPage(false)
-    setLoginPage(false)
-  }
 
   function mouseEntered(e) {
     e.target.style.background = '#8D1B03'
@@ -57,68 +38,83 @@ export default function PageHeader(props) {
   }
 
   return (
-    <div style={headerStyle}>
-      <div style={{ margin: '5px', color: 'white', cursor: 'pointer', fontSize: '50px' }}
-      onClick={() => {
-        falsifyPages()
-        setAboutPage(true)
-        }}>{title}
-      </div>
+    <>
+    <nav style={headerStyle}>
+
+      <Link to='/' style={{ textDecoration: 'none' }}>
+        <div style={{ margin: '5px', color: 'white', cursor: 'pointer', fontSize: '50px' }}
+
+          >{title}
+        </div>
+      </Link>
+
 
       <div style={{display: 'flex'}}>
-        <div style={tabStyle}
-        onMouseEnter={(e)=>{mouseEntered(e)}}
-        onMouseLeave={(e)=>{mouseLeft(e)}}
-        onClick={() => {
-          falsifyPages()
-          setInstructionsPage(true)
-        }}>Instructions
-        </div>
-        <div style={tabStyle}
-        onMouseEnter={(e)=>{mouseEntered(e)}}
-        onMouseLeave={(e)=>{mouseLeft(e)}}
-        onClick={() => {
-          falsifyPages()
-          setEncoderPage(true)
-        }}>Encoder
-        </div>
-        <div style={tabStyle}
-        onMouseEnter={(e)=>{mouseEntered(e)}}
-        onMouseLeave={(e)=>{mouseLeft(e)}}
-        onClick={() => {
-          falsifyPages()
-          setDecoderPage(true)
-        }}>Decoder
-        </div>
-        <div style={tabStyle}
-        onMouseEnter={(e)=>{mouseEntered(e)}}
-        onMouseLeave={(e)=>{mouseLeft(e)}}
-        onClick={() => {
-          falsifyPages()
-          setDataCollectionPage(true)
-        }}>Collections
-        </div>
+
+        <Link to='/Instructions' style={{ textDecoration: 'none' }}>
+          <div style={tabStyle}
+            onMouseEnter={(e)=>{mouseEntered(e)}}
+            onMouseLeave={(e)=>{mouseLeft(e)}}
+
+            >Instructions
+          </div>
+        </Link>
+
+        <Link to='/Encoding' style={{ textDecoration: 'none' }}>
+          <div style={tabStyle}
+            onMouseEnter={(e)=>{mouseEntered(e)}}
+            onMouseLeave={(e)=>{mouseLeft(e)}}
+
+            >Encoder
+          </div>
+        </Link>
+
+        <Link to='/Decoding' style={{ textDecoration: 'none' }}>
+          <div style={tabStyle}
+            onMouseEnter={(e)=>{mouseEntered(e)}}
+            onMouseLeave={(e)=>{mouseLeft(e)}}
+
+            >Decoder
+          </div>
+        </Link>
+
+        <Link to='/Collection' style={{ textDecoration: 'none' }}>
+          <div style={tabStyle}
+            onMouseEnter={(e)=>{mouseEntered(e)}}
+            onMouseLeave={(e)=>{mouseLeft(e)}}
+
+            >Collections
+          </div>
+        </Link>
       </div>
+
+
+
+
       {loggedIn[0] &&
-      <div style={accountTabStyle}
-      onMouseEnter={(e)=>{mouseEntered(e)}}
-      onMouseLeave={(e)=>{mouseLeft(e)}}
-      onClick={() => {
-        falsifyPages()
-        setAccountPage(true)
-      }}>Account
-      </div>}
+        <Link to='/Account' style={{ textDecoration: 'none' }}>
+          <div style={accountTabStyle}
+            onMouseEnter={(e)=>{mouseEntered(e)}}
+            onMouseLeave={(e)=>{mouseLeft(e)}}
 
-      {!loggedIn[0] && <div style={accountTabStyle}
-        onMouseEnter={(e)=>{mouseEntered(e)}}
-        onMouseLeave={(e)=>{mouseLeft(e)}}
-        onClick={() => {
-          falsifyPages()
-          setLoginPage(true)
-        }}>Login
-        </div>}
+            >Account
+          </div>
+        </Link>
+      }
 
-    </div>
+      {!loggedIn[0] &&
+      <Link to='/Login' style={{ textDecoration: 'none' }}>
+        <div style={accountTabStyle}
+          onMouseEnter={(e)=>{mouseEntered(e)}}
+          onMouseLeave={(e)=>{mouseLeft(e)}}
+
+          >Login
+        </div>
+      </Link>}
+    </nav>
+
+    <Outlet />
+    </>
   )
 }
 

@@ -184,13 +184,23 @@ memberRouter.put('/addUser', (req, res) => {
   }, "SteganographyDatabase")
 })
 
+memberRouter.put('/updatePass/:email', (req, res) => {
+  const email = req.params.email
+  const body = req.body;
+
+  queryDatabase(async db => {
+    const data = await db.collection('Member').findOneAndUpdate({email: email}, {$set: body})
+    res.status(200).json({success: true, newEmail: `${body.newEmail}`, message: `Updated information ${data}`})
+  }, "SteganographyDatabase")
+})
+
 memberRouter.put('/update/:id', (req, res) => {
   const id = req.params.id
   const body = req.body;
 
   queryDatabase(async db => {
-    const data = await db.collection('Member').findOneAndUpdate({userId: reqbody.id}, body)
-    res.status(200).json({success: true, id: `${id}`, newUserName: `${body.newUserName}`, newEmail: `${body.newEmail}`})
+    const data = await db.collection('Member').findOneAndUpdate({id: id}, {$set: body})
+    res.status(200).json({success: true, newEmail: `${body.newEmail}`, message: `Updated information ${data}`})
   }, "SteganographyDatabase")
 })
 

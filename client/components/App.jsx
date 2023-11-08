@@ -1,7 +1,17 @@
 import React from 'react'
 
 import PageHeader from './PageHeader.jsx'
-import Page from './Page.jsx'
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
+import EncodingPage from './EncodingPage.jsx'
+import InstructionPage from './InstructionPage.jsx'
+import CollectionPage from './CollectionPage.jsx'
+import DecodingPage from './DecodingPage.jsx'
+import AboutPage from './AboutPage.jsx'
+import AccountPage from './AccountPage.jsx'
+import LoginPageCenter from './LoginPageCenter.jsx'
+import PasswordResetPage from './PasswordResetPage.jsx'
+import DeepLinkHandler from './DeepLinkHandler.jsx';
 
 export const PagesContext = React.createContext(null)
 
@@ -9,39 +19,34 @@ export const CredentialsContext = React.createContext(null)
 
 export default function App (props) {
 
-  const [instructionsPage, setInstructionsPage] = React.useState(false)
-  const [encoderPage, setEncoderPage] = React.useState(false)
-  const [decoderPage, setDecoderPage] = React.useState(false)
-  const [dataCollectionPage, setDataCollectionPage] = React.useState(false)
-  const [aboutPage, setAboutPage] = React.useState(false)
-  const [accountPage, setAccountPage] = React.useState(false)
-  const [loginPage, setLoginPage] = React.useState(true)
-
+  const [userId, setUserId] = React.useState("")
   const [userName, setUserName] = React.useState("")
-  const [userPassword, setUserPassword] = React.useState("")
+  //const [userPassword, setUserPassword] = React.useState("")
   const [userEmail, setUserEmail] = React.useState("")
   const [loggedIn, setLoggedIn] = React.useState(false)
 
   return (
     <div>
       <CredentialsContext.Provider value={{
+        uId: [userId, setUserId],
         uName: [userName, setUserName],
-        uPassword: [userPassword, setUserPassword],
         uEmail: [userEmail, setUserEmail],
         loggedIn: [loggedIn, setLoggedIn]
       }}>
-      <PagesContext.Provider value={{
-        value1: [instructionsPage, setInstructionsPage],
-        value2: [encoderPage, setEncoderPage],
-        value3: [decoderPage, setDecoderPage],
-        value4: [dataCollectionPage, setDataCollectionPage],
-        value5: [aboutPage, setAboutPage],
-        value6: [accountPage, setAccountPage],
-        value7: [loginPage, setLoginPage]
-        }}>
+        <BrowserRouter>
         <PageHeader title='Steganography'/>
-        <Page/>
-      </PagesContext.Provider>
+          <Routes path='/'>
+            <Route index element={<AboutPage/>}/>
+            <Route path='Instructions' element={<InstructionPage/>}/>
+            <Route path='Encoding' element={<EncodingPage/>}/>
+            <Route path='Decoding' element={<DecodingPage/>}/>
+            <Route path='Collections' element={<CollectionPage/>}/>
+            <Route path='Account' element={<AccountPage/>}/>
+            <Route path='Login' element={<LoginPageCenter/>}/>
+            <Route path='PasswordReset' element={<PasswordResetPage/>}/>
+
+          </Routes>
+        </BrowserRouter>
       </CredentialsContext.Provider>
     </div>
   )

@@ -6,12 +6,13 @@ import { getUserByCredentials } from '../routeToServer';
 
 export default function LoginPage(props) {
     const {setter1, setter2, setter3} = props
-    const {uName, uPassword, uEmail, loggedIn} = React.useContext(CredentialsContext)
+    const {uId, uName, uEmail, loggedIn} = React.useContext(CredentialsContext)
 
-    const [userName, setUserName] = uName;
-    const [userPassword, setUserPassword] = uPassword;
-    const [userEmail, setUserEmail] = uEmail;
-    const [isLoggedIn, setIsLoggedIn] = loggedIn;
+    const [userId, setUserId] = uId
+    const [userName, setUserName] = uName
+    //const [userPassword, setUserPassword] = uPassword
+    const [userEmail, setUserEmail] = uEmail
+    const [isLoggedIn, setIsLoggedIn] = loggedIn
 
     const[userNameText,setUserNameText] = React.useState("");
     const[passwordText,setPasswordText] = React.useState("");
@@ -35,8 +36,9 @@ export default function LoginPage(props) {
             usersResult.then(
                 function(value) {
                     if(value.length > 0){ //We have a user with the same credentials
+                        setUserId(value[0].id)
                         setUserName(value[0].userName)
-                        setUserPassword(value[0].userPw)
+                        //setUserPassword(value[0].userPw)
                         setUserEmail(value[0].email)
                         setIsLoggedIn(true)
 
@@ -44,7 +46,7 @@ export default function LoginPage(props) {
 
                     }else{  //We do not have a user with the same credentials
                         setUserName("")
-                        setUserPassword("")
+                        //setUserPassword("")
                         setUserEmail("")
                         setIsLoggedIn(false)
                         passwordErrorMessage.innerHTML="Login Attempt Failed.";
@@ -74,17 +76,17 @@ export default function LoginPage(props) {
         <h1>Login Page</h1>
         <div>Username: <input type="text" id = "usernameInput" onChange={(e) => {setUserNameText(e.target.value)}}/></div>
         <div style={{visibility: "hidden"}} id = "usernameErrorMessage">Username is empty.</div>
-        <div>Password: <input type="text" id = "passwordInput" onChange={(e) => {setPasswordText(e.target.value)}}/></div>
+        <div>Password: <input type="password" id = "passwordInput" onChange={(e) => {setPasswordText(e.target.value)}}/></div>
         <div style={{visibility: "hidden"}} id="passwordErrorMessage">Password is empty.</div>
         <div>
             <input type="submit" id="forgotPassword" onClick={forgotPassword} value="Forgot Password"/>
             <input type="submit" id="credentialSubmit" onClick={submitCredentials} value="Log In"/>
             <input type="submit" id="createAccount" onClick={createAccount} value="Create An Account"/>
-            <input type="submit" id="showCreds" onClick={(e)=>{
+            {/*<input type="submit" id="showCreds" onClick={(e)=>{
                 console.log(userName)
                 console.log(userPassword)
                 console.log(userEmail)
-            }} value="Show Creds"/>
+            }} value="Show Creds"/>*/}
         </div>
     </div>
   )
