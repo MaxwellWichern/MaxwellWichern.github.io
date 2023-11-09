@@ -20,7 +20,7 @@ const imageStyle = {
 
 export default function MyDropzone(props) {
   const {imageFile, setImageFile, purpose} = props
-
+  const [message, setMessage] = React.useState("Drag 'n' drop some files here, or click to select files")
   React.useEffect(
     () => {
         if(!imageFile.picAsFile){
@@ -66,10 +66,23 @@ export default function MyDropzone(props) {
 
 
   const onDrop = (acceptedFiles) => {
-    setImageFile({
-        ...imageFile,
-        picAsFile: acceptedFiles[0]
-    })
+    try{
+      if (acceptedFiles[0].size < 1000) {
+        throw new Error("Too small. The image size risks too few bytes")
+      }
+      else if (acceptedFiles[0].size > 4000000) {
+        throw new Error("Too large. The image size will likely cause the file to take too long to process")
+      }
+      else {
+        setImageFile({
+          ...imageFile,
+          picAsFile: acceptedFiles[0]
+        })
+      }
+    } catch (e) {
+      console.error(e)
+      setMessage(e)
+    }
   }
 
   const {getRootProps, getInputProps} = useDropzone({onDrop})
@@ -83,8 +96,8 @@ export default function MyDropzone(props) {
       </div>
       :
       <div style={dropzoneStyle} {...getRootProps()}>
-        <input type='file' accept='image/*' {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
+        <input type='file' accept='image/png, image/jpeg, image/jpg' {...getInputProps()} />
+        <p>{message}</p>
         <p>{purpose}</p>
       </div>}
     </div>

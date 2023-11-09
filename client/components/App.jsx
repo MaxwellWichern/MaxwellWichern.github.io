@@ -26,7 +26,7 @@ export default function App (props) {
   const [loggedIn, setLoggedIn] = React.useState(false)
 
   return (
-    <div>
+    <div style={{textAlign: 'center'}}>
       <CredentialsContext.Provider value={{
         uId: [userId, setUserId],
         uName: [userName, setUserName],
