@@ -4,6 +4,7 @@ import StockImgModal from './StockImgModal'
 import { deleteSomething } from '../routeToServer'
 import { getSomething } from '../routeToServer'
 import { addSomething } from '../routeToServer'
+import { CredentialsContext } from './App'
 
 const styling = {
   display: 'flex',
@@ -17,6 +18,7 @@ const textStyles = {
 
 
 export default function EncodingPage(props) {
+  const {loggedIn} = React.useContext(CredentialsContext)
 
   const [imageSelect, setImageSelect] = React.useState(false)
   const [showModal, setShowModal] = React.useState(false)
@@ -98,14 +100,14 @@ export default function EncodingPage(props) {
                 Stock Images
               </div>
 
-              <div id="HistoryImageButton"
+              {loggedIn[0] && <div id="HistoryImageButton"
                 style={{textAlign: 'center', width: '150px', background: 'white', cursor: 'pointer', border: 'outset 2px', boxShadow: '0 0 0px 0px', margin: '5px', padding: '5px'}}
                 onMouseEnter={(e)=>{mouseEntered(e)}}
                 onMouseLeave={(e)=>{mouseLeft(e)}}
                 onClick={()=>{setShowHistoryModal(true)}}
                 >
                 History
-              </div>
+              </div>}
           </div>
           <div style={{display:'flex'}}>
             <MyDropzone imageFile={originalImage} setImageFile={setOriginalImage} purpose='Use This Image To Hide'/>

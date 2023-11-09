@@ -11,7 +11,6 @@ import AboutPage from './AboutPage.jsx'
 import AccountPage from './AccountPage.jsx'
 import LoginPageCenter from './LoginPageCenter.jsx'
 import PasswordResetPage from './PasswordResetPage.jsx'
-//import DeepLinkHandler from './DeepLinkHandler.jsx';
 
 export const PagesContext = React.createContext(null)
 
@@ -26,7 +25,7 @@ export default function App (props) {
   const [loggedIn, setLoggedIn] = React.useState(false)
 
   return (
-    <div style={{textAlign: 'center'}}>
+    <div style={{textAlign: 'center', overflow: 'auto'}}>
       <CredentialsContext.Provider value={{
         uId: [userId, setUserId],
         uName: [userName, setUserName],
@@ -34,7 +33,7 @@ export default function App (props) {
         loggedIn: [loggedIn, setLoggedIn]
       }}>
         <BrowserRouter>
-        <PageHeader title='Steganography'/>
+        <PageHeader title='Steganography' style={{position: 'fixed'}}/>
           <Routes path='/'>
             <Route index element={<AboutPage/>}/>
             <Route path='Instructions' element={<InstructionPage/>}/>

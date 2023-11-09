@@ -1,5 +1,6 @@
 import React from 'react'
 import MyDropzone from './MyDropzone'
+import { CredentialsContext } from './App'
 
 const pageStyle = {
   align: 'center',
@@ -7,7 +8,7 @@ const pageStyle = {
 }
 
 export default function DecodingPage(props) {
-
+  const {loggedIn} = React.useContext(CredentialsContext)
   const [imageSelect, setImageSelect] = React.useState(false)
   const [outputText, setOutputText] = React.useState(null)
   const [showHistoryModal, setShowHistoryModal] = React.useState(false)
@@ -48,14 +49,14 @@ export default function DecodingPage(props) {
     <div style={pageStyle}>
 
       <div style={{display: 'grid', placeItems: 'center'}}>
-        <div id="HistoryImageButton"
+        {loggedIn[0] && <div id="HistoryImageButton"
           style={{textAlign: 'center', width: '150px', background: 'white', cursor: 'pointer', border: 'outset 2px', boxShadow: '0 0 0px 0px', margin: '5px', padding: '5px'}}
           onMouseEnter={(e)=>{mouseEntered(e)}}
           onMouseLeave={(e)=>{mouseLeft(e)}}
           onClick={()=>{setShowHistoryModal(true)}}
           >
           History
-        </div>
+        </div>}
         <MyDropzone imageFile={imageToDecode} setImageFile={setImageToDecode} purpose='Decode This Image'/>
       </div>
 
