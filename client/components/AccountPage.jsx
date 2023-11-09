@@ -2,6 +2,7 @@ import React from 'react'
 import { updateUserById } from '../routeToServer.js'
 import { CredentialsContext } from './App.jsx'
 import ForgotPasswordPage from './ForgotPasswordPage.jsx'
+import { Link } from 'react-router-dom'
 
 
 const inputStyle = {
@@ -17,7 +18,7 @@ const pageStyle= {
 }
 
 export default function AccountPage(props) {
-  const {uId, uName, uEmail} = React.useContext(CredentialsContext)
+  const {uId, uName, uEmail, loggedIn} = React.useContext(CredentialsContext)
   const [updateResult, setUpdateResult] = React.useState("")
   const [showSubmit, setShowSubmit] = React.useState(false)
   const [showForgotPasswordPage, setShowForgotPasswordPage] = React.useState(false);
@@ -47,6 +48,13 @@ export default function AccountPage(props) {
     setUpdateResult(res)
   }
 
+  const logOutUser = () => {
+    uId[1]("")
+    uName[1]("")
+    uEmail[1]("")
+    loggedIn[1](false)
+  }
+
   function requestPassWordChange() {
     setShowForgotPasswordPage(true)
   }
@@ -66,6 +74,7 @@ export default function AccountPage(props) {
           </form>
 
           <input type='button' value='Change Password Request' onClick={requestPassWordChange} />
+          <Link to="/Login"> <input type='button' value='Log out' onClick={logOutUser}/> </Link>
         </>}
 
         {showForgotPasswordPage && <ForgotPasswordPage setter1 = {setShowLoginPage} setter2={setShowCreateAccountPage} setter3={setShowForgotPasswordPage}/>}
