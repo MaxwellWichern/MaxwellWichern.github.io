@@ -33,7 +33,7 @@ export default function App (props) {
         loggedIn: [loggedIn, setLoggedIn]
       }}>
         <BrowserRouter>
-        <PageHeader title='Steganography' style={{position: 'fixed'}}/>
+        <PageHeader title='Steganography'/>
           <Routes path='/'>
             <Route index element={<AboutPage/>}/>
             <Route path='Instructions' element={<InstructionPage/>}/>
