@@ -82,8 +82,46 @@ export default function PageHeader(props) {
       >
         Login
       </Link>
-      }
-      {loggedIn[0] &&
+
+      <div style={{display: 'flex'}}>
+
+        <Link to='/Instructions' style={{ textDecoration: 'none' }}>
+          <div style={tabStyle}
+            onMouseEnter={(e)=>{mouseEntered(e)}}
+            onMouseLeave={(e)=>{mouseLeft(e)}}
+
+            >Instructions
+          </div>
+        </Link>
+
+        <Link to='/Encoding' style={{ textDecoration: 'none' }}>
+          <div style={tabStyle}
+            onMouseEnter={(e)=>{mouseEntered(e)}}
+            onMouseLeave={(e)=>{mouseLeft(e)}}
+
+            >Encoder
+          </div>
+        </Link>
+
+        <Link to='/Decoding' style={{ textDecoration: 'none' }}>
+          <div style={tabStyle}
+            onMouseEnter={(e)=>{mouseEntered(e)}}
+            onMouseLeave={(e)=>{mouseLeft(e)}}
+
+            >Decoder
+          </div>
+        </Link>
+
+        <Link to='/Collections' style={{ textDecoration: 'none' }}>
+          <div style={tabStyle}
+            onMouseEnter={(e)=>{mouseEntered(e)}}
+            onMouseLeave={(e)=>{mouseLeft(e)}}
+            >Collections
+          </div>
+        </Link>
+      </div>
+
+      {loggedIn[0 &&
       <Link to="/Account"
         className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
       >
