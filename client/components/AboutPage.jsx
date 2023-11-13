@@ -1,21 +1,24 @@
 import React from 'react'
-import {getSomething,deleteSomething,getById,deleteByName} from '../routeToServer.js'
+import { getSomething, addSomething, deleteSomething, getById, deleteByName } from '../routeToServer.js'
 
-export default function AboutPage(props) { 
+export default function AboutPage(props) {
 
-  const derekTestFunction = (e) => { 
+  const derekTestFunction = (e) => {
 
- 
+    const user = {
+      userName: "createdelme",
+      userPw: "ehh",
+      email: "menu"
+    }
+
     getSomething();
 
-    //deleteSomething(123456789);
-    deleteByName('user1');
-    //getById(123456888);
- 
-getSomething();
+    addSomething(user, "name");
+
+    getSomething();
 
 
-} 
+  }
 
 
 
@@ -25,8 +28,8 @@ getSomething();
       <h3>This is the Steganography Encoder and Decoder!</h3>
       <p>Navigate this page to visit the encoder and decoder where you can use Steganography to hide a message inside an image or pull one from an image!</p>
 
-      <div><input type="submit" id="derekTestButt" onClick={derekTestFunction} value="Test Booten"/></div>
-    
+      <div><input type="submit" id="derekTestButt" onClick={derekTestFunction} value="Test Booten" /></div>
+
 
 
       {/* Welcome: Introduce the page :
@@ -38,7 +41,7 @@ getSomething();
        */}
 
     </div>
-    
+
 
   )
 }
