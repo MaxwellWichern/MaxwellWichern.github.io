@@ -43,7 +43,7 @@ export default function HistoryModal(props) {
               method: 'POST',
               body: result
             };
-            const response = await fetch('http://localhost:8000/user/all/image/', requestOptions)
+            const response = await fetch('http://localhost:8000/user/all/images/', requestOptions)
 
             if (response.ok) {
               let data = await response.json();
