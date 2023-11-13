@@ -72,7 +72,7 @@ export default function LoginPage(props) {
     }
 
   return(
-    <div>
+    <div id="login">
         <h1>Login Page</h1>
         <div>Username: <input type="text" id = "usernameInput" onChange={(e) => {setUserNameText(e.target.value)}}/></div>
         <div style={{visibility: "hidden"}} id = "usernameErrorMessage">Username is empty.</div>
