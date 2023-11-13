@@ -11,6 +11,7 @@ export default function DecodingPage(props) {
   const {uName} = React.useContext(CredentialsContext)
   const [imageSelect, setImageSelect] = React.useState(false)
   const [outputText, setOutputText] = React.useState(null)
+  const [showHistoryModal, setShowHistoryModal] = React.useState(false)
 
   const [imageToDecode, setImageToDecode] = React.useState({
     picAsFile: null,
@@ -46,16 +47,31 @@ export default function DecodingPage(props) {
     console.log(result)
   }
 
+  function mouseEntered(e) {
+    e.target.style.background = 'grey'
+    e.target.style.color = 'white'
+  }
+
+  function mouseLeft(e) {
+    e.target.style.background = 'white'
+    e.target.style.color = 'black'
+  }
+
   return(
     <>
     <h2>Decode your image!</h2>
     <div style={pageStyle}>
 
-      <div style={{display:'flex'}}>
+      <div style={{display: 'grid', placeItems: 'center'}}>
+        <div id="HistoryImageButton"
+          style={{textAlign: 'center', width: '150px', background: 'white', cursor: 'pointer', border: 'outset 2px', boxShadow: '0 0 0px 0px', margin: '5px', padding: '5px'}}
+          onMouseEnter={(e)=>{mouseEntered(e)}}
+          onMouseLeave={(e)=>{mouseLeft(e)}}
+          onClick={()=>{setShowHistoryModal(true)}}
+          >
+          History
+        </div>
         <MyDropzone imageFile={imageToDecode} setImageFile={setImageToDecode} purpose='Decode This Image'/>
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-          <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-        </svg>
       </div>
 
       <form name="submission" onSubmit={onSubmission}>
