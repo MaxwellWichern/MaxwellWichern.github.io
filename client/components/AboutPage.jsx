@@ -78,7 +78,7 @@ getSomething();
     </div>
   </div>
   <div className="w3-container w3-theme-d3 w3-center w3-opacity w3-padding-64">
-    <h1 className="w3-margin w3-xlarge">Made by team stegonography</h1>
+    <h1 className="w3-margin w3-xlarge">Made by team steganography</h1>
   </div>
   {/* Footer */}
 

@@ -34,7 +34,7 @@ export default function App (props) {
       }}>
         <BrowserRouter>
         <PageHeader title='Steganography'/>
-        <div class="content">
+        <div className="content">
           <Routes path='/'>
             <Route index element={<AboutPage/>}/>
             <Route path='Instructions' element={<InstructionPage/>}/>

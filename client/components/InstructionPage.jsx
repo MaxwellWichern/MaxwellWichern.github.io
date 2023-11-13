@@ -99,7 +99,7 @@ export default function InstructionPage(props) {
         <div>
           <img src={stock_history}/>
           <div>
-            <p>As Shown in the image above, there are a few ways to add an image as the 'Original Image', that is, the image in which a message is to be Hidden. These are not your encoded images, merely cover images</p>
+            <p>As shown in the image above, there are a few ways to add an image as the 'Original Image', that is, the image in which a message is to be Hidden. These are not your encoded images, merely cover images</p>
             <p>First, you can select the grey dropzone and add an image anywhere in your file system. It will load in the page upon submission of the image</p>
             <p>Second, You can take an image as a file and drag it into the dropzone, where once again it will be loaded</p>
             <p>Thirdly, with the 'Stock Images' button above the dropzone. This button will prompt the user to select from various 'cat' stock images</p>
@@ -112,9 +112,9 @@ export default function InstructionPage(props) {
             <p>On this selection, another dropzone for images will be shown where you can select a new image</p>
           </div>
           <div>
-            <p>After Selecting both an Original Image and something to Hide, you may click the arrow to produce your encoded image</p>
+            <p>After selecting both an Original Image and something to hide, you may click the arrow to produce your encoded image</p>
             <p>Depending on the size of the image, this will take time, but will appear to the right of the image once completed</p>
-            <p>Your Encoded image will automatically be save to your account if you have one, and if you are a guest, it will be temporarily saved</p>
+            <p>Your encoded image will automatically be save to your account if you have one, and if you are a guest, it will be temporarily saved</p>
             <p>Guests should save their images to their personal files in case of deletion</p>
           </div>
         </div>
@@ -124,7 +124,7 @@ export default function InstructionPage(props) {
         <div>
           <h1>Decoding Images</h1>
           <div>
-            <p>After Clicking on the Decoder tab, users can have access to decoding images</p>
+            <p>After clicking on the Decoder tab, users can have access to decoding images</p>
           </div>
           <div>
             <img src={dropzone}/>

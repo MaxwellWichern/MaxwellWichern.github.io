@@ -43,94 +43,50 @@ export default function PageHeader(props) {
     <div className="w3-bar w3-red w3-card w3-left-align w3-large">
       <a
         className="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
-        href="javascript:void(0);"
-        onclick="myFunction()"
-        title="Toggle Navigation Menu"
       >
         <i className="fa fa-bars" />
       </a>
-      <a href="/" className="w3-bar-item w3-button w3-padding-large w3-hover-white">
+      <Link to="/" className="w3-bar-item w3-button w3-padding-large w3-hover-white">
         Home
-      </a>
-      <a
-        href="instructions"
+      </Link>
+      <Link to="/Instructions"
         className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
       >
         Instructions
-      </a>
-      <a
-        href="encoding"
+      </Link>
+      <Link to="/Encoding"
         className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
       >
         Encoder
-      </a>
-      <a
-        href="decoding"
+      </Link>
+      <Link to="/Decoding"
         className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
       >
         Decoder
-      </a>
-      <a
-        href="collections"
+      </Link>
+      <Link to="/Collections"
         className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
       >
         Collections
-      </a>
+      </Link>
+
       {!loggedIn[0] &&
       <Link to="/Login"
-        className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
+        className="w3-bar-item w3-button w3-right w3-hide-small w3-padding-large w3-hover-white"
       >
         Login
       </Link>
+      }
 
-      <div style={{display: 'flex'}}>
-
-        <Link to='/Instructions' style={{ textDecoration: 'none' }}>
-          <div style={tabStyle}
-            onMouseEnter={(e)=>{mouseEntered(e)}}
-            onMouseLeave={(e)=>{mouseLeft(e)}}
-
-            >Instructions
-          </div>
-        </Link>
-
-        <Link to='/Encoding' style={{ textDecoration: 'none' }}>
-          <div style={tabStyle}
-            onMouseEnter={(e)=>{mouseEntered(e)}}
-            onMouseLeave={(e)=>{mouseLeft(e)}}
-
-            >Encoder
-          </div>
-        </Link>
-
-        <Link to='/Decoding' style={{ textDecoration: 'none' }}>
-          <div style={tabStyle}
-            onMouseEnter={(e)=>{mouseEntered(e)}}
-            onMouseLeave={(e)=>{mouseLeft(e)}}
-
-            >Decoder
-          </div>
-        </Link>
-
-        <Link to='/Collections' style={{ textDecoration: 'none' }}>
-          <div style={tabStyle}
-            onMouseEnter={(e)=>{mouseEntered(e)}}
-            onMouseLeave={(e)=>{mouseLeft(e)}}
-            >Collections
-          </div>
-        </Link>
-      </div>
-
-      {loggedIn[0 &&
+      {loggedIn[0] &&
       <Link to="/Account"
-        className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
+        className="w3-bar-item w3-button w3-right w3-hide-small w3-padding-large w3-hover-white"
       >
         Account
       </Link>
       }
+      </div>
     </div>
-  </div>
-      
     </>
   )
 }
