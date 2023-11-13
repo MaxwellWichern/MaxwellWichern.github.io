@@ -1,5 +1,6 @@
 import React from 'react'
 import MyDropzone from './MyDropzone'
+import { CredentialsContext } from './App'
 
 const pageStyle = {
   align: 'center',
@@ -7,27 +8,41 @@ const pageStyle = {
 }
 
 export default function DecodingPage(props) {
-
+  const {uName} = React.useContext(CredentialsContext)
   const [imageSelect, setImageSelect] = React.useState(false)
   const [outputText, setOutputText] = React.useState(null)
 
   const [imageToDecode, setImageToDecode] = React.useState({
-    content: null,
-    preview: null,
-    imgData: null
+    picAsFile: null,
+    preview: null
   })
 
-  const onSubmission = (e) => {
+  const onSubmission = async (e) => {
 
     e.preventDefault()
-    let result = {"DecoderImage": imageToDecode.imgData}
+    let result = new FormData();
+    result.append(
+      "file",
+      imageToDecode.picAsFile
+    )
+    result.append(
+      "User",
+      uName[0]
+    )
 
     //send submission to python flask here
+    const requestOptions = {
+      method: 'POST',
+      // headers: { 'Content-Type': 'multipart/form-data' },
+      body: result
+    };
+    const post_result = await fetch('http://localhost:8000/user/decode/image/', requestOptions)
+    .then(response => response.json())
 
-    const textOutput = document.getElementById('decodedText')
+    // const textOutput = document.getElementById('decodedText')
 
     //temporary submission test, will replace with return string from python flask
-    setOutputText('Submitted Here')
+    setOutputText(await post_result.message)
     console.log(result)
   }
 

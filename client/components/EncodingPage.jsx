@@ -4,6 +4,7 @@ import StockImgModal from './StockImgModal'
 import { deleteSomething } from '../routeToServer'
 import { getSomething } from '../routeToServer'
 import { addSomething } from '../routeToServer'
+import { CredentialsContext } from './App'
 
 const styling = {
   display: 'flex',
@@ -17,28 +18,23 @@ const textStyles = {
 
 
 export default function EncodingPage(props) {
-
+  const {uName} = React.useContext(CredentialsContext)
   const [imageSelect, setImageSelect] = React.useState(false)
   const [showModal, setShowModal] = React.useState(false)
 
   const [originalImage, setOriginalImage] = React.useState({
     picAsFile: null,
-    preview: null,
-    imgData: null
+    preview: null
   })
 
   const [hiddenImage, setHiddenImage] = React.useState({
     picAsFile: null,
-    preview: null,
-    imgData: null
+    preview: null
   })
 
   const [hiddenText, setHiddenText] = React.useState(null)
 
-  const [outputImage, setOutPutImage] = React.useState({
-    content: null,
-    preview: null
-  })
+  const [outputImage, setOutPutImage] = React.useState(null)
 
   const onSubmission = async (e) => {
     e.preventDefault()
@@ -54,16 +50,18 @@ export default function EncodingPage(props) {
     else
       result.append("Hidden", hiddenText)
 
+    result.append("User", uName[0])
+
     //Send image data to python here
     const requestOptions = {
       method: 'POST',
       // headers: { 'Content-Type': 'multipart/form-data' },
       body: result
     };
-    const post_result = await fetch('http://localhost:8000/post', requestOptions)
+    const post_result = await fetch('http://localhost:8000/user/encode/image/', requestOptions)
     .then(response => response.json())
 
-    const uploadedImage = await post_result.json();
+    setOutPutImage(await post_result.imgLink)
 
     console.log(result)
     for (const data of result) {
@@ -105,7 +103,7 @@ export default function EncodingPage(props) {
         </form>
 
 
-        <img id='outputEncoded' style={{width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src={outputImage.preview}/>
+        <img id='outputEncoded' style={{width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src={outputImage}/>
         <label>
         <a download={outputImage} href={outputImage} title='downloadEncoded'>
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
