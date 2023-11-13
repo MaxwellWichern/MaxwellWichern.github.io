@@ -18,30 +18,24 @@ const textStyles = {
 
 
 export default function EncodingPage(props) {
-  const {loggedIn} = React.useContext(CredentialsContext)
-
+  const {uName,loggedIn} = React.useContext(CredentialsContext)
   const [imageSelect, setImageSelect] = React.useState(false)
   const [showModal, setShowModal] = React.useState(false)
   const [showHistoryModal, setShowHistoryModal] = React.useState(false)
 
   const [originalImage, setOriginalImage] = React.useState({
     picAsFile: null,
-    preview: null,
-    imgData: null
+    preview: null
   })
 
   const [hiddenImage, setHiddenImage] = React.useState({
     picAsFile: null,
-    preview: null,
-    imgData: null
+    preview: null
   })
 
   const [hiddenText, setHiddenText] = React.useState(null)
 
-  const [outputImage, setOutPutImage] = React.useState({
-    content: null,
-    preview: null
-  })
+  const [outputImage, setOutPutImage] = React.useState(null)
 
   const onSubmission = async (e) => {
     e.preventDefault()
@@ -57,16 +51,18 @@ export default function EncodingPage(props) {
     else
       result.append("Hidden", hiddenText)
 
+    result.append("User", uName[0])
+
     //Send image data to python here
     const requestOptions = {
       method: 'POST',
       // headers: { 'Content-Type': 'multipart/form-data' },
       body: result
     };
-    const post_result = await fetch('http://localhost:8000/post', requestOptions)
+    const post_result = await fetch('http://localhost:8000/user/encode/image/', requestOptions)
     .then(response => response.json())
 
-    const uploadedImage = await post_result.json();
+    setOutPutImage(await post_result.imgLink)
 
     console.log(result)
     for (const data of result) {
@@ -136,16 +132,15 @@ export default function EncodingPage(props) {
           </label>
         </form>
 
-
-        <img id='outputEncoded' style={{width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src={outputImage.preview}/>
-        {/*<label>
-          <a download={outputImage} href={outputImage} title='downloadEncoded'>
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
-              <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-              <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-            </svg>
-          </a>
-        </label>*/}
+        <img id='outputEncoded' style={{width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src={outputImage}/>
+        <label>
+        <a download={outputImage} href={outputImage} title='downloadEncoded'>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
+            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+          </svg>
+        </a>
+        </label>
 
       </div>
     </>
