@@ -60,6 +60,7 @@ export default function DecodingPage(props) {
 
   return(
     <>
+    <div id="decoder">
     <h2>Decode your image!</h2>
     <div style={pageStyle}>
 
@@ -96,6 +97,7 @@ export default function DecodingPage(props) {
           </svg>
         </a>*/}
       </div>}
+    </div>
     </div>
     </>
   )
