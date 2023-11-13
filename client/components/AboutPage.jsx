@@ -16,9 +16,6 @@ getSomething();
 
 
 } 
-
-
-
   return (
     <div>
       <h1>Welcome!</h1>
@@ -40,5 +37,4 @@ getSomething();
     </div>
     
 
-  )
 }

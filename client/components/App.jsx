@@ -11,7 +11,6 @@ import AboutPage from './AboutPage.jsx'
 import AccountPage from './AccountPage.jsx'
 import LoginPageCenter from './LoginPageCenter.jsx'
 import PasswordResetPage from './PasswordResetPage.jsx'
-import DeepLinkHandler from './DeepLinkHandler.jsx';
 
 export const PagesContext = React.createContext(null)
 

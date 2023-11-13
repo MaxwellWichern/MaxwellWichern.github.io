@@ -3,26 +3,6 @@ import PropTypes from 'prop-types'
 import { CredentialsContext, PagesContext } from './App.jsx'
 import { Outlet, Link } from "react-router-dom";
 
-const headerStyle = {
-  background: '#A82104',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center'
-}
-
-const tabStyle = {
-  padding: '30px',
-  cursor: 'pointer',
-  fontSize: '20px',
-}
-
-const accountTabStyle = {
-  marginRight: '5%',
-  padding: '30px',
-  cursor: 'pointer',
-  fontSize: '20px',
-}
-
 export default function PageHeader(props) {
   const { title } = props
   const {uName, uPassword, uEmail, loggedIn} = React.useContext(CredentialsContext)
@@ -101,29 +81,11 @@ export default function PageHeader(props) {
           </div>
         </Link>
       }
-
-      {!loggedIn[0] &&
-      <Link to='/Login' style={{ textDecoration: 'none' }}>
-        <div style={accountTabStyle}
-          onMouseEnter={(e)=>{mouseEntered(e)}}
-          onMouseLeave={(e)=>{mouseLeft(e)}}
-
-          >Login
         </div>
       </Link>}
     </nav>
 
-    <Outlet />
     </>
   )
 }
 
-PageHeader.propTypes = {
-  title: PropTypes.string,
-  subTitle: PropTypes.string
-}
-
-PageHeader.defaultProps = {
-  title: 'Page Title',
-  subTitle: 'Page Subtitle'
-}
