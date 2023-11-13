@@ -1,6 +1,7 @@
 import React from 'react'
 import { CredentialsContext } from './App';
 import { getUserByCredentials } from '../routeToServer';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -16,6 +17,7 @@ export default function LoginPage(props) {
 
     const[userNameText,setUserNameText] = React.useState("");
     const[passwordText,setPasswordText] = React.useState("");
+    let navigate = useNavigate();
 
     const submitCredentials = (e) => {
         //Get the html elements for the error messages
@@ -42,7 +44,8 @@ export default function LoginPage(props) {
                         setUserEmail(value[0].email)
                         setIsLoggedIn(true)
 
-                        //Change site to logged in version
+                        //Send the user to the instructions page
+                        navigate("/Instructions");
 
                     }else{  //We do not have a user with the same credentials
                         setUserName("")
