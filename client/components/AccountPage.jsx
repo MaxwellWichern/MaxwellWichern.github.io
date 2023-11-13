@@ -36,6 +36,8 @@ export default function AccountPage(props) {
   const onSubmission = async (e) => {
     e.preventDefault()
 
+    //either here or in the routing.js or routeToServer, I would suggest inside those functions,
+    //we need to request the change of the user image files stored on aws. If its successful or not, we can send back data about the result
     let res = await updateUserById(uId[0], {userName: uName[0], email: uEmail[0]})
 
     if (res === null) {

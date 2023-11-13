@@ -18,7 +18,7 @@ const textStyles = {
 
 
 export default function EncodingPage(props) {
-  const {uName} = React.useContext(CredentialsContext)
+  const {uName,loggedIn} = React.useContext(CredentialsContext)
   const [imageSelect, setImageSelect] = React.useState(false)
   const [showModal, setShowModal] = React.useState(false)
   const [showHistoryModal, setShowHistoryModal] = React.useState(false)
@@ -84,7 +84,7 @@ export default function EncodingPage(props) {
     <>
       <h2>Encode your image!</h2>
       <div style={styling}>
-        <div>
+        <div style={{display: 'grid', placeItems: 'center'}}>
           <div style={{display: 'flex'}}>
 
               <div id="stockImageButton"
@@ -96,14 +96,14 @@ export default function EncodingPage(props) {
                 Stock Images
               </div>
 
-              <div id="HistoryImageButton"
+              {loggedIn[0] && <div id="HistoryImageButton"
                 style={{textAlign: 'center', width: '150px', background: 'white', cursor: 'pointer', border: 'outset 2px', boxShadow: '0 0 0px 0px', margin: '5px', padding: '5px'}}
                 onMouseEnter={(e)=>{mouseEntered(e)}}
                 onMouseLeave={(e)=>{mouseLeft(e)}}
                 onClick={()=>{setShowHistoryModal(true)}}
                 >
                 History
-              </div>
+              </div>}
           </div>
           <div style={{display:'flex'}}>
             <MyDropzone imageFile={originalImage} setImageFile={setOriginalImage} purpose='Use This Image To Hide'/>
@@ -131,7 +131,6 @@ export default function EncodingPage(props) {
           </div>
           </label>
         </form>
-
 
         <img id='outputEncoded' style={{width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src={outputImage}/>
         <label>

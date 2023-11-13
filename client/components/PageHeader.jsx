@@ -82,7 +82,6 @@ export default function PageHeader(props) {
           <div style={tabStyle}
             onMouseEnter={(e)=>{mouseEntered(e)}}
             onMouseLeave={(e)=>{mouseLeft(e)}}
-
             >Collections
           </div>
         </Link>
