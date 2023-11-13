@@ -1,6 +1,7 @@
 import React from 'react'
 import MyDropzone from './MyDropzone'
 import { CredentialsContext } from './App'
+import EncodedImageModal from './EncodedImageModal'
 
 const pageStyle = {
   align: 'center',
@@ -11,7 +12,7 @@ export default function DecodingPage(props) {
   const {uName, loggedIn} = React.useContext(CredentialsContext)
   const [imageSelect, setImageSelect] = React.useState(false)
   const [outputText, setOutputText] = React.useState(null)
-  const [showHistoryModal, setShowHistoryModal] = React.useState(false)
+  const [showEncodedImageModal, setShowEncodedImageModal] = React.useState(false)
 
   const [imageToDecode, setImageToDecode] = React.useState({
     picAsFile: null,
@@ -64,15 +65,21 @@ export default function DecodingPage(props) {
     <div style={pageStyle}>
 
       <div style={{display: 'grid', placeItems: 'center'}}>
-        {loggedIn[0] && <div id="HistoryImageButton"
+        {loggedIn[0] && <div id="EncodedImageButton"
           style={{textAlign: 'center', width: '150px', background: 'white', cursor: 'pointer', border: 'outset 2px', boxShadow: '0 0 0px 0px', margin: '5px', padding: '5px'}}
           onMouseEnter={(e)=>{mouseEntered(e)}}
           onMouseLeave={(e)=>{mouseLeft(e)}}
-          onClick={()=>{setShowHistoryModal(true)}}
+          onClick={()=>{setShowEncodedImageModal(true)}}
           >
-          History
+          Encoded History
         </div>}
         <MyDropzone imageFile={imageToDecode} setImageFile={setImageToDecode} purpose='Decode This Image'/>
+        <EncodedImageModal
+          open={showEncodedImageModal}
+          onClose={()=>{setShowEncodedImageModal(false)}}
+          passImage={imageToDecode}
+          passSetImage={setImageToDecode}
+        />
       </div>
 
       <form name="submission" onSubmit={onSubmission}>

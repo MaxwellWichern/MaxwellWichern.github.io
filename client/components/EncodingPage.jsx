@@ -5,6 +5,7 @@ import { deleteSomething } from '../routeToServer'
 import { getSomething } from '../routeToServer'
 import { addSomething } from '../routeToServer'
 import { CredentialsContext } from './App'
+import HistoryModal from './HistoryModal'
 
 const styling = {
   display: 'flex',
@@ -110,6 +111,12 @@ export default function EncodingPage(props) {
             <StockImgModal
               open={showModal}
               onClose={()=>{setShowModal(false)}}
+              passImage={originalImage}
+              passSetImage={setOriginalImage}
+            />
+            <HistoryModal
+              open={showHistoryModal}
+              onClose={()=>{setShowHistoryModal(false)}}
               passImage={originalImage}
               passSetImage={setOriginalImage}
             />

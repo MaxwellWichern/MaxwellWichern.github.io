@@ -14,7 +14,7 @@ export default function HistoryModal(props) {
   const {open, onClose, passImage, passSetImage} = props
   const {uName} = React.useContext(CredentialsContext)
 
-  const [historyImgs, setHistoryImgs] = React.useState([])
+  const [encodedImgs, setEncodedImgs] = React.useState([])
   const modalRef = React.useRef()
   const [modalObj, setModalObj] = React.useState(null)
 
@@ -32,12 +32,12 @@ export default function HistoryModal(props) {
   React.useEffect(() => {
     if (modalObj) {
       if (open) {
-        async function getHistory() {
+        async function getEncoded() {
 
           try {
             let result = new FormData();
             result.append("User", uName[0])
-            result.append("imType", "OrigImg")
+            result.append("imType", "EncryptedImg")
             //Send image data to python here
             const requestOptions = {
               method: 'POST',
@@ -48,7 +48,7 @@ export default function HistoryModal(props) {
             if (response.ok) {
               let data = await response.json();
 
-              setHistoryImgs(data);
+              setEncodedImgs(data);
             } else {
               console.error(`Request failed with status: ${response.status}`);
             }
@@ -56,7 +56,7 @@ export default function HistoryModal(props) {
             console.error("Error:", e);
           }
         }
-        getHistory()
+        getEncoded()
         modalObj.show()
       }
       else {
@@ -84,7 +84,7 @@ export default function HistoryModal(props) {
         <div className="modal-content">
           <div className="modal-header">
             <h2>
-              Select an Original Image
+              Select an Encoded Image
             </h2>
             {/*<svg style={{float: "right", padding: "7px", cursor: "pointer"}} onClick={onReloadImg} xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-arrow-clockwise" viewBox="0 0 16 16">
               <path fillRule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
@@ -92,7 +92,7 @@ export default function HistoryModal(props) {
             </svg> */}
           </div>
           <div id="grid" className="modal-body">
-            {historyImgs && historyImgs.length > 0 ? (
+            {encodedImgs && encodedImgs.length > 0 ? (
               <div className="row">
                 {stockImgs.map((img) => (
                   <div key={img.id} className="col-4">
@@ -108,7 +108,7 @@ export default function HistoryModal(props) {
                 ))}
               </div>
             ) : (
-              <p>Loading your history...</p>
+              <p>Loading your images...</p>
             )}
           </div>
           <div className="modal-footer">
