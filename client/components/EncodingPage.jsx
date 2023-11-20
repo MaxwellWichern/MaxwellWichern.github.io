@@ -5,6 +5,7 @@ import { deleteSomething } from '../routeToServer'
 import { getSomething } from '../routeToServer'
 import { addSomething } from '../routeToServer'
 import { CredentialsContext } from './App'
+import HistoryModal from './HistoryModal'
 
 const styling = {
   display: 'flex',
@@ -70,6 +71,11 @@ export default function EncodingPage(props) {
     }
   }
 
+  function justLoaded(e) {
+    e.target.style.width='100%'
+    e.target.style.height='100%'
+  }
+
   function mouseEntered(e) {
     e.target.style.background = 'grey'
     e.target.style.color = 'white'
@@ -113,6 +119,12 @@ export default function EncodingPage(props) {
               passImage={originalImage}
               passSetImage={setOriginalImage}
             />
+            <HistoryModal
+              open={showHistoryModal}
+              onClose={()=>{setShowHistoryModal(false)}}
+              passImage={originalImage}
+              passSetImage={setOriginalImage}
+            />
           </div>
         </div>
         <form name="inputForm"  onSubmit={onSubmission}>
@@ -132,7 +144,7 @@ export default function EncodingPage(props) {
           </label>
         </form>
 
-        <img id='outputEncoded' style={{width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src={outputImage}/>
+        <img id='outputEncoded' onLoad={(e)=>justLoaded(e)} style={{width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src={outputImage}/>
         <label>
         <a download={outputImage} href={outputImage} title='downloadEncoded'>
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">

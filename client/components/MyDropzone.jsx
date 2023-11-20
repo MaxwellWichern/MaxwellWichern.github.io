@@ -81,7 +81,7 @@ export default function MyDropzone(props) {
       }
     } catch (e) {
       console.error(e)
-      setMessage(e)
+      setMessage(e.message)
     }
   }
 
