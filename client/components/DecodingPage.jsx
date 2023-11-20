@@ -28,6 +28,10 @@ export default function DecodingPage(props) {
       imageToDecode.picAsFile
     )
     result.append(
+      "preview",
+      imageToDecode.preview
+    )
+    result.append(
       "User",
       uName[0]
     )
@@ -46,7 +50,15 @@ export default function DecodingPage(props) {
     //temporary submission test, will replace with return string from python flask
     //setOutputText('Submitted Here And a really long string now w w w a  a a a a a    a a  a  a a  a  a  a a  a ')
     setOutputText(await post_result.message)
+    justLoaded()
     console.log(result)
+  }
+
+  function justLoaded() {
+    let e = document.getElementById("decodedText")
+    console.log(e)
+    e.style.width='100%'
+    e.style.height='100%'
   }
 
   function mouseEntered(e) {
@@ -95,7 +107,7 @@ export default function DecodingPage(props) {
 
       {!imageSelect && <div style={{paddingLeft:'60px',paddingRight:'60px', verticalAlign: 'middle', textAlign: 'center', width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} id="decodedText">{outputText}</div> }
       {imageSelect && <div>
-        <img id='outputEncoded' style={{width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src="#"/>
+        <img id='outputEncoded'  style={{width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src="#"/>
         {/*<a download="#" href="#" title='downloadDecoded'>
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
             <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>

@@ -45,13 +45,13 @@ export default function HistoryModal(props) {
             };
             const response = await fetch('http://localhost:8000/user/all/images/', requestOptions)
 
-            if (response.ok) {
-              let data = await response.json();
-
-              setEncodedImgs(data);
+            if(response.ok) {
+              let data = await response.json()
+              setEncodedImgs(data.Links)
             } else {
-              console.error(`Request failed with status: ${response.status}`);
+              console.error(`Request for all encoded images failed with status: ${response.status}`);
             }
+
           } catch (e) {
             console.error("Error:", e);
           }
@@ -94,10 +94,10 @@ export default function HistoryModal(props) {
           <div id="grid" className="modal-body">
             {encodedImgs && encodedImgs.length > 0 ? (
               <div className="row">
-                {stockImgs.map((img) => (
-                  <div key={img.id} className="col-4">
+                {encodedImgs.map((img) => (
+                  <div key={img} className="col-4">
                       <img style={stockImgStyle}
-                        src={img.url}
+                        src={img}
                         className="img-fluid"
                         onMouseEnter={(e)=>{mouseEntered(e)}}
                         onMouseLeave={(e)=>{mouseLeft(e)}}

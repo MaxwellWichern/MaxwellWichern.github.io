@@ -47,10 +47,10 @@ export default function HistoryModal(props) {
 
             if (response.ok) {
               let data = await response.json();
-
-              setHistoryImgs(data);
+              console.log(data)
+              setHistoryImgs(data.Links);
             } else {
-              console.error(`Request failed with status: ${response.status}`);
+              console.error(`Request for all original images failed with status: ${response.status}`);
             }
           } catch (e) {
             console.error("Error:", e);
@@ -94,10 +94,10 @@ export default function HistoryModal(props) {
           <div id="grid" className="modal-body">
             {historyImgs && historyImgs.length > 0 ? (
               <div className="row">
-                {stockImgs.map((img) => (
-                  <div key={img.id} className="col-4">
-                      <img style={stockImgStyle}
-                        src={img.url}
+                {historyImgs.map((img) => (
+                  <div className="col-4">
+                      <img key={img} style={stockImgStyle}
+                        src={img}
                         className="img-fluid"
                         onMouseEnter={(e)=>{mouseEntered(e)}}
                         onMouseLeave={(e)=>{mouseLeft(e)}}
