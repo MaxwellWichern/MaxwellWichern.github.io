@@ -35,7 +35,9 @@ export default function DecodingPage(props) {
       "User",
       uName[0]
     )
-
+    for (const data of result) {
+      console.log(data)
+    }
     //send submission to python flask here
     const requestOptions = {
       method: 'POST',
