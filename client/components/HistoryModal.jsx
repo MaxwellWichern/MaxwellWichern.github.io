@@ -75,7 +75,7 @@ export default function HistoryModal(props) {
   }
 
   const mouseClicked = (e) => {
-    passSetImage({...passImage, preview: e.target.src})
+    passSetImage({picAsFile: null, preview: e.target.src})
   }
 
   return(
@@ -91,7 +91,7 @@ export default function HistoryModal(props) {
               <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
             </svg> */}
           </div>
-          <div id="grid" className="modal-body">
+          <div id="grid" style={{height: '500px', overflow: 'auto'}}className="modal-body">
             {historyImgs && historyImgs.length > 0 ? (
               <div className="row">
                 {historyImgs.map((img) => (

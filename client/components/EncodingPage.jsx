@@ -47,12 +47,18 @@ export default function EncodingPage(props) {
     )
     result.append("preview", originalImage.preview)
 
-    if (imageSelect)
+    if (imageSelect) {
+      result.append("HiddenPreview", hiddenImage.preview)
       result.append("Hidden", hiddenImage.picAsFile)
+    }
     else
       result.append("Hidden", hiddenText)
 
     result.append("User", uName[0])
+
+    for (const value of result) {
+      console.log(value);
+    }
 
     //Send image data to python here
     const requestOptions = {
@@ -69,6 +75,7 @@ export default function EncodingPage(props) {
     for (const data of result) {
       console.log(data)
     }
+    setOriginalImage({picAsFile: null, preview: null})
   }
 
   function justLoaded(e) {

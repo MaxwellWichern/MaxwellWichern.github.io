@@ -98,7 +98,7 @@ export default function StockImgModal(props) {
   }
 
   const mouseClicked = (e) => {
-    passSetImage({...passImage, preview: e.target.src})
+    passSetImage({picAsFile: null, preview: e.target.src})
   }
 
   const onReloadImg = (e) => {

@@ -52,6 +52,7 @@ export default function DecodingPage(props) {
     setOutputText(await post_result.message)
     justLoaded()
     console.log(result)
+    setImageToDecode({picAsFile: null, preview: null})
   }
 
   function justLoaded() {
