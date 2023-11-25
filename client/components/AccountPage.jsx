@@ -79,7 +79,7 @@ export default function AccountPage(props) {
           <Link to="/Login"> <input type='button' value='Log out' onClick={logOutUser}/> </Link>
         </>}
 
-        {showForgotPasswordPage && <ForgotPasswordPage setter1 = {setShowLoginPage} setter2={setShowCreateAccountPage} setter3={setShowForgotPasswordPage}/>}
+        {showForgotPasswordPage && <ForgotPasswordPage/>}
 
       </div>
     </>

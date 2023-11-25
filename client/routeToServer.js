@@ -241,3 +241,24 @@ export async function getById(id) {
         return null
     }
 }
+
+export async function updateKeyInfo(email, key) {
+  try {
+    const response = await fetch(`data/updateKey/${email}`, {
+      method: 'PUT',
+      headers:{
+        'Content-Type':'application/json',
+        accept: 'application/json'
+      },
+      body:(JSON.stringify({'key': `${key.value}`}))
+    })
+    .then((response)=>{return response.json()})
+      if (response.status >= 400) {
+          throw new Error(`${response.status}`)
+      }
+      return await response
+  } catch(e) {
+    console.error(e)
+    return null
+  }
+}

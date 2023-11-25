@@ -206,4 +206,14 @@ memberRouter.put('/update/:id', async (req, res) => {
     }, "SteganographyDatabase")
 })
 
+memberRouter.put('/updateKey/:email', (req,res) => {
+  const email = req.params.email
+  const body = req.body
+  //console.log(body)
+  queryDatabase(async db => {
+    const data = await db.collection('Member').findOneAndUpdate({email: email}, {$set: body},{ upsert: true, returnDocument: 'after' })
+    res.status(200).json({success: true, message: `Updated information ${data}`})
+  }, "SteganographyDatabase")
+})
+
   export default memberRouter
