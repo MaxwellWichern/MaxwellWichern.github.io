@@ -42,11 +42,18 @@ export default function Carousel(props) {
   async function deleteImage(imgSrc) {
     let srcLink = String(imgSrc).match(/amazonaws\.com\/([\w]+)?\/(OrigImg)?(EncryptedImg)?\/(?<newLink>[\d\w.]+)\?(X-Amz)/ms)
     const dataString = `${uName[0]}/${imType}/${srcLink.groups.newLink}`
-
+    let result = new FormData();
+    result.append(
+      'Bucket',
+      'stegosaurus'
+    )
+    result.append(
+      'Key', 
+      dataString
+    )
     requestOptions = {
-      'Bucket': 'stegosaurus',
-      'Key': dataString,
       method: 'POST',
+      body: result
     }
     const post_result = await fetch('http://localhost:8000/user/delete/image/', requestOptions)
     .then((response)=>(response.json()))
