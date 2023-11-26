@@ -45,7 +45,8 @@ export default function Carousel(props) {
 
     requestOptions = {
       'Bucket': 'stegosaurus',
-      'Key': dataString
+      'Key': dataString,
+      method: 'POST',
     }
     const post_result = await fetch('http://localhost:8000/user/delete/image/', requestOptions)
     .then((response)=>(response.json()))
