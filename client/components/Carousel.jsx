@@ -52,8 +52,13 @@ export default function Carousel(props) {
       dataString
     )
     requestOptions = {
+<<<<<<< HEAD
       method: 'POST',
       body: result
+=======
+      'Bucket': 'stegosaurus',
+      'Key': dataString
+>>>>>>> parent of 9a15805 (Update Carousel.jsx)
     }
     const post_result = await fetch('http://localhost:8000/user/delete/image/', requestOptions)
     .then((response)=>(response.json()))
