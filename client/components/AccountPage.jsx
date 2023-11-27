@@ -3,6 +3,7 @@ import { updateUserById } from '../routeToServer.js'
 import { CredentialsContext } from './App.jsx'
 import ForgotPasswordPage from './ForgotPasswordPage.jsx'
 import { Link } from 'react-router-dom'
+import { deleteByName } from '../routeToServer.js'
 
 
 const inputStyle = {
@@ -24,23 +25,26 @@ export default function AccountPage(props) {
   const [tempUserName, setTempUserName] = React.useState(uName[0])
   const [tempEmail, setTempEmail] = React.useState(uEmail[0])
 
-  //const [showLoginPage,setShowLoginPage] = React.useState(true);
-  //const [showCreateAccountPage, setShowCreateAccountPage] = React.useState(false);
+  const [showLoginPage,setShowLoginPage] = React.useState(true);
+  const [showCreateAccountPage, setShowCreateAccountPage] = React.useState(false);
   const [showForgotPasswordPage, setShowForgotPasswordPage] = React.useState(false);
   const [changeInformation, setChangeInformation] = React.useState(false);
 
-  const onUserChange = (e) => {
-    setTempUserName(e.target.value)
-    if(tempUserName == uName[0] && tempEmail == uEmail[0]){
+  function onUserChange(e) {
+    var curText = e.target.value
+    setTempUserName(curText)
+    if(curText == uName[0] && tempEmail == uEmail[0]){
       setShowSubmit(false)
     }else{
       setShowSubmit(true)
     }
   }
+  
 
   const onEmailChange = (e) => {
-    setTempEmail(e.target.value)
-    if(tempUserName == uName[0] && tempEmail == uEmail[0]){
+    var curText = e.target.value
+    setTempEmail(curText)
+    if(tempUserName == uName[0] && curText == uEmail[0]){
       setShowSubmit(false)
     }else{
       setShowSubmit(true)
@@ -57,7 +61,7 @@ export default function AccountPage(props) {
 
     //either here or in the routing.js or routeToServer, I would suggest inside those functions,
     //we need to request the change of the user image files stored on aws. If its successful or not, we can send back data about the result
-    let res = await updateUserById(uId[0], {userName: uName[0], email: uEmail[0]})
+    let res = await updateUserById(uId[0], {userName: tempUserName, email: tempEmail})
 
     if (res === null) {
       res = "Failed to Update With this information, try again..."
@@ -77,7 +81,31 @@ export default function AccountPage(props) {
   }
 
   function requestPassWordChange() {
+    setChangeInformation(false)
     setShowForgotPasswordPage(true)
+  }
+
+  const promptDeleteAccount = () => {
+    areYouSure = document.getElementById("AreYouSure")
+    deleteButton = document.getElementById("ConfirmDelete")
+    dontDeleteButton = document.getElementById("ConfirmNotDelete")
+    areYouSure.style.visibility = 'visible'
+    deleteButton.style.visibility = 'visible'
+    dontDeleteButton.style.visibility = 'visible'
+  }
+
+  const deleteAccount = () => {
+    const res = deleteByName(uName[0])
+    console.log(res)
+  }
+
+  const dontDelete = () => {
+    areYouSure = document.getElementById("AreYouSure")
+    deleteButton = document.getElementById("ConfirmDelete")
+    dontDeleteButton = document.getElementById("ConfirmNotDelete")
+    areYouSure.style.visibility = 'hidden'
+    deleteButton.style.visibility = 'hidden'
+    dontDeleteButton.style.visibility = 'hidden'
   }
 
   return(
@@ -90,13 +118,27 @@ export default function AccountPage(props) {
         changeInformation &&
         <>
           <form onSubmit={onSubmission}>
-            <h2><input type='text' style={inputStyle} onChange={onUserChange} value={tempUserName}/></h2>
-            <h3><input type='text' style={inputStyle} onChange={onEmailChange} value={tempEmail}/></h3>
+            <h2><input type='text' style={inputStyle} onChange={(e)=>{onUserChange(e)}} value={tempUserName}/></h2>
+            <h2><input type='text' style={inputStyle} onChange={onEmailChange} value={tempEmail}/></h2>
             {showSubmit && <input type='submit' value='Submit'/>}
           </form>
 
-          <input type='button' value='Change Password Request' onClick={requestPassWordChange} />
-          <Link to="/Login"> <input type='button' value='Log out' onClick={logOutUser}/> </Link>
+          <div>
+            <input type='button' value='Change Password Request' onClick={requestPassWordChange} />
+            <input type='button' value='Cancel' onClick={(e)=>{setChangeInformation(false)}}/>
+          </div>
+          <div>
+            <input type='button' value='Delete Account' onClick={promptDeleteAccount}/>
+            <Link to="/Login"> <input type='button' value='Log Out' onClick={logOutUser}/> </Link>
+          </div>
+          <div>
+            <div><h3 style={{visibility:'hidden'}} id='AreYouSure'>Are You Sure?</h3></div>
+            <div>
+              <input type='button' value='Yes, Delete My Account' style={{visibility:'hidden'}} id='ConfirmDelete' onClick={deleteAccount}/>
+              <input type='button' value="No, Don't Delete My Account" style={{visibility:'hidden'}} id='ConfirmNotDelete' onClick={dontDelete}/>  
+            </div>
+          </div>
+
         </>}
 
         {
@@ -106,16 +148,21 @@ export default function AccountPage(props) {
           <div>
             <h2>My Information</h2>
             <table>
-              <tr>
-                <td>Username: </td>
-                <td>{uName[0]}</td>
-              </tr>
-              <tr>
-                <td>Email: </td>
-                <td>{uEmail[0]}</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td>Username: </td>
+                  <td>{uName[0]}</td>
+                </tr>
+              </tbody>
+              <tbody>
+                <tr>
+                  <td>Email: </td>
+                  <td>{uEmail[0]}</td>
+                </tr>
+              </tbody>
             </table>
             <input type="button" value="Change Account Information" onClick={(e)=>{setChangeInformation(true)}}/>
+            <Link to="/Login"> <input type='button' value='Log Out' onClick={logOutUser}/> </Link>
           </div>
           </>
         }
