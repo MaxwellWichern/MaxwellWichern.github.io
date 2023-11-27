@@ -19,22 +19,38 @@ export default function AccountPage(props) {
   const {uName, uPassword, uEmail, loggedIn} = React.useContext(CredentialsContext)
 
   const [showSubmit, setShowSubmit] = React.useState(false)
+  const [tempUserName, setTempUserName] = React.useState(uName[0])
+  const [tempEmail, setTempEmail] = React.useState(uEmail[0])
 
   //const [showLoginPage,setShowLoginPage] = React.useState(true);
   //const [showCreateAccountPage, setShowCreateAccountPage] = React.useState(false);
   const [showForgotPasswordPage, setShowForgotPasswordPage] = React.useState(false);
+  const [changeInformation, setChangeInformation] = React.useState(false);
 
   const onUserChange = (e) => {
-    uName[1](e.target.value)
-    setShowSubmit(true)
+    setTempUserName(e.target.value)
+    if(tempUserName == uName[0] && tempEmail == uEmail[0]){
+      setShowSubmit(false)
+    }else{
+      setShowSubmit(true)
+    }
   }
 
   const onEmailChange = (e) => {
-    uEmail[1](e.target.value)
-    setShowSubmit(true)
+    setTempEmail(e.target.value)
+    if(tempUserName == uName[0] && tempEmail == uEmail[0]){
+      setShowSubmit(false)
+    }else{
+      setShowSubmit(true)
+    }
   }
 
   const onSubmission = () => {
+    if(tempUserName != uName[0] || tempEmail != uEmail[0]){
+      setChangeInformation(true)
+    }else{
+      setChangeInformation(false)
+    }
     //updateById( , {newUserName: username, newEmail: email})
   }
 
@@ -47,15 +63,37 @@ export default function AccountPage(props) {
       <div style={pageStyle}>
 
         {!showForgotPasswordPage &&
+        changeInformation &&
         <>
           <form onSubmit={onSubmission}>
-            <h2><input type='text' style={inputStyle} onChange={onUserChange} value={uName[0]}/></h2>
-            <h3><input type='text' style={inputStyle} onChange={onEmailChange} value={uEmail[0]}/></h3>
+            <h2><input type='text' style={inputStyle} onChange={onUserChange} value={tempUserName}/></h2>
+            <h3><input type='text' style={inputStyle} onChange={onEmailChange} value={tempEmail}/></h3>
             {showSubmit && <input type='submit' value='Submit'/>}
           </form>
 
           <input type='button' value='Change Password Request' onClick={requestPassWordChange} />
         </>}
+
+        {
+          !showForgotPasswordPage &&
+          !changeInformation &&
+          <>
+          <div>
+            <h2>My Information</h2>
+            <table>
+              <tr>
+                <td>Username: </td>
+                <td>{uName[0]}</td>
+              </tr>
+              <tr>
+                <td>Email: </td>
+                <td>{uEmail[0]}</td>
+              </tr>
+            </table>
+            <input type="button" value="Change Account Information" onClick={(e)=>{setChangeInformation(true)}}/>
+          </div>
+          </>
+        }
 
         {showForgotPasswordPage && <ForgotPasswordPage setter1 = {setShowLoginPage} setter2={setShowCreateAccountPage} setter3={setShowForgotPasswordPage}/>}
 
