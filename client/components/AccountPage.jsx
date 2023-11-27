@@ -1,7 +1,9 @@
 import React from 'react'
-
+import { updateUserById } from '../routeToServer.js'
 import { CredentialsContext } from './App.jsx'
 import ForgotPasswordPage from './ForgotPasswordPage.jsx'
+import { Link } from 'react-router-dom'
+
 
 const inputStyle = {
   border: 'solid 1px',
@@ -16,8 +18,8 @@ const pageStyle= {
 }
 
 export default function AccountPage(props) {
-  const {uName, uPassword, uEmail, loggedIn} = React.useContext(CredentialsContext)
-
+  const {uId, uName, uEmail, loggedIn} = React.useContext(CredentialsContext)
+  const [updateResult, setUpdateResult] = React.useState("")
   const [showSubmit, setShowSubmit] = React.useState(false)
   const [tempUserName, setTempUserName] = React.useState(uName[0])
   const [tempEmail, setTempEmail] = React.useState(uEmail[0])
@@ -45,13 +47,33 @@ export default function AccountPage(props) {
     }
   }
 
-  const onSubmission = () => {
+  const onSubmission = async (e) => {
     if(tempUserName != uName[0] || tempEmail != uEmail[0]){
       setChangeInformation(true)
     }else{
       setChangeInformation(false)
     }
-    //updateById( , {newUserName: username, newEmail: email})
+    e.preventDefault()
+
+    //either here or in the routing.js or routeToServer, I would suggest inside those functions,
+    //we need to request the change of the user image files stored on aws. If its successful or not, we can send back data about the result
+    let res = await updateUserById(uId[0], {userName: uName[0], email: uEmail[0]})
+
+    if (res === null) {
+      res = "Failed to Update With this information, try again..."
+    }
+    else if (res.success === true) {
+      res = "User Information has been updated!"
+    }
+    console.log(res)
+    setUpdateResult(res)
+  }
+
+  const logOutUser = () => {
+    uId[1]("")
+    uName[1]("")
+    uEmail[1]("")
+    loggedIn[1](false)
   }
 
   function requestPassWordChange() {
@@ -61,6 +83,8 @@ export default function AccountPage(props) {
   return(
     <>
       <div style={pageStyle}>
+
+        {updateResult && <h2>{updateResult}</h2>}
 
         {!showForgotPasswordPage &&
         changeInformation &&
@@ -72,6 +96,7 @@ export default function AccountPage(props) {
           </form>
 
           <input type='button' value='Change Password Request' onClick={requestPassWordChange} />
+          <Link to="/Login"> <input type='button' value='Log out' onClick={logOutUser}/> </Link>
         </>}
 
         {

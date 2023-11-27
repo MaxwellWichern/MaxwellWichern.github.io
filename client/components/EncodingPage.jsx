@@ -4,6 +4,8 @@ import StockImgModal from './StockImgModal'
 import { deleteSomething } from '../routeToServer'
 import { getSomething } from '../routeToServer'
 import { addSomething } from '../routeToServer'
+import { CredentialsContext } from './App'
+import HistoryModal from './HistoryModal'
 
 const styling = {
   display: 'flex',
@@ -17,28 +19,24 @@ const textStyles = {
 
 
 export default function EncodingPage(props) {
-
+  const {uName,loggedIn} = React.useContext(CredentialsContext)
   const [imageSelect, setImageSelect] = React.useState(false)
   const [showModal, setShowModal] = React.useState(false)
+  const [showHistoryModal, setShowHistoryModal] = React.useState(false)
 
   const [originalImage, setOriginalImage] = React.useState({
     picAsFile: null,
-    preview: null,
-    imgData: null
+    preview: null
   })
 
   const [hiddenImage, setHiddenImage] = React.useState({
     picAsFile: null,
-    preview: null,
-    imgData: null
+    preview: null
   })
 
   const [hiddenText, setHiddenText] = React.useState(null)
 
-  const [outputImage, setOutPutImage] = React.useState({
-    content: null,
-    preview: null
-  })
+  const [outputImage, setOutPutImage] = React.useState(null)
 
   const onSubmission = async (e) => {
     e.preventDefault()
@@ -54,16 +52,18 @@ export default function EncodingPage(props) {
     else
       result.append("Hidden", hiddenText)
 
+    result.append("User", uName[0])
+
     //Send image data to python here
     const requestOptions = {
       method: 'POST',
       // headers: { 'Content-Type': 'multipart/form-data' },
       body: result
     };
-    const post_result = await fetch('http://localhost:8000/post', requestOptions)
+    const post_result = await fetch('http://localhost:8000/user/encode/image/', requestOptions)
     .then(response => response.json())
 
-    const uploadedImage = await post_result.json();
+    setOutPutImage(await post_result.imgLink)
 
     console.log(result)
     for (const data of result) {
@@ -71,21 +71,61 @@ export default function EncodingPage(props) {
     }
   }
 
+  function justLoaded(e) {
+    e.target.style.width='100%'
+    e.target.style.height='100%'
+  }
+
+  function mouseEntered(e) {
+    e.target.style.background = 'grey'
+    e.target.style.color = 'white'
+  }
+
+  function mouseLeft(e) {
+    e.target.style.background = 'white'
+    e.target.style.color = 'black'
+  }
+
   return(
     <>
       <h2>Encode your image!</h2>
       <div style={styling}>
-        <div style={{display:'flex'}}>
-          <MyDropzone imageFile={originalImage} setImageFile={setOriginalImage} purpose='Use This Image To Hide'/>
-          <svg onClick={()=>{setShowModal(true)}} xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots-vertical" viewBox="0 0 16 16">
-            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
-          </svg>
-          <StockImgModal
-            open={showModal}
-            onClose={()=>{setShowModal(false)}}
-            passImage={originalImage}
-            passSetImage={setOriginalImage}
-          />
+        <div style={{display: 'grid', placeItems: 'center'}}>
+          <div style={{display: 'flex'}}>
+
+              <div id="stockImageButton"
+                style={{textAlign: 'center', width: '150px', background: 'white', cursor: 'pointer', border: 'outset 2px', boxShadow: '0 0 0px 0px', margin: '5px', padding: '5px'}}
+                onMouseEnter={(e)=>{mouseEntered(e)}}
+                onMouseLeave={(e)=>{mouseLeft(e)}}
+                onClick={()=>{setShowModal(true)}}
+                >
+                Stock Images
+              </div>
+
+              {loggedIn[0] && <div id="HistoryImageButton"
+                style={{textAlign: 'center', width: '150px', background: 'white', cursor: 'pointer', border: 'outset 2px', boxShadow: '0 0 0px 0px', margin: '5px', padding: '5px'}}
+                onMouseEnter={(e)=>{mouseEntered(e)}}
+                onMouseLeave={(e)=>{mouseLeft(e)}}
+                onClick={()=>{setShowHistoryModal(true)}}
+                >
+                History
+              </div>}
+          </div>
+          <div style={{display:'flex'}}>
+            <MyDropzone imageFile={originalImage} setImageFile={setOriginalImage} purpose='Use This Image To Hide'/>
+            <StockImgModal
+              open={showModal}
+              onClose={()=>{setShowModal(false)}}
+              passImage={originalImage}
+              passSetImage={setOriginalImage}
+            />
+            <HistoryModal
+              open={showHistoryModal}
+              onClose={()=>{setShowHistoryModal(false)}}
+              passImage={originalImage}
+              passSetImage={setOriginalImage}
+            />
+          </div>
         </div>
         <form name="inputForm"  onSubmit={onSubmission}>
           {!imageSelect && <label htmlFor="hiddenTextField" id="hiddenTextContainer">
@@ -99,13 +139,12 @@ export default function EncodingPage(props) {
             </svg>
             <div>
             <input type="radio" name="messageType" value="image" onClick={()=>{setImageSelect(true)}}/>
-            <input type="radio" name="messageType" value="text" onClick={()=>{setImageSelect(false)}}/>
+            <input defaultChecked type="radio" name="messageType" value="text" onClick={()=>{setImageSelect(false)}}/>
           </div>
           </label>
         </form>
 
-
-        <img id='outputEncoded' style={{width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src={outputImage.preview}/>
+        <img id='outputEncoded' onLoad={(e)=>justLoaded(e)} style={{width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src={outputImage}/>
         <label>
         <a download={outputImage} href={outputImage} title='downloadEncoded'>
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">

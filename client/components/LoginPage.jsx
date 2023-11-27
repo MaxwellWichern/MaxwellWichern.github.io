@@ -4,7 +4,6 @@ import { getUserByCredentials } from '../routeToServer';
 import { useNavigate } from 'react-router-dom';
 
 
-
 export default function LoginPage(props) {
     const {setter1, setter2, setter3} = props
     const {uId, uName, uEmail, loggedIn} = React.useContext(CredentialsContext)
@@ -38,7 +37,7 @@ export default function LoginPage(props) {
             usersResult.then(
                 function(value) {
                     if(value.length > 0){ //We have a user with the same credentials
-                        setUserId(value[0].id)
+                        setUserId(value[0]._id)
                         setUserName(value[0].userName)
                         //setUserPassword(value[0].userPw)
                         setUserEmail(value[0].email)
@@ -49,6 +48,7 @@ export default function LoginPage(props) {
 
                     }else{  //We do not have a user with the same credentials
                         setUserName("")
+                        setUserId("")
                         //setUserPassword("")
                         setUserEmail("")
                         setIsLoggedIn(false)

@@ -1,3 +1,4 @@
+//import { ObjectId } from "mongodb"
 
 //use mongoId
 export async function deleteSomething(id) {
@@ -188,6 +189,17 @@ export async function updatePasswordByEmail(email, obj) {
 
 export async function updateUserById(id, obj) {
   try {
+    //check valid email
+    const user = await getUserByEmail(obj.email)
+    if (user.length != 0 && user[0]._id != id) {
+      throw new Error("Email already in use, please try again")
+    }
+    //check valid username
+    const user2 = await getUserByUsername(obj.userName)
+    if(user2.length != 0 && user2[0]._id != id) {
+      throw new Error("Username is already in use, please try another")
+    }
+    //attempt update
     const response = await fetch(`data/update/${id}`, {
       method: 'PUT',
       headers:{
@@ -200,13 +212,14 @@ export async function updateUserById(id, obj) {
       if (response.status >= 400) {
           throw new Error(`${response.status}`)
       }
-
       return await response
   }
   catch (e) {
       console.error(e)
       return null
   }
+
+
 }
 
 export async function getById(id) {

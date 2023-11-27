@@ -78,11 +78,10 @@ export default function PageHeader(props) {
           </div>
         </Link>
 
-        <Link to='/Collection' style={{ textDecoration: 'none' }}>
+        <Link to='/Collections' style={{ textDecoration: 'none' }}>
           <div style={tabStyle}
             onMouseEnter={(e)=>{mouseEntered(e)}}
             onMouseLeave={(e)=>{mouseLeft(e)}}
-
             >Collections
           </div>
         </Link>
