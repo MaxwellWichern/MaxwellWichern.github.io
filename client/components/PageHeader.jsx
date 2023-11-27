@@ -40,7 +40,7 @@ export default function PageHeader(props) {
   />
 {/* Navbar */}
 <div className="w3-top">
-    <div className="w3-bar w3-red w3-card w3-left-align w3-large">
+    <div className="w3-bar w3-red w3-card w3-left-align w3-large" style={{height:'10%'}}>
       <a
         className="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red"
       >
@@ -87,6 +87,47 @@ export default function PageHeader(props) {
       }
       </div>
     </div>
+    <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <Link to="/" className="w3-bar-item w3-button w3-padding-large w3-hover-white">
+        Home
+      </Link>
+      <Link to="/Instructions"
+        className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
+      >
+        Instructions
+      </Link>
+      <Link to="/Encoding"
+        className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
+      >
+        Encoder
+      </Link>
+      <Link to="/Decoding"
+        className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
+      >
+        Decoder
+      </Link>
+      <Link to="/Collections"
+        className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
+      >
+        Collections
+      </Link>
+
+      {!loggedIn[0] &&
+      <Link to="/Login"
+        className="w3-bar-item w3-button w3-right w3-hide-small w3-padding-large w3-hover-white"
+      >
+        Login
+      </Link>
+      }
+
+      {loggedIn[0] &&
+      <Link to="/Account"
+        className="w3-bar-item w3-button w3-right w3-hide-small w3-padding-large w3-hover-white"
+      >
+        Account
+      </Link>
+      }
+  </div>
     </>
   )
 }
