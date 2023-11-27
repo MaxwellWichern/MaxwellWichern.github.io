@@ -1,9 +1,12 @@
 import React from 'react'
 
 import { addUser } from '../routeToServer';
+import { CredentialsContext } from './App'
+
 
 export default function CreateAccountPage(props){
     const {setter1, setter2, setter3} = props
+    const {uName,loggedIn} = React.useContext(CredentialsContext)
 
     const [createAccountUsernameText, setCreateAccountUsernameText] = React.useState("");
     const [createAccountPasswordText, setCreateAccountPasswordText] = React.useState("");
@@ -38,7 +41,9 @@ export default function CreateAccountPage(props){
                     userPw: createAccountPasswordText,
                     email: createAccountEmailText
                 }
-                const result = addUser(user)
+                //const result = addUser(user)
+                const result = addUserPerm(user,uName)
+
                 console.log(result)
 
             /*

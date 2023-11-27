@@ -1,15 +1,19 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import { updatePasswordByEmail } from '../routeToServer'
+import { CredentialsContext } from './App'
+
 
 export default function PasswordResetPage(props) {
   const form = React.useRef();
+  const {uName,loggedIn} = React.useContext(CredentialsContext)
+
 
   const submitPassword = (e) => {
     console.log(form)
     try {
       if (form.current[1].value === form.current[2].value) {
-        updatePasswordByEmail(form.current[0].value, {userPw: form.current[1].value})
+        updatePasswordByEmailPerm(form.current[0].value, {userPw: form.current[1].value},uName)
       }
       else {throw new Error("Passwords are not equal")}
     }catch (e) {

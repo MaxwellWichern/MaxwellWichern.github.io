@@ -53,171 +53,232 @@ export async function getSomething() {
 }
 
 //creds is a json object of the form {userName:"userName", email:"email"}
-export async function getUserByUserNameAndEmail(creds){
-    try{
+export async function getUserByUserNameAndEmail(creds) {
+    try {
         const response = await fetch(`data/getUserByUserNameAndEmail/${creds.userName}/${creds.email}`, {
             method: 'GET'
         })
-        .then((response)=>{return response.json()})
-        if(response.status >= 400){
+            .then((response) => { return response.json() })
+        if (response.status >= 400) {
             throw new Error(`${response.status}`)
         }
         return await response;
-    }catch(e){
+    } catch (e) {
         console.error(e);
         return null;
     }
 }
 
 //creds is a json object of the form {userName:"userName",userPw:"userPw"}
-export async function getUserByCredentials(creds){
-    try{
+export async function getUserByCredentials(creds) {
+    try {
         const response = await fetch(`data/getUserByCredentials/${creds.userName}/${creds.userPw}`, {
             method: 'GET'
         })
-        .then((response)=>{return response.json()})
-        if(response.status >= 400){
+            .then((response) => { return response.json() })
+        if (response.status >= 400) {
             throw new Error(`${response.status}`)
         }
         return await response;
-    }catch(e){
+    } catch (e) {
         console.error(e);
         return null;
     }
 }
 
-export async function getUserByUsername(username){
-    try{
+export async function getUserByUsername(username) {
+    try {
         const response = await fetch(`data/getUserByUsername/${username}`, {
             method: 'GET'
         })
-        .then((response)=>{return response.json()})
-        if(response.status >= 400){
+            .then((response) => { return response.json() })
+        if (response.status >= 400) {
             throw new Error(`${response.status}`)
         }
         return await response;
-    }catch(e){
+    } catch (e) {
         console.error(e);
         return null;
     }
 }
 
-export async function getUserByEmail(email){
-    try{
+export async function getUserByEmail(email) {
+    try {
         const response = await fetch(`data/getUserByEmail/${email}`, {
             method: 'GET'
         })
-        .then((response)=>{return response.json()})
-        if(response.status >= 400){
+            .then((response) => { return response.json() })
+        if (response.status >= 400) {
             throw new Error(`${response.status}`)
         }
         return await response;
-    }catch(e){
+    } catch (e) {
         console.error(e);
         return null;
     }
 }
 
 export async function addSomething(obj) {
-    try {
-        const response = await fetch(`data/add`, {
-            method: 'PUT',
-            headers:{
-                'Content-Type':'application/json',
-                accept: 'application/json'
-                },
-            body:(JSON.stringify(obj))
-        })
-        .then((response)=>{return response.json()})
-        if (response.status >= 400) {
-            throw new Error(`${response.status}`)
-        }
+    // try {
+    //     const response = await fetch(`data/add`, {
+    //         method: 'PUT',
+    //         headers:{
+    //             'Content-Type':'application/json',
+    //             accept: 'application/json'
+    //             },
+    //         body:(JSON.stringify(obj))
+    //     })
+    //     .then((response)=>{return response.json()})
+    //     if (response.status >= 400) {
+    //         throw new Error(`${response.status}`)
+    //     }
 
-        return await response.json()
+    //     return await response.json()
+    // }
+    // catch (e) {
+    //     console.error(e)
+    //     return null
+    // }
+}
+/* non permission  based version */
+export async function addUser(user) {
+    try {
+        const response = await fetch(`data/addUser`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                accept: 'application/json'
+            },
+            body: (JSON.stringify(user))
+        })
+            .then((response) => { return response.json() })
+        if (response.status >= 400) {
+            throw new Error('${response.status}')
+        }
+        return await response
     }
     catch (e) {
         console.error(e)
         return null
     }
 }
-
 //user will be a json object with the following parameters: {userName: string, userPw: string, email: string}
-export async function addUser(user) {
-    try {
-        const response = await fetch(`data/addUser`, {
-            method: 'PUT',
-            headers:{
-                'Content-Type':'application/json',
-                accept: 'application/json'
+export async function addUserPerm(user, userPerm) {
+
+    let permission = AuthenticateUser(
+        userPerm,  /* LoogedInUser */
+        "addUser"); /* Function Name/type , check AuthenticateUser for valid tags */
+    if (permission) {
+        try {
+            const response = await fetch(`data/addUser`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    accept: 'application/json'
                 },
-            body:(JSON.stringify(user))
-        })
-        .then((response)=>{return response.json()})
-        if(response.status >= 400){
-           throw new Error('${response.status}')
+                body: (JSON.stringify(user))
+            })
+                .then((response) => { return response.json() })
+            if (response.status >= 400) {
+                throw new Error('${response.status}')
+            }
+            return await response
         }
-      return await response
-    }
-    catch (e) {
-        console.error(e)
+        catch (e) {
+            console.error(e)
+            return null
+        }
+    } else {
+        console.error('User does not have permissions')
         return null
     }
 }
 
 export async function updatePasswordByEmail(email, obj) {
-  try {
-    const response = await fetch(`data/updatePass/${email}`, {
-      method: 'PUT',
-      headers:{
-        'Content-Type':'application/json',
-        accept: 'application/json'
-      },
-      body:(JSON.stringify(obj))
-    })
-    .then((response)=>{return response.json()})
-      if (response.status >= 400) {
-          throw new Error(`${response.status}`)
-      }
+    try {
+        const response = await fetch(`data/updatePass/${email}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                accept: 'application/json'
+            },
+            body: (JSON.stringify(obj))
+        })
+            .then((response) => { return response.json() })
+        if (response.status >= 400) {
+            throw new Error(`${response.status}`)
+        }
 
-      return await response
-  }
-  catch (e) {
-      console.error(e)
-      return null
-  }
+        return await response
+    }
+    catch (e) {
+        console.error(e)
+        return null
+    }
+}
+
+export async function updatePasswordByEmailPerm(email, obj, userPerm) {
+    let permission = AuthenticateUser(
+        userPerm,  /* LoogedInUser */
+        "updatePasswordByEmail"); /* Function Name/type , check AuthenticateUser for valid tags */
+    if (permission) {
+        try {
+            const response = await fetch(`data/updatePass/${email}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    accept: 'application/json'
+                },
+                body: (JSON.stringify(obj))
+            })
+                .then((response) => { return response.json() })
+            if (response.status >= 400) {
+                throw new Error(`${response.status}`)
+            }
+
+            return await response
+        }
+        catch (e) {
+            console.error(e)
+            return null
+        }
+    } else {
+        console.error('User does not have permissions')
+        return null
+    }
 }
 
 export async function updateUserById(id, obj) {
-  try {
-    //check valid email
-    const user = await getUserByEmail(obj.email)
-    if (user.length != 0 && user[0]._id != id) {
-      throw new Error("Email already in use, please try again")
+    try {
+        //check valid email
+        const user = await getUserByEmail(obj.email)
+        if (user.length != 0 && user[0]._id != id) {
+            throw new Error("Email already in use, please try again")
+        }
+        //check valid username
+        const user2 = await getUserByUsername(obj.userName)
+        if (user2.length != 0 && user2[0]._id != id) {
+            throw new Error("Username is already in use, please try another")
+        }
+        //attempt update
+        const response = await fetch(`data/update/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                accept: 'application/json'
+            },
+            body: (JSON.stringify(obj))
+        })
+            .then((response) => { return response.json() })
+        if (response.status >= 400) {
+            throw new Error(`${response.status}`)
+        }
+        return await response
     }
-    //check valid username
-    const user2 = await getUserByUsername(obj.userName)
-    if(user2.length != 0 && user2[0]._id != id) {
-      throw new Error("Username is already in use, please try another")
+    catch (e) {
+        console.error(e)
+        return null
     }
-    //attempt update
-    const response = await fetch(`data/update/${id}`, {
-      method: 'PUT',
-      headers:{
-        'Content-Type':'application/json',
-        accept: 'application/json'
-      },
-      body:(JSON.stringify(obj))
-    })
-    .then((response)=>{return response.json()})
-      if (response.status >= 400) {
-          throw new Error(`${response.status}`)
-      }
-      return await response
-  }
-  catch (e) {
-      console.error(e)
-      return null
-  }
 
 
 }
@@ -239,5 +300,49 @@ export async function getById(id) {
     catch (e) {
         console.error(e)
         return null
+    }
+}
+
+async function AuthenticateUser(userName, action) {
+
+    console.log('Authenticate user Called. UserName= ' + userName + ' : Action= ' + action);
+    const guestPerms = ["create", "get", "addUser"];
+    const memberPerms = ["updatePasswordByEmail", "create", "add", "delete", "get"];
+
+    //const isGuest = userName.toLowerCase().startsWith('guest');
+    let isGuest = true;
+
+    /** check to see if is guest */
+    console.log('Authenticate user: ' + userName);
+    if ((userName.toLowerCase().startsWith('guest')) || userName == "") {
+        isGuest = true;
+    } else {
+        isGuest = false;
+    }
+
+    if (isGuest) {
+        console.log('Authenticate user: isGuest=true');
+
+        return (guestPerms.includes(action));
+
+    } else {    /*  not a guest */
+        console.log('Authenticate user: isGuest=false');
+        let memberInfo;
+        try {
+            memberInfo = getUserByUsername(userName);
+        } catch (e) {
+            console.log('Authenticate user: fail code 282');
+            console.error(e)
+            return null;
+        }
+
+        console.log('Authenticate user:' + memberInfo);
+        //console.log(memberInfo.email);
+        if (memberInfo.isAdmin == true) {
+            return true;
+        } else { /** Authenticate as member */
+            return (memberPerms.includes(action));
+
+        }
     }
 }

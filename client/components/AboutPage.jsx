@@ -1,15 +1,22 @@
 import React from 'react'
-import {getSomething,deleteSomething,getById,deleteByName} from '../routeToServer.js'
+import {getSomething,deleteSomething,getById,deleteByName,addUser} from '../routeToServer.js'
 
 export default function AboutPage(props) { 
 
   const derekTestFunction = (e) => { 
 
- 
-    getSomething();
+    const user = {
+      userName: 'createUser',
+      userPw: 'createPW',
+      email: 'createemal'
+  }
+  const result = addUser(user, "drekky")
+  console.log(result)
+  getSomething();
+
 
     //deleteSomething(123456789);
-    deleteByName('user1');
+    deleteByName('createUser');
     //getById(123456888);
  
 getSomething();
