@@ -72,8 +72,8 @@ export default function EncodingPage(props) {
   }
 
   function justLoaded(e) {
-    e.target.style.width='100%'
-    e.target.style.height='100%'
+    e.target.style.width=''
+    e.target.style.height='400px'
   }
 
   function mouseEntered(e) {
