@@ -349,7 +349,7 @@ async function AuthenticateUser(userName, action) {
 
     console.log('Authenticate user Called. UserName= ' + userName + ' : Action= ' + action);
     const guestPerms = ["create", "get", "addUser"];
-    const memberPerms = ["updatePasswordByEmail", "create", "add", "delete", "get"];
+    const memberPerms = ["updatePasswordByEmail","addUser", "create", "add", "delete", "get"];
 
     //const isGuest = userName.toLowerCase().startsWith('guest');
     let isGuest = true;

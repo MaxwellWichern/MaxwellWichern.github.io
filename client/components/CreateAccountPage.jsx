@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { addUser } from '../routeToServer';
+import { addUser , addUserPerm } from '../routeToServer';
 import { CredentialsContext } from './App'
 
 
@@ -42,7 +42,7 @@ export default function CreateAccountPage(props){
                     email: createAccountEmailText
                 }
                 //const result = addUser(user)
-                const result = addUserPerm(user,uName)
+                const result = addUserPerm(user,uName[0])
 
                 console.log(result)
 

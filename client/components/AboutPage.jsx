@@ -17,7 +17,7 @@ export default function AboutPage(props) {
 
     //deleteSomething(123456789);
     deleteByName('createUser');
-    //getById(123456888);
+    //getById(123456888); 
  
 getSomething();
 
