@@ -1,5 +1,5 @@
 import React from 'react'
-
+import './coolstyle.css'
 import PageHeader from './PageHeader.jsx'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
@@ -34,6 +34,7 @@ export default function App (props) {
       }}>
         <BrowserRouter>
         <PageHeader title='Steganography'/>
+        <div className="content">
           <Routes path='/'>
             <Route index element={<AboutPage/>}/>
             <Route path='Instructions' element={<InstructionPage/>}/>
@@ -43,8 +44,8 @@ export default function App (props) {
             <Route path='Account' element={<AccountPage/>}/>
             <Route path='Login' element={<LoginPageCenter/>}/>
             <Route path='PasswordReset' element={<PasswordResetPage/>}/>
-
           </Routes>
+          </div>
         </BrowserRouter>
       </CredentialsContext.Provider>
     </div>
