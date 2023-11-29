@@ -4,6 +4,7 @@ import { CredentialsContext } from './App.jsx'
 import ForgotPasswordPage from './ForgotPasswordPage.jsx'
 import { Link } from 'react-router-dom'
 import { deleteByName } from '../routeToServer.js'
+import { useNavigate } from 'react-router-dom'
 
 
 const inputStyle = {
@@ -30,6 +31,8 @@ export default function AccountPage(props) {
   const [showForgotPasswordPage, setShowForgotPasswordPage] = React.useState(false);
   const [changeInformation, setChangeInformation] = React.useState(false);
 
+  let navigate = useNavigate()
+
   function onUserChange(e) {
     var curText = e.target.value
     setTempUserName(curText)
@@ -39,7 +42,6 @@ export default function AccountPage(props) {
       setShowSubmit(true)
     }
   }
-  
 
   const onEmailChange = (e) => {
     var curText = e.target.value
@@ -62,7 +64,8 @@ export default function AccountPage(props) {
     //either here or in the routing.js or routeToServer, I would suggest inside those functions,
     //we need to request the change of the user image files stored on aws. If its successful or not, we can send back data about the result
     let res = await updateUserById(uId[0], {userName: tempUserName, email: tempEmail})
-
+    uName[1](tempUserName)
+    uEmail[1](tempEmail)
     if (res === null) {
       res = "Failed to Update With this information, try again..."
     }
@@ -97,6 +100,8 @@ export default function AccountPage(props) {
   const deleteAccount = () => {
     const res = deleteByName(uName[0])
     console.log(res)
+    logOutUser()
+    navigate('/Login')
   }
 
   const dontDelete = () => {

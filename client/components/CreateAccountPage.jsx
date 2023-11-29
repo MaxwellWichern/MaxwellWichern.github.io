@@ -32,14 +32,23 @@ export default function CreateAccountPage(props){
         if(createAccountUsernameText != "" &&
             createAccountPasswordText != "" &&
             createAccountEmailText != ""){
-
+                passwordErrorMessage.innerHTML = "Attempting to create new account...";
+                passwordErrorMessage.style.visibility = "visible";
                 const user = {
                     userName: createAccountUsernameText,
                     userPw: createAccountPasswordText,
                     email: createAccountEmailText
                 }
                 const result = addUser(user)
-                console.log(result)
+                result.then(
+                    function(value){
+                        if(value.success){
+                            passwordErrorMessage.innerHTML = "Added new user successfully!";
+                        }else{
+                            passwordErrorMessage.innerHTML = "Failed to add new user";
+                        }
+                    }
+                )
 
             /*
             const qResult = getUserByUsername(createAccountUsernameText)
