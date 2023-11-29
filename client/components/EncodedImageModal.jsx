@@ -14,7 +14,7 @@ export default function HistoryModal(props) {
   const {open, onClose, passImage, passSetImage} = props
   const {uName} = React.useContext(CredentialsContext)
 
-  const [historyImgs, setHistoryImgs] = React.useState([])
+  const [encodedImgs, setEncodedImgs] = React.useState([])
   const modalRef = React.useRef()
   const [modalObj, setModalObj] = React.useState(null)
 
@@ -32,12 +32,12 @@ export default function HistoryModal(props) {
   React.useEffect(() => {
     if (modalObj) {
       if (open) {
-        async function getHistory() {
+        async function getEncoded() {
 
           try {
             let result = new FormData();
             result.append("User", uName[0])
-            result.append("imType", "OrigImg")
+            result.append("imType", "EncryptedImg")
             //Send image data to python here
             const requestOptions = {
               method: 'POST',
@@ -45,18 +45,18 @@ export default function HistoryModal(props) {
             };
             const response = await fetch('http://localhost:8000/user/all/images/', requestOptions)
 
-            if (response.ok) {
-              let data = await response.json();
-              console.log(data)
-              setHistoryImgs(data.Links);
+            if(response.ok) {
+              let data = await response.json()
+              setEncodedImgs(data.Links)
             } else {
-              console.error(`Request for all original images failed with status: ${response.status}`);
+              console.error(`Request for all encoded images failed with status: ${response.status}`);
             }
+
           } catch (e) {
             console.error("Error:", e);
           }
         }
-        getHistory()
+        getEncoded()
         modalObj.show()
       }
       else {
@@ -84,7 +84,7 @@ export default function HistoryModal(props) {
         <div className="modal-content">
           <div className="modal-header">
             <h2>
-              Select an Original Image
+              Select an Encoded Image
             </h2>
             {/*<svg style={{float: "right", padding: "7px", cursor: "pointer"}} onClick={onReloadImg} xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-arrow-clockwise" viewBox="0 0 16 16">
               <path fillRule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
@@ -92,11 +92,11 @@ export default function HistoryModal(props) {
             </svg> */}
           </div>
           <div id="grid" className="modal-body">
-            {historyImgs && historyImgs.length > 0 ? (
+            {encodedImgs && encodedImgs.length > 0 ? (
               <div className="row">
-                {historyImgs.map((img) => (
-                  <div className="col-4">
-                      <img key={img} style={stockImgStyle}
+                {encodedImgs.map((img) => (
+                  <div key={img} className="col-4">
+                      <img style={stockImgStyle}
                         src={img}
                         className="img-fluid"
                         onMouseEnter={(e)=>{mouseEntered(e)}}
@@ -108,7 +108,7 @@ export default function HistoryModal(props) {
                 ))}
               </div>
             ) : (
-              <p>Loading your history...</p>
+              <p>Loading your images...</p>
             )}
           </div>
           <div className="modal-footer">

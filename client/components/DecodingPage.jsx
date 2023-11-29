@@ -1,6 +1,7 @@
 import React from 'react'
 import MyDropzone from './MyDropzone'
 import { CredentialsContext } from './App'
+import EncodedImageModal from './EncodedImageModal'
 
 const pageStyle = {
   align: 'center',
@@ -11,7 +12,7 @@ export default function DecodingPage(props) {
   const {uName, loggedIn} = React.useContext(CredentialsContext)
   const [imageSelect, setImageSelect] = React.useState(false)
   const [outputText, setOutputText] = React.useState(null)
-  const [showHistoryModal, setShowHistoryModal] = React.useState(false)
+  const [showEncodedImageModal, setShowEncodedImageModal] = React.useState(false)
 
   const [imageToDecode, setImageToDecode] = React.useState({
     picAsFile: null,
@@ -25,6 +26,10 @@ export default function DecodingPage(props) {
     result.append(
       "file",
       imageToDecode.picAsFile
+    )
+    result.append(
+      "preview",
+      imageToDecode.preview
     )
     result.append(
       "User",
@@ -45,7 +50,15 @@ export default function DecodingPage(props) {
     //temporary submission test, will replace with return string from python flask
     //setOutputText('Submitted Here And a really long string now w w w a  a a a a a    a a  a  a a  a  a  a a  a ')
     setOutputText(await post_result.message)
+    justLoaded()
     console.log(result)
+  }
+
+  function justLoaded() {
+    let e = document.getElementById("decodedText")
+    console.log(e)
+    e.style.width='100%'
+    e.style.height='100%'
   }
 
   function mouseEntered(e) {
@@ -65,15 +78,21 @@ export default function DecodingPage(props) {
     <div style={pageStyle}>
 
       <div style={{display: 'grid', placeItems: 'center'}}>
-        {loggedIn[0] && <div id="HistoryImageButton"
+        {loggedIn[0] && <div id="EncodedImageButton"
           style={{textAlign: 'center', width: '150px', background: 'white', cursor: 'pointer', border: 'outset 2px', boxShadow: '0 0 0px 0px', margin: '5px', padding: '5px'}}
           onMouseEnter={(e)=>{mouseEntered(e)}}
           onMouseLeave={(e)=>{mouseLeft(e)}}
-          onClick={()=>{setShowHistoryModal(true)}}
+          onClick={()=>{setShowEncodedImageModal(true)}}
           >
-          History
+          Encoded History
         </div>}
         <MyDropzone imageFile={imageToDecode} setImageFile={setImageToDecode} purpose='Decode This Image'/>
+        <EncodedImageModal
+          open={showEncodedImageModal}
+          onClose={()=>{setShowEncodedImageModal(false)}}
+          passImage={imageToDecode}
+          passSetImage={setImageToDecode}
+        />
       </div>
 
       <form name="submission" onSubmit={onSubmission}>
@@ -89,7 +108,7 @@ export default function DecodingPage(props) {
 
       {!imageSelect && <div style={{paddingLeft:'60px',paddingRight:'60px', verticalAlign: 'middle', textAlign: 'center', width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} id="decodedText">{outputText}</div> }
       {imageSelect && <div>
-        <img id='outputEncoded' style={{width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src="#"/>
+        <img id='outputEncoded'  style={{width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src="#"/>
         {/*<a download="#" href="#" title='downloadDecoded'>
           <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
             <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>

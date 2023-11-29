@@ -1,6 +1,7 @@
 import React from 'react'
 import emailjs from '@emailjs/browser'
 import { Outlet, Link } from "react-router-dom";
+import { getUserByEmail, updateKeyInfo } from '../routeToServer';
 
 export default function ForgotPasswordPage(props){
 
@@ -9,7 +10,7 @@ export default function ForgotPasswordPage(props){
     const sendEmail = (e) => {
       e.preventDefault();
       console.log(form)
-      const randValueSelection = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"~\\$._<>=;*^,-#+{}()[]/@`|%&:\'!'
+      const randValueSelection = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~\\$._<>*^,#{}()[]/`|%\'!'
       const keyLength = 30
       const randSelectionLength = randValueSelection.length
       let key = ""
@@ -24,12 +25,29 @@ export default function ForgotPasswordPage(props){
       //3) once clicked, retrieve the key of whomever clicked the link, i.e. use their username and email to find the user and get the connected key
       //4) if the key is not expired, show the page to reset your password
       //5) if the key is expired or does not exist, link them to send another email, max three attempts within a timeframe to prevent spam
-      emailjs.sendForm('service_k5mmp7a', 'template_c9a9xhk', form.current, 'QN5phbtNir0brALN5')
-        .then((result) => {
-            console.log(result.text);
-        }, (error) => {
-            console.log(error.text);
-        });
+      async function validateEmail() {
+        let emailTruth = false
+        const emailResponseVal = await getUserByEmail(form.current[1].value)
+
+        console.log(emailResponseVal[0])
+        if ((await emailResponseVal)[0])
+          emailTruth = true
+        return emailTruth
+      }
+
+      async function sendEmail() {
+        if (await validateEmail()) {
+          const addKeyResponse = await updateKeyInfo(form.current[1].value, form.current.to_key)
+          emailjs.sendForm('service_k5mmp7a', 'template_c9a9xhk', form.current, 'QN5phbtNir0brALN5')
+            .then((result) => {
+                console.log(result.text);
+            }, (error) => {
+                console.log(error.text);
+            });
+        }
+      }
+      sendEmail()
+
     }
 
     return(
