@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { CredentialsContext, PagesContext } from './App.jsx'
 import { Outlet, Link } from "react-router-dom";
+import SGlassLogo from '../../server/resources/SGlassLogo.jpg'
 
 export default function PageHeader(props) {
   const { title } = props
@@ -46,6 +47,8 @@ export default function PageHeader(props) {
       >
         <i className="fa fa-bars" />
       </a>
+
+      {/*<img src={SGlassLogo} className={'w3-bar-item w3-hide-small w3-image'} style={{'width': '100px'}}/>*/}
       <Link to="/" className="w3-bar-item w3-button w3-padding-large w3-hover-white">
         Home
       </Link>
