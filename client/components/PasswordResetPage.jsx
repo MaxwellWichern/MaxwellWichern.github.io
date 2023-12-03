@@ -10,16 +10,18 @@ export default function PasswordResetPage(props) {
   const submitPassword = async (e) => {
     console.log(form)
     try {
+      const uNameTest = await getUserByEmail(userEmail).then((response)=>{response.json()})
+      console.log(await uNameTest)
       if (form.current[1].value === form.current[2].value) {
-        updatePasswordByEmailPerm(form.current[0].value, {userPw: form.current[1].value}, await getUserByEmail(userEmail))
+        updatePasswordByEmailPerm(form.current[0].value, {userPw: form.current[1].value}, await uNameTest[0].userName)
       }
       else {throw new Error("Passwords are not equal")}
     }catch (e) {
-      console.error(e)
+      console.error(e) 
     }
   }
 
-  React.useEffect(()=>{
+  React.useEffect((e)=>{
     async function printValid() {
       console.log("Function: " + await validateReset())
       if (await validateReset() === true) {
