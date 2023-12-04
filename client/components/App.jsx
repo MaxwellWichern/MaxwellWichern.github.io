@@ -1,5 +1,5 @@
 import React from 'react'
-
+import './coolstyle.css'
 import PageHeader from './PageHeader.jsx'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
@@ -16,11 +16,12 @@ export const PagesContext = React.createContext(null)
 
 export const CredentialsContext = React.createContext(null)
 
+//App Component providing the Contexts and Router
 export default function App (props) {
 
+  //Account information provided through the context,
   const [userId, setUserId] = React.useState("")
   const [userName, setUserName] = React.useState("")
-  //const [userPassword, setUserPassword] = React.useState("")
   const [userEmail, setUserEmail] = React.useState("")
   const [loggedIn, setLoggedIn] = React.useState(false)
 
@@ -32,8 +33,10 @@ export default function App (props) {
         uEmail: [userEmail, setUserEmail],
         loggedIn: [loggedIn, setLoggedIn]
       }}>
+        {/*Routes defined to create the Links between pages using the react-router-dom*/}
         <BrowserRouter>
         <PageHeader title='Steganography'/>
+        <div className="content">
           <Routes path='/'>
             <Route index element={<AboutPage/>}/>
             <Route path='Instructions' element={<InstructionPage/>}/>
@@ -43,8 +46,8 @@ export default function App (props) {
             <Route path='Account' element={<AccountPage/>}/>
             <Route path='Login' element={<LoginPageCenter/>}/>
             <Route path='PasswordReset' element={<PasswordResetPage/>}/>
-
           </Routes>
+          </div>
         </BrowserRouter>
       </CredentialsContext.Provider>
     </div>

@@ -1,6 +1,8 @@
 import React from 'react'
 import { CredentialsContext } from './App';
-import { getUserByCredentials } from '../routeToServer';
+import { getUserByUsername } from '../routeToServer';
+import { useNavigate } from 'react-router-dom';
+import bcrypt from 'bcryptjs'
 
 
 export default function LoginPage(props) {
@@ -15,6 +17,7 @@ export default function LoginPage(props) {
 
     const[userNameText,setUserNameText] = React.useState("");
     const[passwordText,setPasswordText] = React.useState("");
+    let navigate = useNavigate();
 
     const submitCredentials = (e) => {
         //Get the html elements for the error messages
@@ -31,19 +34,30 @@ export default function LoginPage(props) {
             passwordErrorMessage.style.visibility = "visible";
         }
         if(passwordText != "" && userNameText != ""){
-            const usersResult = getUserByCredentials({userName:userNameText, userPw:passwordText})
+            const usersResult = getUserByUsername(userNameText)
             usersResult.then(
-                function(value) {
+                async function(value) {
                     if(value.length > 0){ //We have a user with the same credentials
-                        setUserId(value[0]._id)
-                        setUserName(value[0].userName)
-                        //setUserPassword(value[0].userPw)
-                        setUserEmail(value[0].email)
-                        setIsLoggedIn(true)
-
-                        //Change site to logged in version
-
-                    }else{  //We do not have a user with the same credentials
+                        const connectPassword = await bcrypt.compare(passwordText, value[0].userPw)
+                        if (await connectPassword) {
+                          setUserId(value[0]._id)
+                          setUserName(value[0].userName)
+                          //setUserPassword(value[0].userPw)
+                          setUserEmail(value[0].email)
+                          setIsLoggedIn(true)
+                          //Send the user to the instructions page
+                          navigate("/Instructions");
+                        }
+                        else {
+                          setUserName("")
+                          setUserId("")
+                          //setUserPassword("")
+                          setUserEmail("")
+                          setIsLoggedIn(false)
+                          passwordErrorMessage.innerHTML="Login Attempt Failed.";
+                          passwordErrorMessage.style.visibility = "visible";
+                        }
+                    } else{  //We do not have a user with the same credentials
                         setUserName("")
                         setUserId("")
                         //setUserPassword("")
@@ -72,7 +86,7 @@ export default function LoginPage(props) {
     }
 
   return(
-    <div>
+    <div id="login">
         <h1>Login Page</h1>
         <div>Username: <input type="text" id = "usernameInput" onChange={(e) => {setUserNameText(e.target.value)}}/></div>
         <div style={{visibility: "hidden"}} id = "usernameErrorMessage">Username is empty.</div>
