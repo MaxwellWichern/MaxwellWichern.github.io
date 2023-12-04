@@ -22,11 +22,11 @@ export default function Carousel(props) {
 
   //increment button
   const incrementCarousel = (e) => {
-    setCurrentIndex(() => ((currentIndex + 3 ) % imageList.length))
+    setCurrentIndex(() => ((currentIndex + 1 ) % imageList.length))
   }
   //decrement button
   const decrementCarousel = (e) => {
-    setCurrentIndex(() => ((currentIndex - 3 ) % imageList.length))
+    setCurrentIndex(() => ((currentIndex - 1 ) % imageList.length))
   }
 
   //when the mouse enters the image it highlights
@@ -66,8 +66,19 @@ export default function Carousel(props) {
       const post_result = await fetch('http://localhost:8000/user/delete/image/', requestOptions)
       .then((response)=>(response.json()))
 
-      validateImg()
-      console.log(await post_result)
+
+    validateImg()
+    console.log(await post_result)
+    /*let x = 0
+    //console.log(imageList)
+    for (let i = 0; i < imageList.length; ++i) {
+      if (imageList[i] == imgSrc){
+        x = i;
+        break;
+      }
+    }
+    imageList.splice(x, 1)*/
+    //console.log(imageList)
     }
     catch(e) {
       console.error(e)
@@ -109,10 +120,10 @@ export default function Carousel(props) {
               validateImg(imageList[currentIndex % imageList.length], carouselElement1)}
             }
           />
-          {loggedIn[0] ? <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" onClick={()=>{deleteImage(imageList[currentIndex % imageList.length])}} style={{position: 'relative', top: '-150px', left: '-70px'}} fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" onClick={()=>{deleteImage(imageList[currentIndex % imageList.length])}} /*style={{position: 'relative', top: '-150px', left: '-70px'}}*/ fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-          </svg> : ''}
+          </svg>
         </label>
         {/*Image Two */}
         <label>
@@ -128,7 +139,7 @@ export default function Carousel(props) {
               validateImg(imageList[currentIndex % imageList.length + 1], carouselElement2)}
             }
           />
-          {loggedIn[0] ? <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" onClick={()=>{deleteImage(imageList[currentIndex % imageList.length + 1])}} style={{position: 'relative', top: '-150px', left: '-70px'}} fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
+          {loggedIn[0] ? <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" onClick={()=>{deleteImage(imageList[currentIndex % imageList.length + 1])}} /*style={{position: 'relative', top: '-150px', left: '-70px'}}*/ fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
           </svg>: ''}
@@ -147,7 +158,7 @@ export default function Carousel(props) {
               validateImg(imageList[currentIndex % imageList.length + 2], carouselElement3)}
             }
           />
-          {loggedIn[0] ? <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" onClick={()=>{deleteImage(imageList[currentIndex % imageList.length + 2])}} style={{position: 'relative', top: '-150px', left: '-70px'}} fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
+          {loggedIn[0] ? <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" onClick={()=>{deleteImage(imageList[currentIndex % imageList.length + 2])}} /*style={{position: 'relative', top: '-150px', left: '-70px'}}*/ fill="currentColor" className="bi bi-trash" viewBox="0 0 16 16">
             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
           </svg> : console.log(loggedIn)}

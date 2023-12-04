@@ -11,7 +11,7 @@ export default function ForgotPasswordPage(props){
     const sendEmail = (e) => {
       e.preventDefault();
       console.log(form)
-      const randValueSelection = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~\\$._<>*^,#{}()[]/`|%\'!'
+      const randValueSelection = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~$._<>*,#()[]!'
       const keyLength = 30
       const randSelectionLength = randValueSelection.length
       let key = ""
