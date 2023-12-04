@@ -1,22 +1,23 @@
 import React from 'react'
 import {getSomething,deleteSomething,getById,deleteByName} from '../routeToServer.js'
+import StegaLogo from '../../server/resources/StegaLogo.jpg'
 
-export default function AboutPage(props) { 
+export default function AboutPage(props) {
 
-  const derekTestFunction = (e) => { 
+  const derekTestFunction = (e) => {
 
- 
+
     getSomething();
 
     //deleteSomething(123456789);
     deleteByName('user1');
     //getById(123456888);
- 
+
 getSomething();
 
 
 
-} 
+}
   return (
   <div id="about">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" />
@@ -70,13 +71,8 @@ getSomething();
   {/* Second Grid */}
   <div className="w3-row-padding w3-theme-l4 w3-padding-64 w3-container">
     <div className="w3-content">
-      <div className="w3-third w3-left">
-      <img src="https://bloximages.newyork1.vip.townnews.com/wqow.com/content/tncms/assets/v3/editorial/1/d8/1d898f0a-8c80-11ed-97a0-dbd52a29a926/63b5ff4fbf254.image.jpg"
-    className="w3-image w3-left"
-      />
-      </div>
-      <div className="w3-twothird w3-right">
-        <h1>What about Team Steganography?</h1>
+      <div className="w3-center">
+        <img src={StegaLogo} className={'w3-image'}/>
         <h5 className="w3-padding-16">We're just a bunch of CS Majors at UW-Stout.</h5>
         <p className="w3-text-grey w3-right-align">The majority are surprisingly AMCS students, but they're backed up by some of the brightest CS students with focuses in Cybersecurity! Working every Monday, Wednesday, and Friday from 2:30 to 4:30 PM CST.</p>
       </div>

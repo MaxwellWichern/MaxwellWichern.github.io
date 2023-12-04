@@ -29,19 +29,25 @@ export default function Carousel(props) {
     setCurrentIndex(() => ((currentIndex - 3 ) % imageList.length))
   }
 
+  //when the mouse enters the image it highlights
   function mouseEntered(e) {
     e.target.style.background = 'grey'
     e.target.style.color = 'white'
   }
 
+  //when the mouse leaves, it reverts to the original colors
   function mouseLeft(e) {
     e.target.style.background = 'white'
     e.target.style.color = 'black'
   }
 
+  //called when the image is deleted
   async function deleteImage(imgSrc) {
+    //a regex picking up the actual link of the image and not the full aws path
     let srcLink = String(imgSrc).match(/amazonaws\.com\/([\w]+)?\/(OrigImg)?(EncryptedImg)?\/(?<newLink>[\d\w.]+)\?(X-Amz)/ms)
+    //datastring is the key in the form of userName/imageType(OrigImg/EncryptedImg)/link
     const dataString = `${uName[0]}/${imType}/${srcLink.groups.newLink}`
+    //creating the formData required by AWS to find the right image by providing the constructed key and sending the AWS bucket to search
     let result = new FormData();
     result.append(
       'Bucket',
@@ -56,11 +62,12 @@ export default function Carousel(props) {
       body: result
     }
     try {
-    const post_result = await fetch('http://localhost:8000/user/delete/image/', requestOptions)
-    .then((response)=>(response.json()))
+      //fetch request to delete
+      const post_result = await fetch('http://localhost:8000/user/delete/image/', requestOptions)
+      .then((response)=>(response.json()))
 
-    validateImg()
-    console.log(await post_result)
+      validateImg()
+      console.log(await post_result)
     }
     catch(e) {
       console.error(e)
@@ -69,6 +76,8 @@ export default function Carousel(props) {
 
   }
 
+  //checks if the image is loaded and if so changes it from the null default image to the correct image on load
+  //The onLoad() calls this
   function validateImg(img, reffed) {
     if (img) {
       reffed.current.src=img
@@ -83,8 +92,10 @@ export default function Carousel(props) {
           <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
         </svg>
       </label>
+      {/*Carousel is constructed in three sections aside from the decrement and increment buttons on either side */}
       <div id="carousel"
         style={{display: 'flex', alignItems: 'center'}}>
+        {/*Image One */}
         <label>
           <img ref={carouselElement1} key={(currentIndex) % imageList.length} style={stockImgStyle}
             src={emptyImg}
@@ -103,6 +114,7 @@ export default function Carousel(props) {
             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
           </svg> : ''}
         </label>
+        {/*Image Two */}
         <label>
           <img ref={carouselElement2} key={currentIndex} style={stockImgStyle}
             src={emptyImg}
@@ -121,6 +133,7 @@ export default function Carousel(props) {
             <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
           </svg>: ''}
         </label>
+        {/*Image Three */}
         <label>
           <img ref={carouselElement3} key={(currentIndex+1) % imageList.length} style={stockImgStyle}
             src={emptyImg}

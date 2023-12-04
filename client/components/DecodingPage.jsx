@@ -9,16 +9,22 @@ const pageStyle = {
 }
 
 export default function DecodingPage(props) {
+  //pulling the username and logged in to 1) connect to aws and 2) to check if the user will see a history modal
   const {uName, loggedIn} = React.useContext(CredentialsContext)
+  //if the decoded result is text or image, it will give a result (not in right now because the image-image is not in place yet)
   const [imageSelect, setImageSelect] = React.useState(false)
+  //if not image, use text
   const [outputText, setOutputText] = React.useState(null)
   const [showEncodedImageModal, setShowEncodedImageModal] = React.useState(false)
 
+  //State Hook for the image to decode placed in the dropzone. Preview is for the preview link for images downloaded from aws or api and
+  //picasFile is for local images from files
   const [imageToDecode, setImageToDecode] = React.useState({
     picAsFile: null,
     preview: null
   })
 
+  //called On the submission of the decoding image
   const onSubmission = async (e) => {
 
     e.preventDefault()
@@ -39,33 +45,28 @@ export default function DecodingPage(props) {
     //send submission to python flask here
     const requestOptions = {
       method: 'POST',
-      // headers: { 'Content-Type': 'multipart/form-data' },
       body: result
     };
     const post_result = await fetch('http://localhost:8000/user/decode/image/', requestOptions)
     .then(response => response.json())
 
-    // const textOutput = document.getElementById('decodedText')
-
-    //temporary submission test, will replace with return string from python flask
-    //setOutputText('Submitted Here And a really long string now w w w a  a a a a a    a a  a  a a  a  a  a a  a ')
+    //once image to image is in place, create a condition to either set output text or output image
     setOutputText(await post_result.message)
     justLoaded()
-    console.log(result)
   }
 
+  //TODO - When the image or text is loaded, I want to resize
   function justLoaded() {
     let e = document.getElementById("decodedText")
-    console.log(e)
-    e.style.width='100%'
-    e.style.height='100%'
   }
 
+  //styling when the encoding button is hovered over
   function mouseEntered(e) {
     e.target.style.background = 'grey'
     e.target.style.color = 'white'
   }
 
+  //styling when the encoding button is hovered off
   function mouseLeft(e) {
     e.target.style.background = 'white'
     e.target.style.color = 'black'
@@ -109,12 +110,6 @@ export default function DecodingPage(props) {
       {!imageSelect && <div style={{paddingLeft:'60px',paddingRight:'60px', verticalAlign: 'middle', textAlign: 'center', width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} id="decodedText">{outputText}</div> }
       {imageSelect && <div>
         <img id='outputEncoded'  style={{width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src="#"/>
-        {/*<a download="#" href="#" title='downloadDecoded'>
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
-            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-          </svg>
-        </a>*/}
       </div>}
     </div>
     </div>

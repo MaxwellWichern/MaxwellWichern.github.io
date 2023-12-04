@@ -97,10 +97,27 @@ export default function AccountPage(props) {
     dontDeleteButton.style.visibility = 'visible'
   }
 
-  const deleteAccount = () => {
+  const deleteAccount = async () => {
     const res = deleteByName(uName[0])
     console.log(res)
     logOutUser()
+    const dataString = `${uName[0]}`
+    let result = new FormData();
+    result.append(
+      'Bucket',
+      'stegosaurus'
+    )
+    result.append(
+      'Key',
+      dataString
+    )
+    requestOptions = {
+      method: 'POST',
+      body: result
+    }
+    const post_result = await fetch('http://localhost:8000/user/delete/user/', requestOptions)
+    .then((response)=>(response.json()))
+
     navigate('/Login')
   }
 
@@ -140,7 +157,7 @@ export default function AccountPage(props) {
             <div><h3 style={{visibility:'hidden'}} id='AreYouSure'>Are You Sure?</h3></div>
             <div>
               <input type='button' value='Yes, Delete My Account' style={{visibility:'hidden'}} id='ConfirmDelete' onClick={deleteAccount}/>
-              <input type='button' value="No, Don't Delete My Account" style={{visibility:'hidden'}} id='ConfirmNotDelete' onClick={dontDelete}/>  
+              <input type='button' value="No, Don't Delete My Account" style={{visibility:'hidden'}} id='ConfirmNotDelete' onClick={dontDelete}/>
             </div>
           </div>
 
