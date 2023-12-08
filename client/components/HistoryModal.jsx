@@ -47,7 +47,6 @@ export default function HistoryModal(props) {
 
             if (response.ok) {
               let data = await response.json();
-              console.log(data)
               setHistoryImgs(data.Links);
             } else {
               console.error(`Request for all original images failed with status: ${response.status}`);

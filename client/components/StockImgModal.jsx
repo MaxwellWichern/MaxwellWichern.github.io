@@ -55,10 +55,8 @@ export default function StockImgModal(props) {
                       });
                     }
                     catch (e) {
-                      console.log('Could not retrieve new image for the replaced extension')
                       console.error(e)
                     }
-                    console.log('Successfully retrieved new Image')
                     individualData = await individual.json()
                     extension = individualData[0].url.split('.').pop()
                   }
@@ -82,13 +80,6 @@ export default function StockImgModal(props) {
     }
   }, [open, modalObj, stockImgReload])
 
-  React.useEffect(() => {
-    console.log(stockImgs)
-    if (stockImgs.length > 0)
-      for (let i = 0; i < 9; ++i)
-        console.log(stockImgs[i].url)
-  },[stockImgs])
-
   const mouseEntered = (e) => {
     e.target.style.borderColor = 'red'
   }
@@ -102,7 +93,6 @@ export default function StockImgModal(props) {
   }
 
   const onReloadImg = (e) => {
-    console.log("Reloading image Selection")
     setStockImgReload(!stockImgReload)
   }
 

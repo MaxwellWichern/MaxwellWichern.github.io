@@ -10,7 +10,6 @@ export default function ForgotPasswordPage(props){
 
     const sendEmail = (e) => {
       e.preventDefault();
-      console.log(form)
       const randValueSelection = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~$._<>*,#()[]!'
       const keyLength = 30
       const randSelectionLength = randValueSelection.length
@@ -20,17 +19,11 @@ export default function ForgotPasswordPage(props){
         key+=randValueSelection[randSelect]
       }
       form.current.to_key.value = key
-      console.log(form.current.to_key.value)
-      //1) submit this key to the mongodb, replacing a previously used key or empty if it times out
-      //2) on the email, link to a page on our site
-      //3) once clicked, retrieve the key of whomever clicked the link, i.e. use their username and email to find the user and get the connected key
-      //4) if the key is not expired, show the page to reset your password
-      //5) if the key is expired or does not exist, link them to send another email, max three attempts within a timeframe to prevent spam
+
       async function validateEmail() {
         let emailTruth = false
         const emailResponseVal = await getUserByEmail(form.current[1].value)
 
-        console.log(emailResponseVal[0])
         if ((await emailResponseVal)[0])
           emailTruth = true
         return emailTruth
@@ -41,9 +34,9 @@ export default function ForgotPasswordPage(props){
           const addKeyResponse = await updateKeyInfo(form.current[1].value, form.current.to_key)
           emailjs.sendForm('service_k5mmp7a', 'template_c9a9xhk', form.current, 'QN5phbtNir0brALN5')
             .then((result) => {
-                console.log(result.text);
+                //console.log(result.text);
             }, (error) => {
-                console.log(error.text);
+                //console.log(error.text);
             });
         }
       }

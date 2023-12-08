@@ -7,7 +7,6 @@ export default function PasswordResetPage(props) {
   const [showForm, setShowForm] = React.useState(false)
 
   const submitPassword = (e) => {
-    console.log(form)
     try {
       if (form.current[1].value === form.current[2].value) {
         updatePasswordByEmail(form.current[0].value, {userPw: form.current[1].value})
@@ -20,11 +19,9 @@ export default function PasswordResetPage(props) {
 
   React.useEffect(()=>{
     async function printValid() {
-      console.log("Function: " + await validateReset())
       if (await validateReset() === true) {
         setShowForm(true)
       }
-      console.log("Show Form: " + showForm)
     }
     printValid()
   },[])
@@ -39,9 +36,7 @@ export default function PasswordResetPage(props) {
     const emailResponseVal = await getUserByEmail(userEmail)
 
     try {
-      console.log(emailResponseVal[0].key)
-      console.log(keyInfo)
-      console.log(String(emailResponseVal[0].key) === String(keyInfo))
+
       if (String(emailResponseVal[0].key) === String(keyInfo)){
         valid = true
       }

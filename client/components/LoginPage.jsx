@@ -86,7 +86,8 @@ export default function LoginPage(props) {
     }
 
   return(
-    <div id="login">
+    <div id="login" className="w3-display-container">
+      <div className="w3-display-center">
         <h1>Login Page</h1>
         <div>Username: <input type="text" id = "usernameInput" onChange={(e) => {setUserNameText(e.target.value)}}/></div>
         <div style={{visibility: "hidden"}} id = "usernameErrorMessage">Username is empty.</div>
@@ -96,12 +97,8 @@ export default function LoginPage(props) {
             <input type="submit" id="forgotPassword" onClick={forgotPassword} value="Forgot Password"/>
             <input type="submit" id="credentialSubmit" onClick={submitCredentials} value="Log In"/>
             <input type="submit" id="createAccount" onClick={createAccount} value="Create An Account"/>
-            {/*<input type="submit" id="showCreds" onClick={(e)=>{
-                console.log(userName)
-                console.log(userPassword)
-                console.log(userEmail)
-            }} value="Show Creds"/>*/}
         </div>
+      </div>
     </div>
   )
 }
