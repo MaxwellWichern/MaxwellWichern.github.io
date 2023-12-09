@@ -14,11 +14,10 @@
         "server:dev": "nodemon --watch server/**/* server/server.js dev",
         "server": "node server/server.js",
 
-        "deploy": "gh-pages -d public",
-        "predeploy": "npm run build",
+        "deploy": "npm run build && amplify publish",
+        "predeploy": "npm run clean",
         "build:client": "esbuild --bundle --minify --loader:.jpg=dataurl --target=es6 --outdir=public client/main.jsx",
         "build": "npm run clean && npm run build:client"
-
     },
     "author": "Matthew Thomas",
     "license": "MIT",
