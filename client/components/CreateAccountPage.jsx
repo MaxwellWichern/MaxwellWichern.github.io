@@ -89,7 +89,8 @@ export default function CreateAccountPage(props){
     }
 
     return(
-        <div>
+      <div id='login' className="w3-row-padding w3-padding-64 w3-display-container" style={{height:'100%'}}>
+        <div className="w3-display-topmiddle">
             <h1>Create Your Account</h1>
             <div>Enter Your Username: <input type="text" id="enterUsername" onChange={(e) => {setCreateAccountUsernameText(e.target.value)}}/></div>
             <div style={{visibility: "hidden"}} id = "usernameErrorMessage">Username cannot be empty.</div>
@@ -100,5 +101,6 @@ export default function CreateAccountPage(props){
             <div><input type="submit" id="submitInformation" onClick={createAccount}/></div>
             <div><input type="submit" id="returnToLogin" onClick={returnToLogin} value="Return To Login"/></div>
         </div>
+      </div>
     );
 }

@@ -20,11 +20,15 @@ const textStyles = {
 
 
 export default function EncodingPage(props) {
+  //context pulling necessary login Information
   const {uName,loggedIn} = React.useContext(CredentialsContext)
+  //the following variable is state to change if the user is sending text or an image
   const [imageSelect, setImageSelect] = React.useState(false)
+  ////modal information for the history and cat api
   const [showModal, setShowModal] = React.useState(false)
   const [showHistoryModal, setShowHistoryModal] = React.useState(false)
 
+  //states for the original and hidden images then text and output
   const [originalImage, setOriginalImage] = React.useState({
     picAsFile: null,
     preview: null
@@ -39,6 +43,7 @@ export default function EncodingPage(props) {
 
   const [outputImage, setOutPutImage] = React.useState(null)
 
+  //submission creates a json that is sent to flask
   const onSubmission = async (e) => {
     e.preventDefault()
     let result = new FormData();
@@ -67,16 +72,17 @@ export default function EncodingPage(props) {
     setOutPutImage(await post_result.imgLink)
   }
 
+  //when an image is loaded the height is maxed to 400
   function justLoaded(e) {
     e.target.style.width=''
     e.target.style.height='400px'
   }
 
+  //the following are events for hovering
   function mouseEntered(e) {
     e.target.style.background = 'grey'
     e.target.style.color = 'white'
   }
-
   function mouseLeft(e) {
     e.target.style.background = 'white'
     e.target.style.color = 'black'
@@ -88,6 +94,7 @@ export default function EncodingPage(props) {
       <h2 style={{textAlign: 'center'}}>Encode your image!</h2>
       <div style={styling}>
         <div style={{display: 'grid', placeItems: 'center'}}>
+           {/*Buttons above dropzones*/}
           <div style={{display: 'flex'}}>
 
               <div id="stockImageButton"
@@ -108,6 +115,7 @@ export default function EncodingPage(props) {
                 History
               </div>}
           </div>
+          {/**drop zone and area for modals */}
           <div style={{display:'flex'}}>
             <MyDropzone imageFile={originalImage} setImageFile={setOriginalImage} purpose='Use This Image To Hide'/>
             <StockImgModal
@@ -124,6 +132,7 @@ export default function EncodingPage(props) {
             />
           </div>
         </div>
+        {/**text input followed by the submission button with radio buttons underneath to display image-image or image-text */}
         <form name="inputForm"  onSubmit={onSubmission} style={{display: 'flex'}}>
           {!imageSelect && <label htmlFor="hiddenTextField" id="hiddenTextContainer">
             <input style={textStyles} onChange={(e) => {setHiddenText(e.target.value)}} type="text" name='inputForm' id="hiddenTextField"/>
@@ -140,7 +149,7 @@ export default function EncodingPage(props) {
           </div>
           </label>
         </form>
-
+        {/**out put image */}
         <img id='outputEncoded' onLoad={(e)=>justLoaded(e)} style={{width: '400px',marginTop: '45px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src={outputImage}/>
         </div>
       </div>

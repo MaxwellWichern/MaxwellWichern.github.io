@@ -11,12 +11,15 @@ const stockImgStyle = {
 // const CAT_URL = process.env.REACT_APP_CATS_API_KEY ?? 'unknown'
 
 export default function StockImgModal(props) {
+  //modal data and image passed data
   const {open, onClose, passImage, passSetImage} = props
-
+  //url for cat api, I couldnt find where to put this
   const url = 'live_PCeKznFMTKvNiNZIgDjSkfnqReEhOjPrnhMdnFjgD7PRRic2AodbalAcjj8G0ZQP'
 
+  //list of images retrieved
   const [stockImgs, setStockImgs] = React.useState([])
   const modalRef = React.useRef()
+  //modal data again
   const [modalObj, setModalObj] = React.useState(null)
   const [stockImgReload, setStockImgReload] = React.useState(false)
 
@@ -42,6 +45,7 @@ export default function StockImgModal(props) {
             });
 
             if (response.ok) {
+              //while the image retrieved is not a jpg, it fails to load and reloads more iamges until there are 9
               let data = await response.json();
               for (let i = 0; i < limit; ++i) {
                 let extension = data[i].url.split('.').pop()
