@@ -1,5 +1,5 @@
 {
-    "homepage": "https://maxwellwichern.github.io/maxwellwichern.github.io",
+    "homepage": "https://maxwellwichern.github.io/",
     "name": "Steganography",
     "version": "0.1.0",
     "description": "Capstone project",
@@ -8,14 +8,16 @@
     "scripts": {
         "start:dev": "concurrently --kill-others \"npm run client:dev\" \"npm run server:dev\"",
         "start": "concurrently --kill-others \"npm run client\" \"npm run server\"",
-        "clean": "rm public/*.map public/main.js public/main.css",
+        "clean": "rm -f public/*.map public/main.js public/main.css",
         "client:dev": "esbuild --watch --bundle --loader:.jpg=dataurl --sourcemap --target=es6 --outdir=public client/main.jsx",
         "client": "esbuild --bundle --minify --loader:.jpg=dataurl --target=es6 --outdir=public client/main.jsx",
         "server:dev": "nodemon --watch server/**/* server/server.js dev",
         "server": "node server/server.js",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "deploy": "gh-pages -d build",
-        "predeploy": "npm run start"
+
+        "deploy": "gh-pages -d public",
+        "predeploy": "npm run build",
+        "build:client": "esbuild --bundle --minify --loader:.jpg=dataurl --target=es6 --outdir=public client/main.jsx",
+        "build": "npm run clean && npm run build:client"
 
     },
     "author": "Matthew Thomas",
