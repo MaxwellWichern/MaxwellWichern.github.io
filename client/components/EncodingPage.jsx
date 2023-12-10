@@ -4,7 +4,7 @@ import StockImgModal from './StockImgModal'
 import { deleteSomething } from '../routeToServer'
 import { getSomething } from '../routeToServer'
 import { addSomething } from '../routeToServer'
-import { CredentialsContext } from './App'
+import App, { CredentialsContext, FLASK_URL } from './App'
 import HistoryModal from './HistoryModal'
 
 const styling = {
@@ -60,7 +60,7 @@ export default function EncodingPage(props) {
       // headers: { 'Content-Type': 'multipart/form-data' },
       body: result
     };
-    const post_result = await fetch('http://localhost:8000/user/encode/image/', requestOptions)
+    const post_result = await fetch(FLASK_URL + 'user/encode/image/', requestOptions)
     .then(response => response.json())
 
     setOutPutImage(await post_result.imgLink)

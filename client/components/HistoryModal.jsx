@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Modal } from 'bootstrap'
-import { CredentialsContext } from './App'
+import { CredentialsContext, FLASK_URL } from './App'
 
 const stockImgStyle = {
   border: 'solid 6px',
@@ -43,7 +43,7 @@ export default function HistoryModal(props) {
               method: 'POST',
               body: result
             };
-            const response = await fetch('http://localhost:8000/user/all/images/', requestOptions)
+            const response = await fetch(FLASK_URL + 'user/all/images/', requestOptions)
 
             if (response.ok) {
               let data = await response.json();
