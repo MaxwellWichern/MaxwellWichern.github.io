@@ -89,6 +89,7 @@ export async function getUserByCredentials(creds){
 
 export async function getUserByUsername(username){
     try{
+      console.log(`${BASE_URL}data/getUserByUsername/${username}`)
         const response = await fetch(`${BASE_URL}data/getUserByUsername/${username}`, {
             method: 'GET'
         })
