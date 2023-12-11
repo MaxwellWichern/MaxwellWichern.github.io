@@ -1,9 +1,7 @@
 import React from 'react'
 import MyDropzone from './MyDropzone'
 import StockImgModal from './StockImgModal'
-import { deleteSomething } from '../routeToServer'
 import { getSomething } from '../routeToServer'
-import { addSomething } from '../routeToServer'
 import { CredentialsContext } from './App'
 import HistoryModal from './HistoryModal'
 
