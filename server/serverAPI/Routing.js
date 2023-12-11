@@ -70,6 +70,7 @@ memberRouter.get('/getUserByUserNameAndEmail/:userName/:email', (req, res) => {
 
 memberRouter.get('/getUserByUsername/:userName', (req, res) => {
   const uName = req.params.userName
+  console.log(uName)
   queryDatabase(async db => {
     const data = await db.collection('Member').find({userName: uName}).toArray()
     res.json(data)
