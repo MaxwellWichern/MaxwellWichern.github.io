@@ -19,6 +19,7 @@ const imageStyle = {
 
 
 export default function MyDropzone(props) {
+  //states passes for the chosen image, purpose is text that appears in the dropzone
   const {imageFile, setImageFile, purpose} = props
   const [message, setMessage] = React.useState("Drag 'n' drop some files here, or click to select files")
   React.useEffect(
@@ -64,7 +65,7 @@ export default function MyDropzone(props) {
     }
   }
 
-
+  //event for when an image is droppedinto the dropzone
   const onDrop = (acceptedFiles) => {
     try{
       if (acceptedFiles[0].size < 1000) {
