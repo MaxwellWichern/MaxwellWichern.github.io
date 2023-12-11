@@ -93,7 +93,7 @@ export async function getUserByUsername(username){
         const response = await fetch(`${BASE_URL}data/getUserByUsername/${username}`, {
             method: 'GET',
             mode: 'cors',
-            referrerPolicy: 'no-referrer, strict-origin-when-cross-origin'
+            referrerPolicy: 'no-referrer'
         })
         .then((response)=>{return response.json()})
         if(response.status >= 400){
