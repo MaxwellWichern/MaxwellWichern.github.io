@@ -1,6 +1,6 @@
 //import { ObjectId } from "mongodb"
 
-const BASE_URL = 'https://51.14.63.120/'
+const BASE_URL = 'http://51.14.63.120/'
 
 export async function deleteSomething(id) {
     try {
