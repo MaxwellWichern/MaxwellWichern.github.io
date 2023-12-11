@@ -1,5 +1,5 @@
 import React from 'react'
-import { CredentialsContext } from './App'
+import { CredentialsContext, FLASK_URL } from './App'
 import Carousel from './Carousel.jsx'
 
 export default function CollectionPage(props) {
@@ -21,7 +21,7 @@ export default function CollectionPage(props) {
           method: 'POST',
           body: result
         };
-        const response = await fetch('http://localhost:8000/user/all/images/', requestOptions)
+        const response = await fetch(FLASK_URL + 'user/all/images/', requestOptions)
 
         //failure in response results in displaying the status code and or error
         if(response.ok) {
@@ -49,7 +49,7 @@ export default function CollectionPage(props) {
           method: 'POST',
           body: result
         };
-        const response = await fetch('http://localhost:8000/user/all/images/', requestOptions)
+        const response = await fetch(FLASK_URL + 'user/all/images/', requestOptions)
 
         //failure in response results in displaying the status code and or error
         if (response.ok) {
