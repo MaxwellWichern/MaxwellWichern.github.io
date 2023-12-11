@@ -15,6 +15,7 @@ const client = new Mongo.MongoClient(uri, {useNewUrlParser: true,useUnifiedTopol
 export default async function queryDatabase(queryCallBack, databaseName) {
   let client;
   try {
+    console.log('Mongo')
     client = new Mongo.MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: Mongo.ServerApiVersion.v1 });
     await client.connect();
     await queryCallBack(client.db(databaseName));
