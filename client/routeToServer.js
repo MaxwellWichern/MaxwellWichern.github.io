@@ -1,5 +1,7 @@
 //import { ObjectId } from "mongodb"
 
+const BASE_URL = 'https://51.14.63.120/'
+
 export async function deleteByName(uName) {
     try {
         const response = await fetch(`data/dellByUserName/${uName}`, {
@@ -70,7 +72,8 @@ export async function getUserByCredentials(creds){
 
 export async function getUserByUsername(username){
     try{
-        const response = await fetch(`data/getUserByUsername/${username}`, {
+      console.log(`${BASE_URL}data/getUserByUsername/${username}`)
+        const response = await fetch(`${BASE_URL}data/getUserByUsername/${username}`, {
             method: 'GET'
         })
         .then((response)=>{return response.json()})

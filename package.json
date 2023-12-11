@@ -1,4 +1,5 @@
 {
+    "homepage": "https://maxwellwichern.github.io/",
     "name": "Steganography",
     "version": "0.1.0",
     "description": "Capstone project",
@@ -6,12 +7,16 @@
     "type": "module",
     "scripts": {
         "start:dev": "concurrently --kill-others \"npm run client:dev\" \"npm run server:dev\"",
-        "clean": "rm public/*.map public/main.js public/main.css",
+        "start": "concurrently --kill-others \"npm run client\" \"npm run server\"",
+        "clean": "rm -f public/*.map public/main.js public/main.css",
         "client:dev": "esbuild --watch --bundle --loader:.jpg=dataurl --sourcemap --target=es6 --outdir=public client/main.jsx",
-        "client": "esbuild --bundle --minify --target=es6 --outdir=public client/main.jsx",
+        "client": "esbuild --bundle --minify --loader:.jpg=dataurl --target=es6 --outdir=public client/main.jsx",
         "server:dev": "nodemon --watch server/**/* server/server.js dev",
         "server": "node server/server.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "deploy": "npm run build && amplify publish",
+        "predeploy": "npm run clean",
+        "build:client": "esbuild --bundle --minify --loader:.jpg=dataurl --target=es6 --outdir=public client/main.jsx",
+        "build": "npm run clean && npm run build:client"
     },
     "author": "Matthew Thomas",
     "license": "MIT",
@@ -32,6 +37,7 @@
         "bootstrap": "^5.3.2",
         "bootstrap-icons": "^1.10.3",
         "concurrently": "^8.2.2",
+        "cors": "^2.8.5",
         "dotenv": "^16.3.1",
         "express": "^4.18.2",
         "mongodb": "^5.9.0",
