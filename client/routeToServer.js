@@ -1,7 +1,5 @@
 //import { ObjectId } from "mongodb"
 
-//const BASE_URL = 'https://51.14.63.120/'
-
 export async function deleteSomething(id) {
     try {
         const response = await fetch(`data/testDell/${id}`, {
@@ -91,9 +89,7 @@ export async function getUserByUsername(username){
     try{
       console.log(`data/getUserByUsername/${username}`)
         const response = await fetch(`data/getUserByUsername/${username}`, {
-            method: 'GET',
-            //mode: 'cors',
-            //referrerPolicy: 'no-referrer'
+            method: 'GET'
         })
         .then((response)=>{return response.json()})
         if(response.status >= 400){
