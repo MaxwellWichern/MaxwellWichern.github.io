@@ -122,6 +122,7 @@ memberRouter.delete('/dellByUserName/:userName', (req, res) => {
   }, "SteganographyDatabase")
 })
 
+/* unused router function*/
 memberRouter.put('/add', (req, res) => {
   const reqbody = req.body
   let valid = false
