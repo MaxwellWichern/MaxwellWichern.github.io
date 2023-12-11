@@ -1,5 +1,5 @@
 import React from 'react'
-import { CredentialsContext } from './App'
+import { CredentialsContext, FLASK_URL } from './App'
 import emptyImg from '../../server/resources/nullImg.jpg'
 
 const stockImgStyle = {
@@ -63,7 +63,7 @@ export default function Carousel(props) {
     }
     try {
       //fetch request to delete
-      const post_result = await fetch('http://localhost:8000/user/delete/image/', requestOptions)
+      const post_result = await fetch(FLASK_URL + 'user/delete/image/', requestOptions)
       .then((response)=>(response.json()))
 
 

@@ -15,6 +15,8 @@ export const PagesContext = React.createContext(null)
 
 export const CredentialsContext = React.createContext(null)
 
+export const FLASK_URL = "http://localhost:8000/"
+
 //App Component providing the Contexts and Router
 export default function App (props) {
 
