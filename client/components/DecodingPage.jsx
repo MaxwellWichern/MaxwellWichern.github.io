@@ -1,6 +1,6 @@
 import React from 'react'
 import MyDropzone from './MyDropzone'
-import { CredentialsContext } from './App'
+import { CredentialsContext, FLASK_URL } from './App'
 import EncodedImageModal from './EncodedImageModal'
 
 const pageStyle = {
@@ -47,7 +47,7 @@ export default function DecodingPage(props) {
       method: 'POST',
       body: result
     };
-    const post_result = await fetch('http://localhost:8000/user/decode/image/', requestOptions)
+    const post_result = await fetch(FLASK_URL + 'user/decode/image/', requestOptions)
     .then(response => response.json())
 
     //once image to image is in place, create a condition to either set output text or output image
@@ -73,9 +73,10 @@ export default function DecodingPage(props) {
   }
 
   return(
-    <>
+    <div className="w3-row-padding w3-padding-64 w3-display-container" style={{height:'100%'}}>
+      <div className="w3-display-topmiddle">
     <div id="decoder">
-    <h2>Decode your image!</h2>
+    <h2 style={{textAlign: 'center'}}>Decode your image!</h2>
     <div style={pageStyle}>
 
       <div style={{display: 'grid', placeItems: 'center'}}>
@@ -113,6 +114,7 @@ export default function DecodingPage(props) {
       </div>}
     </div>
     </div>
-    </>
+    </div>
+    </div>
   )
 }
