@@ -1,6 +1,6 @@
 import React from 'react'
 import { updateUserById } from '../routeToServer.js'
-import { CredentialsContext } from './App.jsx'
+import { CredentialsContext, FLASK_URL } from './App.jsx'
 import ForgotPasswordPage from './ForgotPasswordPage.jsx'
 import { Link } from 'react-router-dom'
 import { deleteByName } from '../routeToServer.js'
@@ -115,7 +115,7 @@ export default function AccountPage(props) {
       method: 'POST',
       body: result
     }
-    const post_result = await fetch('http://localhost:8000/user/delete/user/', requestOptions)
+    const post_result = await fetch(FLASK_URL + 'user/delete/user/', requestOptions)
     .then((response)=>(response.json()))
 
     navigate('/Login')

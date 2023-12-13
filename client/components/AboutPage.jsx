@@ -1,23 +1,9 @@
 import React from 'react'
-import {getSomething,deleteSomething,getById,deleteByName} from '../routeToServer.js'
+import {getSomething,getById,deleteByName} from '../routeToServer.js'
 import StegaLogo from '../../server/resources/StegaLogo.jpg'
 
 export default function AboutPage(props) {
 
-  const derekTestFunction = (e) => {
-
-
-    getSomething();
-
-    //deleteSomething(123456789);
-    deleteByName('user1');
-    //getById(123456888);
-
-getSomething();
-
-
-
-}
   return (
   <div id="about">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" />
@@ -84,6 +70,5 @@ getSomething();
   {/* Footer */}
   </div>
 )
-
 
 }

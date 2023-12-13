@@ -9,10 +9,12 @@
         "start:dev": "concurrently --kill-others \"npm run client:dev\" \"npm run server:dev\"",
         "start": "concurrently --kill-others \"npm run client\" \"npm run server\"",
         "clean": "rm -f public/*.map public/main.js public/main.css",
+
         "client:dev": "esbuild --watch --bundle --loader:.jpg=dataurl --sourcemap --target=es6 --outdir=public client/main.jsx",
         "client": "esbuild --bundle --minify --loader:.jpg=dataurl --target=es6 --outdir=public client/main.jsx",
         "server:dev": "nodemon --watch server/**/* server/server.js dev",
         "server": "node server/server.js",
+
         "deploy": "npm run build && amplify publish",
         "predeploy": "npm run clean",
         "build:client": "esbuild --bundle --minify --loader:.jpg=dataurl --target=es6 --outdir=public client/main.jsx",
