@@ -33,6 +33,12 @@ export default function AccountPage(props) {
 
   let navigate = useNavigate()
 
+  React.useEffect(()=>{
+    if(!loggedIn[0]){
+      navigate('/Login')
+    }
+  }, [])
+
   function onUserChange(e) {
     var curText = e.target.value
     setTempUserName(curText)
@@ -132,8 +138,6 @@ export default function AccountPage(props) {
     <>
       <div style={pageStyle}>
 
-        {updateResult && <h2>{updateResult}</h2>}
-
         {!showForgotPasswordPage &&
         changeInformation &&
         <>
@@ -183,8 +187,12 @@ export default function AccountPage(props) {
             </table>
             <input type="button" value="Change Account Information" onClick={(e)=>{setChangeInformation(true)}}/>
             <Link to="/Login"> <input type='button' value='Log Out' onClick={logOutUser}/> </Link>
+            <h2>{updateResult}</h2>
           </div>
           </>
+        }
+
+        {//updateResult && <h2>{updateResult}</h2>}
         }
 
         {showForgotPasswordPage && <ForgotPasswordPage setter1 = {setShowLoginPage} setter2={setShowCreateAccountPage} setter3={setShowForgotPasswordPage}/>}
