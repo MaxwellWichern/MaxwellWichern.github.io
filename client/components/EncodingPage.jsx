@@ -89,8 +89,7 @@ export default function EncodingPage(props) {
   }
 
   return(
-    <div className="w3-row-padding w3-padding-64 w3-display-container" style={{height:'100%'}}>
-      <div className="w3-display-topmiddle">
+    <div className="w3-row-padding w3-padding-64 w3-display-container">
       <h2 style={{textAlign: 'center'}}>Encode your image!</h2>
       <div style={styling}>
         <div style={{display: 'grid', placeItems: 'center'}}>
@@ -152,7 +151,6 @@ export default function EncodingPage(props) {
         {/**out put image */}
         <img id='outputEncoded' onLoad={(e)=>justLoaded(e)} style={{width: '400px',marginTop: '45px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src={outputImage}/>
         </div>
-      </div>
     </div>
   )
 }

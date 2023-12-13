@@ -74,7 +74,6 @@ export default function DecodingPage(props) {
 
   return(
     <div className="w3-row-padding w3-padding-64 w3-display-container" style={{height:'100%'}}>
-      <div className="w3-display-topmiddle">
     <div id="decoder">
     <h2 style={{textAlign: 'center'}}>Decode your image!</h2>
     <div style={pageStyle}>
@@ -112,7 +111,6 @@ export default function DecodingPage(props) {
       {imageSelect && <div>
         <img id='outputEncoded'  style={{width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src="#"/>
       </div>}
-    </div>
     </div>
     </div>
     </div>
