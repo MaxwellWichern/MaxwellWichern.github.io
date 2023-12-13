@@ -72,6 +72,7 @@ export default function AccountPage(props) {
     else if (res.success === true) {
       res = "User Information has been updated!"
     }
+    console.log(res)
     setUpdateResult(res)
   }
 
@@ -98,6 +99,7 @@ export default function AccountPage(props) {
 
   const deleteAccount = async () => {
     const res = deleteByName(uName[0])
+    console.log(res)
     logOutUser()
     const dataString = `${uName[0]}`
     let result = new FormData();

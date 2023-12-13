@@ -2,6 +2,7 @@ import Express from 'express'
 import gameRouter from './serverAPI/Routing.js'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import cors from 'cors'
 
 const __filename = fileURLToPath(import.meta.url)
 const modifiedPath = __filename.substring(0,__filename.lastIndexOf('\server'))
@@ -18,6 +19,7 @@ app.use((req, res, next) => {
 // final static route
 app.use(Express.static(path.join(__dirname, 'public')))
 
+app.use(cors())
 //add the gameRouter to express
 app.use('/data',gameRouter)
 
@@ -30,6 +32,7 @@ app.get('*', (req, res) => {
 });
 
 // start listen
-app.listen(3000, () => {
-  console.log('Server started at http://localhost:3030')
+const port = process.env.PORT || 3000
+app.listen(port, () => {
+  console.log(`Server started on port ${port}`)
 })

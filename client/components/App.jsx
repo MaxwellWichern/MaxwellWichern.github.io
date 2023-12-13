@@ -1,4 +1,5 @@
 import React from 'react'
+import './coolstyle.css'
 import PageHeader from './PageHeader.jsx'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
@@ -25,7 +26,7 @@ export default function App (props) {
   const [loggedIn, setLoggedIn] = React.useState(false)
 
   return (
-    <div >
+    <div style={{textAlign: 'center', overflow: 'auto'}}>
       <CredentialsContext.Provider value={{
         uId: [userId, setUserId],
         uName: [userName, setUserName],

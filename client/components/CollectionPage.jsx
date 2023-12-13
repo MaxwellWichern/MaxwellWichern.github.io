@@ -54,6 +54,7 @@ export default function CollectionPage(props) {
         //failure in response results in displaying the status code and or error
         if (response.ok) {
           let data = await response.json();
+          console.log(data)
           setHistoryImgs(data.Links);
         } else {
           console.error(`Request for all original images failed with status: ${response.status}`);

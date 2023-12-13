@@ -11,6 +11,7 @@ export default function LoginPage(props) {
 
     const [userId, setUserId] = uId
     const [userName, setUserName] = uName
+    //const [userPassword, setUserPassword] = uPassword
     const [userEmail, setUserEmail] = uEmail
     const [isLoggedIn, setIsLoggedIn] = loggedIn
 
@@ -41,6 +42,7 @@ export default function LoginPage(props) {
                         if (await connectPassword) {
                           setUserId(value[0]._id)
                           setUserName(value[0].userName)
+                          //setUserPassword(value[0].userPw)
                           setUserEmail(value[0].email)
                           setIsLoggedIn(true)
                           //Send the user to the instructions page
@@ -49,6 +51,7 @@ export default function LoginPage(props) {
                         else {
                           setUserName("")
                           setUserId("")
+                          //setUserPassword("")
                           setUserEmail("")
                           setIsLoggedIn(false)
                           passwordErrorMessage.innerHTML="Login Attempt Failed.";
@@ -57,6 +60,7 @@ export default function LoginPage(props) {
                     } else{  //We do not have a user with the same credentials
                         setUserName("")
                         setUserId("")
+                        //setUserPassword("")
                         setUserEmail("")
                         setIsLoggedIn(false)
                         passwordErrorMessage.innerHTML="Login Attempt Failed.";
@@ -82,8 +86,7 @@ export default function LoginPage(props) {
     }
 
   return(
-    <div id='login' className="w3-row-padding w3-padding-64 w3-display-container" style={{height:'100%'}}>
-      <div className="w3-display-topmiddle">
+    <div id="login">
         <h1>Login Page</h1>
         <div>Username: <input type="text" id = "usernameInput" onChange={(e) => {setUserNameText(e.target.value)}}/></div>
         <div style={{visibility: "hidden"}} id = "usernameErrorMessage">Username is empty.</div>
@@ -93,8 +96,12 @@ export default function LoginPage(props) {
             <input type="submit" id="forgotPassword" onClick={forgotPassword} value="Forgot Password"/>
             <input type="submit" id="credentialSubmit" onClick={submitCredentials} value="Log In"/>
             <input type="submit" id="createAccount" onClick={createAccount} value="Create An Account"/>
+            {/*<input type="submit" id="showCreds" onClick={(e)=>{
+                console.log(userName)
+                console.log(userPassword)
+                console.log(userEmail)
+            }} value="Show Creds"/>*/}
         </div>
-      </div>
     </div>
   )
 }

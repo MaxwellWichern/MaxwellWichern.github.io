@@ -73,10 +73,9 @@ export default function DecodingPage(props) {
   }
 
   return(
-    <div className="w3-row-padding w3-padding-64 w3-display-container" style={{height:'100%'}}>
-      <div className="w3-display-topmiddle">
+    <>
     <div id="decoder">
-    <h2 style={{textAlign: 'center'}}>Decode your image!</h2>
+    <h2>Decode your image!</h2>
     <div style={pageStyle}>
 
       <div style={{display: 'grid', placeItems: 'center'}}>
@@ -114,7 +113,6 @@ export default function DecodingPage(props) {
       </div>}
     </div>
     </div>
-    </div>
-    </div>
+    </>
   )
 }

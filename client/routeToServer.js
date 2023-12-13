@@ -1,6 +1,5 @@
 //import { ObjectId } from "mongodb"
 
-//use mongoId
 export async function deleteSomething(id) {
     try {
         const response = await fetch(`data/testDell/${id}`, {
@@ -88,6 +87,7 @@ export async function getUserByCredentials(creds){
 
 export async function getUserByUsername(username){
     try{
+      console.log(`data/getUserByUsername/${username}`)
         const response = await fetch(`data/getUserByUsername/${username}`, {
             method: 'GET'
         })

@@ -14,21 +14,16 @@ const styling = {
 
 const textStyles = {
   width: '100%',
-  height: '200px',
-  marginTop: '45px'
+  height: '200px'
 }
 
 
 export default function EncodingPage(props) {
-  //context pulling necessary login Information
   const {uName,loggedIn} = React.useContext(CredentialsContext)
-  //the following variable is state to change if the user is sending text or an image
   const [imageSelect, setImageSelect] = React.useState(false)
-  ////modal information for the history and cat api
   const [showModal, setShowModal] = React.useState(false)
   const [showHistoryModal, setShowHistoryModal] = React.useState(false)
 
-  //states for the original and hidden images then text and output
   const [originalImage, setOriginalImage] = React.useState({
     picAsFile: null,
     preview: null
@@ -43,7 +38,6 @@ export default function EncodingPage(props) {
 
   const [outputImage, setOutPutImage] = React.useState(null)
 
-  //submission creates a json that is sent to flask
   const onSubmission = async (e) => {
     e.preventDefault()
     let result = new FormData();
@@ -70,31 +64,33 @@ export default function EncodingPage(props) {
     .then(response => response.json())
 
     setOutPutImage(await post_result.imgLink)
+
+    console.log(result)
+    for (const data of result) {
+      console.log(data)
+    }
   }
 
-  //when an image is loaded the height is maxed to 400
   function justLoaded(e) {
     e.target.style.width=''
     e.target.style.height='400px'
   }
 
-  //the following are events for hovering
   function mouseEntered(e) {
     e.target.style.background = 'grey'
     e.target.style.color = 'white'
   }
+
   function mouseLeft(e) {
     e.target.style.background = 'white'
     e.target.style.color = 'black'
   }
 
   return(
-    <div className="w3-row-padding w3-padding-64 w3-display-container" style={{height:'100%'}}>
-      <div className="w3-display-topmiddle">
-      <h2 style={{textAlign: 'center'}}>Encode your image!</h2>
+    <>
+      <h2>Encode your image!</h2>
       <div style={styling}>
         <div style={{display: 'grid', placeItems: 'center'}}>
-           {/*Buttons above dropzones*/}
           <div style={{display: 'flex'}}>
 
               <div id="stockImageButton"
@@ -115,7 +111,6 @@ export default function EncodingPage(props) {
                 History
               </div>}
           </div>
-          {/**drop zone and area for modals */}
           <div style={{display:'flex'}}>
             <MyDropzone imageFile={originalImage} setImageFile={setOriginalImage} purpose='Use This Image To Hide'/>
             <StockImgModal
@@ -132,13 +127,12 @@ export default function EncodingPage(props) {
             />
           </div>
         </div>
-        {/**text input followed by the submission button with radio buttons underneath to display image-image or image-text */}
-        <form name="inputForm"  onSubmit={onSubmission} style={{display: 'flex'}}>
+        <form name="inputForm"  onSubmit={onSubmission}>
           {!imageSelect && <label htmlFor="hiddenTextField" id="hiddenTextContainer">
             <input style={textStyles} onChange={(e) => {setHiddenText(e.target.value)}} type="text" name='inputForm' id="hiddenTextField"/>
           </label>}
-          {imageSelect && <MyDropzone style={{marginTop: '100px'}} imageFile={hiddenImage} setImageFile={setHiddenImage} purpose='Hide This Image'/>}
-          <label style={{marginTop: '60px'}}>
+          {imageSelect && <MyDropzone imageFile={hiddenImage} setImageFile={setHiddenImage} purpose='Hide This Image'/>}
+          <label>
             <input style={{ display: "none" }} type='submit' value="Submit"/>
             <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" className="bi bi-arrow-right-circle" viewBox="0 0 16 16">
               <path fillRule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/>
@@ -149,10 +143,18 @@ export default function EncodingPage(props) {
           </div>
           </label>
         </form>
-        {/**out put image */}
-        <img id='outputEncoded' onLoad={(e)=>justLoaded(e)} style={{width: '400px',marginTop: '45px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src={outputImage}/>
-        </div>
+
+        <img id='outputEncoded' onLoad={(e)=>justLoaded(e)} style={{width: '400px', height: '200px', background: 'grey', border: 'solid 1px', borderRadius: '15%'}} src={outputImage}/>
+        <label>
+        <a download={outputImage} href={outputImage} title='downloadEncoded'>
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-download" viewBox="0 0 16 16">
+            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+          </svg>
+        </a>
+        </label>
+
       </div>
-    </div>
+    </>
   )
 }
