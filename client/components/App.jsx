@@ -15,7 +15,7 @@ export const PagesContext = React.createContext(null)
 
 export const CredentialsContext = React.createContext(null)
 
-export const FLASK_URL = "http://localhost:8000/"
+export const FLASK_URL = "https://urchin-app-ioj6u.ondigitalocean.app/"
 
 //App Component providing the Contexts and Router
 export default function App (props) {
