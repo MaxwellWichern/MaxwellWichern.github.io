@@ -39,7 +39,9 @@ export default function PasswordResetPage(props) {
   //validate that the use is allowed to reset their password by pulling the key from the user
   async function validateReset() {
     const queryString = window.location.search
+    console.log(queryString)
     const urlParams = new URLSearchParams(queryString)
+    console.log(urlParams)
     const keyInfo = await urlParams.get('key')
     const userEmail = await urlParams.get('email')
     let valid = false
