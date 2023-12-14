@@ -40,12 +40,11 @@ export default function PasswordResetPage(props) {
   async function validateReset() {
     const queryString = window.location.search
     const urlParams = new URLSearchParams(queryString)
-    const keyInfo = urlParams.get('key')
-    const userEmail = urlParams.get('email')
+    const keyInfo = await urlParams.get('key')
+    const userEmail = await urlParams.get('email')
     let valid = false
-    console.log(userEmail)
+
     const emailResponseVal = await getUserByEmail(userEmail)
-    console.log(await emailResponseVal)
     try {
       if (String(emailResponseVal[0].key) === String(keyInfo)){
         valid = true
