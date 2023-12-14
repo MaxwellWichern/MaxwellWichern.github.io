@@ -15,7 +15,7 @@ export default function ForgotPasswordPage(props){
     const sendEmail = async (e) => {
       e.preventDefault();
       //selection of characters to be in the URL parameter
-      const randValueSelection = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~$._<>*,()[]!'
+      const randValueSelection = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789$._*()!'
       const keyLength = 30
       const randSelectionLength = randValueSelection.length
       let key = ""
