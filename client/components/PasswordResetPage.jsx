@@ -43,7 +43,7 @@ export default function PasswordResetPage(props) {
     const keyInfo = urlParams.get('key')
     const userEmail = urlParams.get('email')
     let valid = false
-
+    console.log(userEmail)
     const emailResponseVal = await getUserByEmail(userEmail)
     console.log(await emailResponseVal)
     try {
