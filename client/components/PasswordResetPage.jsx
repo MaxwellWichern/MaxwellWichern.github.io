@@ -45,7 +45,7 @@ export default function PasswordResetPage(props) {
     let valid = false
 
     const emailResponseVal = await getUserByEmail(userEmail)
-    console.log(emailResponseVal[0])
+    console.log(await emailResponseVal[0])
     try {
       if (String(emailResponseVal[0].key) === String(keyInfo)){
         valid = true
