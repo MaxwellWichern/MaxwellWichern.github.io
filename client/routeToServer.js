@@ -240,3 +240,46 @@ export async function updateKeyInfo(email, key) {
     return null
   }
 }
+
+async function AuthenticateUser(userName, action) {
+
+    console.log('Authenticate user Called. UserName= ' + userName + ' : Action= ' + action);
+    const guestPerms = ["create", "get", "addUser"];
+    const memberPerms = ["addUser", "create", "add", "delete", "get","updateUser"];
+
+    let isGuest = true;
+
+    /** check to see if is guest */
+    console.log('Authenticate user: ' + userName);
+    if ((userName.toLowerCase().startsWith('guest')) || userName == "") {
+        isGuest = true;
+    } else {
+        isGuest = false;
+    }
+
+    if (isGuest) {
+        console.log('Authenticate user: isGuest=true');
+
+        return (guestPerms.includes(action));
+
+    } else {    /*  not a guest -> check if member */
+        console.log('Authenticate user: isGuest=false');
+        let memberInfo;
+        try {
+            memberInfo = getUserByUsername(userName);
+        } catch (e) {
+            console.log('Authenticate user: fail code 282');
+            console.error(e)
+            return null;
+        }
+
+        //console.log('Authenticate user:' + memberInfo);
+        //console.log(memberInfo.email);
+        if (memberInfo.isAdmin == true) {
+            return true;
+        } else { /** Authenticate as member */
+            return (memberPerms.includes(action));
+
+        }
+    }
+}
