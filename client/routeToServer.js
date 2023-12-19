@@ -117,6 +117,36 @@ export async function getUserByEmail(email){
         return null;
     }
 }
+export async function getUserByEmailPerm(email, userPerm) {
+    let permission = AuthenticateUser(
+        userPerm,  /* LoogedInUser */
+        "addUser"); /* Function Name/type , check AuthenticateUser for valid tags */
+    if (permission) {
+        try {
+            try {
+                const response = await fetch(`data/getUserByEmail/${email}`, {
+                    method: 'GET'
+                })
+                    .then((response) => { return response.json() })
+                if (response.status >= 400) {
+                    throw new Error(`${response.status}`)
+                }
+                return await response;
+            } catch (e) {
+                console.error(e);
+                return null;
+            }
+        }
+        catch (e) {
+            console.error(e)
+            return null
+        }
+    } else {
+        console.error('User does not have permissions')
+        return null
+    }
+}
+
 
 
 //user will be a json object with the following parameters: {userName: string, userPw: string, email: string}
@@ -138,6 +168,36 @@ export async function addUser(user) {
     }
     catch (e) {
         console.error(e)
+        return null
+    }
+}
+export async function addUserPerm(user, userPerm) {
+
+    let permission = AuthenticateUser(
+        userPerm,  /* LoogedInUser */
+        "addUser"); /* Function Name/type , check AuthenticateUser for valid tags */
+    if (permission) {
+        try {
+            const response = await fetch(`data/addUser`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    accept: 'application/json'
+                },
+                body: (JSON.stringify(user))
+            })
+                .then((response) => { return response.json() })
+            if (response.status >= 400) {
+                throw new Error('${response.status}')
+            }
+            return await response
+        }
+        catch (e) {
+            console.error(e)
+            return null
+        }
+    } else {
+        console.error('User does not have permissions')
         return null
     }
 }
