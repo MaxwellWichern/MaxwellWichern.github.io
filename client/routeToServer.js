@@ -102,6 +102,38 @@ export async function getUserByUsername(username){
     }
 }
 
+export async function getUserByUsernamePerm(username, userPerm) {
+    let permission = AuthenticateUser(
+        userPerm,  /* LoogedInUser */
+        "getUserByUname"); /* Function Name/type , check AuthenticateUser for valid tags */
+    if (permission) {
+        try {
+
+            try {
+                console.log(`data/getUserByUsername/${username}`)
+                const response = await fetch(`data/getUserByUsername/${username}`, {
+                    method: 'GET'
+                })
+                    .then((response) => { return response.json() })
+                if (response.status >= 400) {
+                    throw new Error(`${response.status}`)
+                }
+                return await response;
+            } catch (e) {
+                console.error(e);
+                return null;
+            }
+        }
+        catch (e) {
+            console.error(e)
+            return null
+        }
+    } else {
+        console.error('User does not have permissions')
+        return null
+    }
+}
+
 export async function getUserByEmail(email){
     try{
         const response = await fetch(`data/getUserByEmail/${email}`, {
@@ -120,9 +152,10 @@ export async function getUserByEmail(email){
 export async function getUserByEmailPerm(email, userPerm) {
     let permission = AuthenticateUser(
         userPerm,  /* LoogedInUser */
-        "addUser"); /* Function Name/type , check AuthenticateUser for valid tags */
+        "getUserByEmail"); /* Function Name/type , check AuthenticateUser for valid tags */
     if (permission) {
         try {
+
             try {
                 const response = await fetch(`data/getUserByEmail/${email}`, {
                     method: 'GET'
@@ -136,6 +169,7 @@ export async function getUserByEmailPerm(email, userPerm) {
                 console.error(e);
                 return null;
             }
+
         }
         catch (e) {
             console.error(e)
@@ -304,8 +338,8 @@ export async function updateKeyInfo(email, key) {
 async function AuthenticateUser(userName, action) {
 
     console.log('Authenticate user Called. UserName= ' + userName + ' : Action= ' + action);
-    const guestPerms = ["create", "get", "addUser"];
-    const memberPerms = ["addUser", "create", "add", "delete", "get","updateUser"];
+    const guestPerms = ["create", "get", "addUser", "getUserByUname"];
+    const memberPerms = ["addUser", "create", "add", "delete", "get","updateUser","getUserByEmail","getUserByUname"];
 
     let isGuest = true;
 
